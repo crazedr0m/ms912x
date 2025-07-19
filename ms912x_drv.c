@@ -63,10 +63,11 @@ static const struct drm_driver driver = {
 
 	.name = DRIVER_NAME,
 	.desc = DRIVER_DESC,
-	.date = DRIVER_DATE,
+	/*.date = DRIVER_DATE,*/
 	.major = DRIVER_MAJOR,
 	.minor = DRIVER_MINOR,
 	.patchlevel = DRIVER_PATCHLEVEL,
+	DRM_FBDEV_TTM_DRIVER_OPS,
 };
 
 static const struct drm_mode_config_funcs ms912x_mode_config_funcs = {
@@ -141,7 +142,7 @@ static void ms912x_pipe_disable(struct drm_simple_display_pipe *pipe)
 	ms912x_power_off(ms912x);
 }
 
-enum drm_mode_status
+static enum drm_mode_status
 ms912x_pipe_mode_valid(struct drm_simple_display_pipe *pipe,
 		       const struct drm_display_mode *mode)
 {
@@ -152,7 +153,7 @@ ms912x_pipe_mode_valid(struct drm_simple_display_pipe *pipe,
 	return MODE_OK;
 }
 
-int ms912x_pipe_check(struct drm_simple_display_pipe *pipe,
+static int ms912x_pipe_check(struct drm_simple_display_pipe *pipe,
 		      struct drm_plane_state *new_plane_state,
 		      struct drm_crtc_state *new_crtc_state)
 {
@@ -275,7 +276,7 @@ static int ms912x_usb_probe(struct usb_interface *interface,
 	if (ret)
 		goto err_free_request_1;
 
-	drm_fbdev_ttm_setup(dev, 0);
+	//drm_fbdev_ttm_setup(dev, 0);
 
 	return 0;
 

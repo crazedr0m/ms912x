@@ -28,7 +28,7 @@ static void ms912x_request_work(struct work_struct *work)
 		    request->transfer_len, GFP_KERNEL);
 	mod_timer(&request->timer, jiffies + msecs_to_jiffies(5000));
 	usb_sg_wait(sgr);
-	del_timer_sync(&request->timer);
+	timer_delete_sync(&request->timer);
 	complete(&request->done);
 }
 
