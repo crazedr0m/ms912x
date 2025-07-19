@@ -1,4 +1,3 @@
-
 #include <linux/dma-buf.h>
 #include <linux/vmalloc.h>
 
@@ -6,6 +5,9 @@
 #include <drm/drm_gem_framebuffer_helper.h>
 
 #include "ms912x.h"
+
+#define MS912X_REQUEST_TYPE 0xb5
+#define MS912X_WRITE_TYPE 0xa6
 
 static void ms912x_request_timeout(struct timer_list *t)
 {
@@ -64,6 +66,7 @@ int ms912x_init_request(struct ms912x_device *ms912x,
 
 	for (i = 0, ptr = data; i < num_pages; i++, ptr += PAGE_SIZE)
 		pages[i] = vmalloc_to_page(ptr);
+
 	ret = sg_alloc_table_from_pages(&request->transfer_sgt, pages,
 					num_pages, 0, len, GFP_KERNEL);
 	kfree(pages);
@@ -77,6 +80,7 @@ int ms912x_init_request(struct ms912x_device *ms912x,
 	init_completion(&request->done);
 	INIT_WORK(&request->work, ms912x_request_work);
 	return 0;
+
 err_vfree:
 	vfree(data);
 	return ret;
@@ -88,12 +92,14 @@ static inline unsigned int ms912x_rgb_to_y(unsigned int r, unsigned int g,
 	const unsigned int luma = (16 << 16) + 16763 * r + 32904 * g + 6391 * b;
 	return luma >> 16;
 }
+
 static inline unsigned int ms912x_rgb_to_u(unsigned int r, unsigned int g,
 					   unsigned int b)
 {
 	const unsigned int u = (128 << 16) - 9676 * r - 18996 * g + 28672 * b;
 	return u >> 16;
 }
+
 static inline unsigned int ms912x_rgb_to_v(unsigned int r, unsigned int g,
 					   unsigned int b)
 {
@@ -154,7 +160,7 @@ static int ms912x_fb_xrgb8888_to_yuv422(void *dst, const struct iosys_map *src,
 	void *temp_buffer;
 
 	y1 = rect->y1;
-	y2 = min((unsigned int)rect->y2, fb->height);
+	y2 = (rect->y2 < fb->height) ? rect->y2 : fb->height;
 	x = rect->x1;
 	width = drm_rect_width(rect);
 
@@ -190,16 +196,12 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 	struct ms912x_usb_request *prev_request, *current_request;
 	int x, width;
 
-	/* Seems like hardware can only update framebuffer 
-	 * in multiples of 16 horizontally
-	 */
+	/* Align width to multiples of 16 */
 	x = ALIGN_DOWN(rect->x1, 16);
-	/* Resolutions that are not a multiple of 16 like 1366*768 
-	 * need to be aligned
-	 */
 	width = min(ALIGN(rect->x2, 16), ALIGN_DOWN((int)fb->width, 16)) - x;
 	rect->x1 = x;
 	rect->x2 = x + width;
+
 	current_request = &ms912x->requests[ms912x->current_request];
 	prev_request = &ms912x->requests[1 - ms912x->current_request];
 
@@ -216,7 +218,7 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 	if (ret < 0)
 		goto dev_exit;
 
-	/* Sending frames too fast, drop it */
+	/* Ensure frame updates aren't too fast */
 	if (!wait_for_completion_timeout(&prev_request->done,
 					 msecs_to_jiffies(10))) {
 
@@ -227,7 +229,9 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 	current_request->transfer_len = width * 2 * drm_rect_height(rect) + 16;
 	queue_work(system_long_wq, &current_request->work);
 	ms912x->current_request = 1 - ms912x->current_request;
+
 dev_exit:
 	drm_dev_exit(idx);
 	return ret;
 }
+
