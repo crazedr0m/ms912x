@@ -17,6 +17,7 @@
 #include <drm/drm_probe_helper.h>
 #include <drm/drm_print.h>
 #include <drm/drm_simple_kms_helper.h>
+#include <drm/clients/drm_client_setup.h>
 
 #include "ms912x.h"
 
@@ -276,7 +277,7 @@ static int ms912x_usb_probe(struct usb_interface *interface,
 	if (ret)
 		goto err_free_request_1;
 
-	//drm_fbdev_ttm_setup(dev, 0);
+	drm_client_setup(dev, 0);
 
 	return 0;
 
