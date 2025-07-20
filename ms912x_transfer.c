@@ -250,11 +250,15 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 		goto dev_exit;
 
 	/* Ensure frame updates aren't too fast */
-	if (!wait_for_completion_timeout(&prev_request->done,
+	/*if (!wait_for_completion_timeout(&prev_request->done,
 					 msecs_to_jiffies(10))) {
 
 		ret = -ETIMEDOUT;
 		goto dev_exit;
+	}*/
+	/* Ensure frame updates aren't too fast */
+	if (!completion_done(&prev_request->done)) {
+	    return -EAGAIN; // O un código que indique "intentar luego"
 	}
 
 	current_request->transfer_len = width * 2 * drm_rect_height(rect) + 16;
