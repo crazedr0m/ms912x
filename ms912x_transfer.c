@@ -37,17 +37,14 @@ static void ms912x_request_work(struct work_struct *work)
 
 void ms912x_free_request(struct ms912x_usb_request *request)
 {
-	if (!request->transfer_buffer)
-		return;
-	sg_free_table(&request->transfer_sgt);
-	vfree(request->transfer_buffer);
-	request->transfer_buffer = NULL;
-	//
-	if (request->temp_buffer) {
-	    kfree(request->temp_buffer);
-	    request->temp_buffer = NULL;
+	if (request->transfer_buffer) {
+	    sg_free_table(&request->transfer_sgt);
+	    vfree(request->transfer_buffer);
+	    request->transfer_buffer = NULL;
 	}
-	//
+
+	kfree(request->temp_buffer);
+	request->temp_buffer = NULL;
 	request->alloc_len = 0;
 }
 
