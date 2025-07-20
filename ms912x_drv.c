@@ -47,7 +47,7 @@ static struct drm_gem_object *ms912x_driver_gem_prime_import(struct drm_device *
 DEFINE_DRM_GEM_FOPS(ms912x_driver_fops);
 
 static const struct drm_driver driver = {
-    .driver_features = DRIVER_ATOMIC | DRIVER_GEM | DRIVER_MODESET,
+    .driver_features = DRIVER_ATOMIC | DRIVER_GEM | DRIVER_MODESET | DRIVER_RENDER,
     .fops = &ms912x_driver_fops,
     DRM_GEM_SHMEM_DRIVER_OPS,
     .gem_prime_import = ms912x_driver_gem_prime_import,
@@ -235,6 +235,11 @@ static int ms912x_usb_probe(struct usb_interface *interface,
     drm_mode_config_reset(dev);
     usb_set_intfdata(interface, ms912x);
     drm_kms_helper_poll_init(dev);
+    
+    // Registrar el DRM device como una GPU secundaria
+    //dev->driver->driver_features |= DRIVER_RENDER;
+    dev->dev_private = ms912x;
+    // Registrar el DRM device como una GPU secundaria
 
     ret = drm_dev_register(dev, 0);
     if (ret)
@@ -288,4 +293,5 @@ static struct usb_driver ms912x_driver = {
 };
 module_usb_driver(ms912x_driver);
 MODULE_LICENSE("GPL");
+MODULE_DESCRIPTION("Driver USB a HDMI para ms912x");
 
