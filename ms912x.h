@@ -23,6 +23,7 @@
 
 struct ms912x_usb_request {
 	void *transfer_buffer;
+	void *temp_buffer;
 	struct ms912x_device *ms912x;
 	size_t transfer_len;
 	size_t alloc_len;

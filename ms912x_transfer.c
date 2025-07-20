@@ -42,6 +42,12 @@ void ms912x_free_request(struct ms912x_usb_request *request)
 	sg_free_table(&request->transfer_sgt);
 	vfree(request->transfer_buffer);
 	request->transfer_buffer = NULL;
+	//
+	if (request->temp_buffer) {
+	    kfree(request->temp_buffer);
+	    request->temp_buffer = NULL;
+	}
+	//
 	request->alloc_len = 0;
 }
 
@@ -57,6 +63,13 @@ int ms912x_init_request(struct ms912x_device *ms912x,
 	data = vmalloc_32(len);
 	if (!data)
 		return -ENOMEM;
+		
+	// Asignar temp_buffer
+	request->temp_buffer = kmalloc(1920 * 4, GFP_KERNEL);
+	if (!request->temp_buffer) {
+		vfree(data);
+		return -ENOMEM;
+	}
 
 	num_pages = DIV_ROUND_UP(len, PAGE_SIZE);
 	pages = kmalloc_array(num_pages, sizeof(struct page *), GFP_KERNEL);
@@ -156,22 +169,24 @@ static const u8 ms912x_end_of_buffer[8] = { 0xff, 0xc0, 0x00, 0x00,
 
 static int ms912x_fb_xrgb8888_to_yuv422(void *dst, const struct iosys_map *src,
 					struct drm_framebuffer *fb,
-					struct drm_rect *rect)
+					struct drm_rect *rect,
+					void *temp_buffer)
 {
 	struct ms912x_frame_update_header *header =
 		(struct ms912x_frame_update_header *)dst;
 	struct iosys_map fb_map;
 	int i, x, y1, y2, width;
-	void *temp_buffer;
+	//void *temp_buffer;
 
 	y1 = rect->y1;
 	y2 = (rect->y2 < fb->height) ? rect->y2 : fb->height;
 	x = rect->x1;
 	width = drm_rect_width(rect);
 
-	temp_buffer = kmalloc(width * 4, GFP_KERNEL);
+	// Ya no allocamos temp_buffer aquí!
+	/*temp_buffer = kmalloc(width * 4, GFP_KERNEL);
 	if (!temp_buffer)
-		return -ENOMEM;
+		return -ENOMEM;*/
 
 	header->header = cpu_to_be16(0xff00);
 	header->x = x / 16;
@@ -187,7 +202,8 @@ static int ms912x_fb_xrgb8888_to_yuv422(void *dst, const struct iosys_map *src,
 		dst += width * 2;
 	}
 
-	kfree(temp_buffer);
+	//No liberar temp_buffer aquí
+	//kfree(temp_buffer);
 	memcpy(dst, ms912x_end_of_buffer, sizeof(ms912x_end_of_buffer));
 	return 0;
 }
@@ -229,7 +245,8 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 		goto dev_exit;
 
 	ret = ms912x_fb_xrgb8888_to_yuv422(current_request->transfer_buffer,
-					   map, fb, rect);
+					   map, fb, rect,
+					   current_request->temp_buffer);
 	
 	drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
 	if (ret < 0)
