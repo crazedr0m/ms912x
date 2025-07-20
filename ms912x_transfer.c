@@ -132,12 +132,16 @@ static int ms912x_xrgb_to_yuv422_line(u8 *transfer_buffer,
 		y1 = ms912x_rgb_to_y(r1, g1, b1);
 		y2 = ms912x_rgb_to_y(r2, g2, b2);
 
-		v = (ms912x_rgb_to_v(r1, g1, b1) +
+		/*v = (ms912x_rgb_to_v(r1, g1, b1) +
 		     ms912x_rgb_to_v(r2, g2, b2)) /
 		    2;
 		u = (ms912x_rgb_to_u(r1, g1, b1) +
 		     ms912x_rgb_to_u(r2, g2, b2)) /
-		    2;
+		    2;*/
+		    
+		// Optimización: calcular u y v con promedios de RGB
+		v = ms912x_rgb_to_v((r1 + r2) / 2, (g1 + g2) / 2, (b1 + b2) / 2);
+		u = ms912x_rgb_to_u((r1 + r2) / 2, (g1 + g2) / 2, (b1 + b2) / 2);    
 
 		transfer_buffer[dst_offset++] = u;
 		transfer_buffer[dst_offset++] = y1;
