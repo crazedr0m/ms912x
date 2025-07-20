@@ -3,6 +3,7 @@
 
 #include <drm/drm_drv.h>
 #include <drm/drm_gem_framebuffer_helper.h>
+#include <linux/jiffies.h>
 
 #include "ms912x.h"
 
@@ -187,9 +188,21 @@ static int ms912x_fb_xrgb8888_to_yuv422(void *dst, const struct iosys_map *src,
 	return 0;
 }
 
+static unsigned long last_send_jiffies = 0;
+
 int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 			struct drm_rect *rect)
 {
+
+	unsigned long now = jiffies;
+	// Limitar a 60 FPS = 66 ms entre frames
+	if (time_before(now, last_send_jiffies + msecs_to_jiffies(66)))
+		return 0; // saltar este frame
+
+	last_send_jiffies = now;
+	
+	
+	
 	int ret = 0, idx;
 	struct ms912x_device *ms912x = to_ms912x(fb->dev);
 	struct drm_device *drm = &ms912x->drm;
