@@ -181,10 +181,16 @@ static const uint32_t ms912x_pipe_formats[] = {
     DRM_FORMAT_XRGB8888,
 };
 
+static bool yuv_lut_initialized;
 // Probe para inicializar el dispositivo USB
 static int ms912x_usb_probe(struct usb_interface *interface,
                             const struct usb_device_id *id)
 {
+    if (!yuv_lut_initialized){
+	    ms912x_init_yuv_lut();
+	    yuv_lut_initialized = true;
+    }
+    //
     int ret;
     struct ms912x_device *ms912x;
     struct drm_device *dev;

@@ -8,11 +8,12 @@
 
 static int ms912x_read_edid_block(struct ms912x_device *ms912x, u8 *buf, unsigned int offset, size_t len)
 {
+	const u16 base = 0xc000 + offset;
 #if defined(HAS_BLOCK_READ) // Si tienes soporte para lectura por bloque
-	return ms912x_read_block(ms912x, 0xc000 + offset, buf, len);
+	return ms912x_read_block(ms912x, base, buf, len);
 #else
 	for (size_t i = 0; i < len; i++) {
-		u16 address = 0xc000 + offset + i;
+		u16 address = base + i;
 		int ret = ms912x_read_byte(ms912x, address);
 		if (ret < 0)
 			return ret;
@@ -25,7 +26,7 @@ static int ms912x_read_edid_block(struct ms912x_device *ms912x, u8 *buf, unsigne
 static int ms912x_read_edid(void *data, u8 *buf, unsigned int block, size_t len)
 {
 	struct ms912x_device *ms912x = data;
-	int offset = block * EDID_LENGTH;
+	const int offset = block * EDID_LENGTH;
 	int ret = ms912x_read_edid_block(ms912x, buf, offset, len);
 	if (ret < 0)
 		pr_err("ms912x: failed to read EDID block %u\n", block);

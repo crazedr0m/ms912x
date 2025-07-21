@@ -97,25 +97,45 @@ err_vfree:
 	return ret;
 }
 
-static inline unsigned int ms912x_rgb_to_y(unsigned int r, unsigned int g,
-					   unsigned int b)
+struct ms912x_yuv_lut {
+	u16 y_r[256], y_g[256], y_b[256];
+	u16 u_r[256], u_g[256], u_b[256];
+	u16 v_r[256], v_g[256], v_b[256];
+};
+
+
+static struct ms912x_yuv_lut yuv_lut;
+
+void ms912x_init_yuv_lut(void)
 {
-	const unsigned int luma = (16 << 16) + 16763 * r + 32904 * g + 6391 * b;
-	return luma >> 16;
+	for (int i = 0; i < 256; i++) {
+		yuv_lut.y_r[i] = (16763 * i) >> 16;
+		yuv_lut.y_g[i] = (32904 * i) >> 16;
+		yuv_lut.y_b[i] = (6391  * i) >> 16;
+
+		yuv_lut.u_r[i] = (-9676  * i) >> 16;
+		yuv_lut.u_g[i] = (-18996 * i) >> 16;
+		yuv_lut.u_b[i] = (28672 * i) >> 16;
+
+		yuv_lut.v_r[i] = (28672 * i) >> 16;
+		yuv_lut.v_g[i] = (-24009 * i) >> 16;
+		yuv_lut.v_b[i] = (-4663  * i) >> 16;
+	}
 }
 
-static inline unsigned int ms912x_rgb_to_u(unsigned int r, unsigned int g,
-					   unsigned int b)
+static inline unsigned int ms912x_rgb_to_y(u8 r, u8 g, u8 b)
 {
-	const unsigned int u = (128 << 16) - 9676 * r - 18996 * g + 28672 * b;
-	return u >> 16;
+	return 16 + yuv_lut.y_r[r] + yuv_lut.y_g[g] + yuv_lut.y_b[b];
 }
 
-static inline unsigned int ms912x_rgb_to_v(unsigned int r, unsigned int g,
-					   unsigned int b)
+static inline unsigned int ms912x_rgb_to_u(u8 r, u8 g, u8 b)
 {
-	const unsigned int v = (128 << 16) + 28672 * r - 24009 * g - 4663 * b;
-	return v >> 16;
+	return 128 + yuv_lut.u_r[r] + yuv_lut.u_g[g] + yuv_lut.u_b[b];
+}
+
+static inline unsigned int ms912x_rgb_to_v(u8 r, u8 g, u8 b)
+{
+	return 128 + yuv_lut.v_r[r] + yuv_lut.v_g[g] + yuv_lut.v_b[b];
 }
 
 static int ms912x_xrgb_to_yuv422_line(u8 *transfer_buffer,
@@ -127,6 +147,7 @@ static int ms912x_xrgb_to_yuv422_line(u8 *transfer_buffer,
 	unsigned int pixel1, pixel2;
 	unsigned int r1, g1, b1, r2, g2, b2;
 	unsigned int v, y1, u, y2;
+	unsigned int avg_r, avg_g, avg_b;
 	iosys_map_memcpy_from(temp_buffer, xrgb_buffer, offset, width * 4);
 	for (i = 0; i < width; i += 2) {
 		pixel1 = temp_buffer[i];
@@ -141,17 +162,17 @@ static int ms912x_xrgb_to_yuv422_line(u8 *transfer_buffer,
 
 		y1 = ms912x_rgb_to_y(r1, g1, b1);
 		y2 = ms912x_rgb_to_y(r2, g2, b2);
-
-		/*v = (ms912x_rgb_to_v(r1, g1, b1) +
-		     ms912x_rgb_to_v(r2, g2, b2)) /
-		    2;
-		u = (ms912x_rgb_to_u(r1, g1, b1) +
-		     ms912x_rgb_to_u(r2, g2, b2)) /
-		    2;*/
-		    
+		
 		// Optimización: calcular u y v con promedios de RGB
-		v = ms912x_rgb_to_v((r1 + r2) / 2, (g1 + g2) / 2, (b1 + b2) / 2);
-		u = ms912x_rgb_to_u((r1 + r2) / 2, (g1 + g2) / 2, (b1 + b2) / 2);    
+		// ms912x_rgb_to_v y ms912x_rgb_to_u son funciones lineales
+		// Precalcular promedios con shift (más rápido)
+		avg_r = (r1 + r2) >> 1;
+		avg_g = (g1 + g2) >> 1;
+		avg_b = (b1 + b2) >> 1;
+
+		v = ms912x_rgb_to_v(avg_r, avg_g, avg_b);
+		u = ms912x_rgb_to_u(avg_r, avg_g, avg_b);
+		     
 
 		transfer_buffer[dst_offset++] = u;
 		transfer_buffer[dst_offset++] = y1;
