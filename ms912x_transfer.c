@@ -233,12 +233,9 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 {
 
 	unsigned long now = jiffies;
-	// Limitar a 60 FPS = 66 ms entre frames
-	if (time_before(now, last_send_jiffies + msecs_to_jiffies(66)))
-		return 0; // saltar este frame
-
-	last_send_jiffies = now;
-	
+	// Limitar a 60 FPS = 16 ms entre frames
+	if (time_before(now, last_send_jiffies + msecs_to_jiffies(16)))
+    		return 0;
 	
 	
 	int ret = 0, idx;
