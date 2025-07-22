@@ -10,6 +10,7 @@
 #define MS912X_REQUEST_TYPE 0xb5
 #define MS912X_WRITE_TYPE 0xa6
 
+
 static void ms912x_request_timeout(struct timer_list *t)
 {
 	struct ms912x_usb_request *request = from_timer(request, t, timer);

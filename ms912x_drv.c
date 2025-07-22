@@ -137,36 +137,66 @@ static int ms912x_pipe_check(struct drm_simple_display_pipe *pipe,
     return 0;
 }
 
-// Actualizar las áreas dañadas de la pantalla
-static void ms912x_merge_rects(struct drm_rect *dest, struct drm_rect *r1,
-                               struct drm_rect *r2)
+
+
+#define INVALID_COORD 0x7fffffff
+
+static void ms912x_update_rect_init(struct drm_rect *rect)
 {
+    rect->x1 = INVALID_COORD;
+    rect->y1 = INVALID_COORD;
+    rect->x2 = 0;
+    rect->y2 = 0;
+}
+
+static bool ms912x_rect_is_valid(const struct drm_rect *rect)
+{
+    return rect->x1 <= rect->x2 && rect->y1 <= rect->y2;
+}
+
+static void ms912x_merge_rects(struct drm_rect *dest, const struct drm_rect *r1,
+                               const struct drm_rect *r2)
+{
+    if (!ms912x_rect_is_valid(r1)) {
+        *dest = *r2;
+        return;
+    }
+    if (!ms912x_rect_is_valid(r2)) {
+        *dest = *r1;
+        return;
+    }
     dest->x1 = min(r1->x1, r2->x1);
     dest->y1 = min(r1->y1, r2->y1);
     dest->x2 = max(r1->x2, r2->x2);
     dest->y2 = max(r1->y2, r2->y2);
 }
 
-// Actualizar la pantalla con un rectángulo específico
+
 static void ms912x_pipe_update(struct drm_simple_display_pipe *pipe,
                                struct drm_plane_state *old_state)
 {
     struct drm_plane_state *state = pipe->plane.state;
     struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(state);
-    struct ms912x_device *ms912x;
+    struct ms912x_device *ms912x = to_ms912x(state->fb->dev);
     struct drm_rect current_rect, rect;
 
+    if (!ms912x_rect_is_valid(&ms912x->update_rect))
+        ms912x_update_rect_init(&ms912x->update_rect);
+
     if (drm_atomic_helper_damage_merged(old_state, state, &current_rect)) {
-        ms912x = to_ms912x(state->fb->dev);
         ms912x_merge_rects(&rect, &current_rect, &ms912x->update_rect);
 
-        if (ms912x_fb_send_rect(state->fb, &shadow_plane_state->data[0], &rect)) {
-            ms912x_merge_rects(&ms912x->update_rect, &ms912x->update_rect, &rect);
+        int ret = ms912x_fb_send_rect(state->fb, &shadow_plane_state->data[0], &rect);
+        if (ret == 0) {
+            // Envío correcto, borrar update_rect
+            ms912x_update_rect_init(&ms912x->update_rect);
         } else {
-            ms912x->update_rect = current_rect;
+            // Envío fallido, acumular para luego
+            ms912x_merge_rects(&ms912x->update_rect, &ms912x->update_rect, &rect);
         }
     }
 }
+
 
 static const struct drm_simple_display_pipe_funcs ms912x_pipe_funcs = {
     .enable = ms912x_pipe_enable,
@@ -182,6 +212,9 @@ static const uint32_t ms912x_pipe_formats[] = {
 };
 
 static bool yuv_lut_initialized;
+
+
+
 // Probe para inicializar el dispositivo USB
 static int ms912x_usb_probe(struct usb_interface *interface,
                             const struct usb_device_id *id)
@@ -190,7 +223,7 @@ static int ms912x_usb_probe(struct usb_interface *interface,
 	    ms912x_init_yuv_lut();
 	    yuv_lut_initialized = true;
     }
-    //
+    
     int ret;
     struct ms912x_device *ms912x;
     struct drm_device *dev;
@@ -201,7 +234,7 @@ static int ms912x_usb_probe(struct usb_interface *interface,
 
     ms912x->intf = interface;
     dev = &ms912x->drm;
-
+    
     ms912x->dmadev = usb_intf_get_dma_device(interface);
     if (!ms912x->dmadev)
         drm_warn(dev, "buffer sharing not supported");
@@ -242,10 +275,7 @@ static int ms912x_usb_probe(struct usb_interface *interface,
     usb_set_intfdata(interface, ms912x);
     drm_kms_helper_poll_init(dev);
     
-    // Registrar el DRM device como una GPU secundaria
-    //dev->driver->driver_features |= DRIVER_RENDER;
     dev->dev_private = ms912x;
-    // Registrar el DRM device como una GPU secundaria
 
     ret = drm_dev_register(dev, 0);
     if (ret)
