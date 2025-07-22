@@ -16,7 +16,6 @@
 #include <drm/drm_probe_helper.h>
 #include <drm/drm_print.h>
 #include <drm/drm_simple_kms_helper.h>
-#include <drm/clients/drm_client_setup.h>
 
 #include "ms912x.h"
 
@@ -56,7 +55,6 @@ static const struct drm_driver driver = {
     .major = DRIVER_MAJOR,
     .minor = DRIVER_MINOR,
     .patchlevel = DRIVER_PATCHLEVEL,
-    DRM_FBDEV_TTM_DRIVER_OPS,
 };
 
 static const struct drm_mode_config_funcs ms912x_mode_config_funcs = {
@@ -67,18 +65,31 @@ static const struct drm_mode_config_funcs ms912x_mode_config_funcs = {
 
 // Lista de modos de pantalla
 static const struct ms912x_mode ms912x_mode_list[] = {
-    MS912X_MODE(800, 600, 60, 0x4200, MS912X_PIXFMT_UYVY),
-    MS912X_MODE(1024, 768, 60, 0x4700, MS912X_PIXFMT_UYVY),
-    MS912X_MODE(1152, 864, 60, 0x4c00, MS912X_PIXFMT_UYVY),
-    MS912X_MODE(1280, 720, 60, 0x4f00, MS912X_PIXFMT_UYVY),
-    MS912X_MODE(1280, 800, 60, 0x5700, MS912X_PIXFMT_UYVY),
-    MS912X_MODE(1280, 960, 60, 0x5b00, MS912X_PIXFMT_UYVY),
-    MS912X_MODE(1280, 1024, 60, 0x6000, MS912X_PIXFMT_UYVY),
-    MS912X_MODE(1366, 768, 60, 0x6600, MS912X_PIXFMT_UYVY),
-    MS912X_MODE(1400, 1050, 60, 0x6700, MS912X_PIXFMT_UYVY),
-    MS912X_MODE(1440, 900, 60, 0x6b00, MS912X_PIXFMT_UYVY),
-    MS912X_MODE(1680, 1050, 60, 0x7800, MS912X_PIXFMT_UYVY),
-    MS912X_MODE(1920, 1080, 60, 0x8100, MS912X_PIXFMT_UYVY),
+    /* Found in captures of the Windows driver */
+	MS912X_MODE( 800,  600, 60, 0x4200, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1024,  768, 60, 0x4700, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1152,  864, 60, 0x4c00, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280,  720, 60, 0x4f00, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280,  800, 60, 0x5700, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280,  960, 60, 0x5b00, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280, 1024, 60, 0x6000, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1366,  768, 60, 0x6600, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1400, 1050, 60, 0x6700, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1440,  900, 60, 0x6b00, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1680, 1050, 60, 0x7800, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1920, 1080, 60, 0x8100, MS912X_PIXFMT_UYVY),
+
+	/* Dumped from the device */
+	MS912X_MODE( 720,  480, 60, 0x0200, MS912X_PIXFMT_UYVY),
+	MS912X_MODE( 720,  576, 60, 0x1100, MS912X_PIXFMT_UYVY),
+	MS912X_MODE( 640,  480, 60, 0x4000, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1024,  768, 60, 0x4900, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280,  600, 60, 0x4e00, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280,  768, 60, 0x5400, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280, 1024, 60, 0x6100, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1360,  768, 60, 0x6400, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1600, 1200, 60, 0x7300, MS912X_PIXFMT_UYVY),
+	/* TODO: more mode numbers? */
 };
 
 // Obtener un modo específico basado en la resolución
@@ -281,7 +292,7 @@ static int ms912x_usb_probe(struct usb_interface *interface,
     if (ret)
         goto err_free_request_1;
 
-    drm_client_setup(dev, 0);
+    drm_fbdev_ttm_setup(dev, 0);
 
     return 0;
 
