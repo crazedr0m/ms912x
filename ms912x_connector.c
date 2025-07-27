@@ -6,10 +6,11 @@
 
 #include "ms912x.h"
 
-static int ms912x_read_edid_block(struct ms912x_device *ms912x, u8 *buf, unsigned int offset, size_t len)
+static int ms912x_read_edid_block(struct ms912x_device *ms912x, u8 *buf,
+				  unsigned int offset, size_t len)
 {
 	const u16 base = 0xc000 + offset;
-#if defined(HAS_BLOCK_READ) // Si tienes soporte para lectura por bloque
+#if defined(HAS_BLOCK_READ)
 	return ms912x_read_block(ms912x, base, buf, len);
 #else
 	for (size_t i = 0; i < len; i++) {
@@ -68,7 +69,7 @@ static int ms912x_connector_get_modes(struct drm_connector *connector)
 	if (!edid) {
 		pr_warn("ms912x: EDID not found, falling back to default mode\n");
 		ms912x_add_fallback_mode(connector);
-		return 1; // Al menos un modo agregado
+		return 1;
 	}
 
 	ret = drm_edid_connector_update(connector, edid);
@@ -96,8 +97,8 @@ static enum drm_connector_status ms912x_detect(struct drm_connector *connector,
 		return connector_status_unknown;
 	}
 
-	return (status == 1) ? connector_status_connected
-	                     : connector_status_disconnected;
+	return (status == 1) ? connector_status_connected :
+			       connector_status_disconnected;
 }
 
 static const struct drm_connector_helper_funcs ms912x_connector_helper_funcs = {
@@ -133,4 +134,3 @@ int ms912x_connector_init(struct ms912x_device *ms912x)
 
 	return 0;
 }
-

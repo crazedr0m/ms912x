@@ -41,7 +41,7 @@ struct ms912x_device {
 
 	struct drm_connector connector;
 	struct drm_simple_display_pipe display_pipe;
-	
+
 	struct drm_rect update_rect;
 
 	/* Double buffer to allow memcpy and transfer 

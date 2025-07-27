@@ -10,7 +10,6 @@
 #define MS912X_REQUEST_TYPE 0xb5
 #define MS912X_WRITE_TYPE 0xa6
 
-
 static void ms912x_request_timeout(struct timer_list *t)
 {
 	struct ms912x_usb_request *request = from_timer(request, t, timer);
@@ -39,9 +38,9 @@ static void ms912x_request_work(struct work_struct *work)
 void ms912x_free_request(struct ms912x_usb_request *request)
 {
 	if (request->transfer_buffer) {
-	    sg_free_table(&request->transfer_sgt);
-	    vfree(request->transfer_buffer);
-	    request->transfer_buffer = NULL;
+		sg_free_table(&request->transfer_sgt);
+		vfree(request->transfer_buffer);
+		request->transfer_buffer = NULL;
 	}
 
 	kfree(request->temp_buffer);
@@ -61,8 +60,7 @@ int ms912x_init_request(struct ms912x_device *ms912x,
 	data = vmalloc_32(len);
 	if (!data)
 		return -ENOMEM;
-		
-	// Asignar temp_buffer
+
 	request->temp_buffer = kmalloc(1920 * 4, GFP_KERNEL);
 	if (!request->temp_buffer) {
 		vfree(data);
@@ -104,7 +102,6 @@ struct ms912x_yuv_lut {
 	u16 v_r[256], v_g[256], v_b[256];
 };
 
-
 static struct ms912x_yuv_lut yuv_lut;
 
 void ms912x_init_yuv_lut(void)
@@ -112,15 +109,15 @@ void ms912x_init_yuv_lut(void)
 	for (int i = 0; i < 256; i++) {
 		yuv_lut.y_r[i] = (16763 * i) >> 16;
 		yuv_lut.y_g[i] = (32904 * i) >> 16;
-		yuv_lut.y_b[i] = (6391  * i) >> 16;
+		yuv_lut.y_b[i] = (6391 * i) >> 16;
 
-		yuv_lut.u_r[i] = (-9676  * i) >> 16;
+		yuv_lut.u_r[i] = (-9676 * i) >> 16;
 		yuv_lut.u_g[i] = (-18996 * i) >> 16;
 		yuv_lut.u_b[i] = (28672 * i) >> 16;
 
 		yuv_lut.v_r[i] = (28672 * i) >> 16;
 		yuv_lut.v_g[i] = (-24009 * i) >> 16;
-		yuv_lut.v_b[i] = (-4663  * i) >> 16;
+		yuv_lut.v_b[i] = (-4663 * i) >> 16;
 	}
 }
 
@@ -163,17 +160,13 @@ static int ms912x_xrgb_to_yuv422_line(u8 *transfer_buffer,
 
 		y1 = ms912x_rgb_to_y(r1, g1, b1);
 		y2 = ms912x_rgb_to_y(r2, g2, b2);
-		
-		// Optimización: calcular u y v con promedios de RGB
-		// ms912x_rgb_to_v y ms912x_rgb_to_u son funciones lineales
-		// Precalcular promedios con shift (más rápido)
+
 		avg_r = (r1 + r2) >> 1;
 		avg_g = (g1 + g2) >> 1;
 		avg_b = (b1 + b2) >> 1;
 
 		v = ms912x_rgb_to_v(avg_r, avg_g, avg_b);
 		u = ms912x_rgb_to_u(avg_r, avg_g, avg_b);
-		     
 
 		transfer_buffer[dst_offset++] = u;
 		transfer_buffer[dst_offset++] = y1;
@@ -195,17 +188,11 @@ static int ms912x_fb_xrgb8888_to_yuv422(void *dst, const struct iosys_map *src,
 		(struct ms912x_frame_update_header *)dst;
 	struct iosys_map fb_map;
 	int i, x, y1, y2, width;
-	//void *temp_buffer;
 
 	y1 = rect->y1;
 	y2 = (rect->y2 < fb->height) ? rect->y2 : fb->height;
 	x = rect->x1;
 	width = drm_rect_width(rect);
-
-	// Ya no allocamos temp_buffer aquí!
-	/*temp_buffer = kmalloc(width * 4, GFP_KERNEL);
-	if (!temp_buffer)
-		return -ENOMEM;*/
 
 	header->header = cpu_to_be16(0xff00);
 	header->x = x / 16;
@@ -216,13 +203,12 @@ static int ms912x_fb_xrgb8888_to_yuv422(void *dst, const struct iosys_map *src,
 
 	fb_map = IOSYS_MAP_INIT_OFFSET(src, y1 * fb->pitches[0]);
 	for (i = y1; i < y2; i++) {
-		ms912x_xrgb_to_yuv422_line(dst, &fb_map, x * 4, width, temp_buffer);
+		ms912x_xrgb_to_yuv422_line(dst, &fb_map, x * 4, width,
+					   temp_buffer);
 		iosys_map_incr(&fb_map, fb->pitches[0]);
 		dst += width * 2;
 	}
 
-	//No liberar temp_buffer aquí
-	//kfree(temp_buffer);
 	memcpy(dst, ms912x_end_of_buffer, sizeof(ms912x_end_of_buffer));
 	return 0;
 }
@@ -232,13 +218,11 @@ static unsigned long last_send_jiffies = 0;
 int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 			struct drm_rect *rect)
 {
-
 	unsigned long now = jiffies;
-	// Limitar a 60 FPS = 16 ms entre frames
+	/*limit to 60 FPS = 16 ms*/
 	if (time_before(now, last_send_jiffies + msecs_to_jiffies(16)))
-    		return 0;
-	
-	
+		return 0;
+
 	int ret = 0, idx;
 	struct ms912x_device *ms912x = to_ms912x(fb->dev);
 	struct drm_device *drm = &ms912x->drm;
@@ -263,16 +247,14 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 	ret = ms912x_fb_xrgb8888_to_yuv422(current_request->transfer_buffer,
 					   map, fb, rect,
 					   current_request->temp_buffer);
-	
+
 	drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
 	if (ret < 0)
 		goto dev_exit;
 
-	
 	/* Sending frames too fast, drop it */
 	if (!wait_for_completion_timeout(&prev_request->done,
 					 msecs_to_jiffies(1))) {
-
 		ret = -ETIMEDOUT;
 		goto dev_exit;
 	}
@@ -285,4 +267,3 @@ dev_exit:
 	drm_dev_exit(idx);
 	return ret;
 }
-

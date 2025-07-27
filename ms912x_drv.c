@@ -19,326 +19,318 @@
 
 #include "ms912x.h"
 
-// Suspender el dispositivo USB
-static int ms912x_usb_suspend(struct usb_interface *interface, pm_message_t message)
+static int ms912x_usb_suspend(struct usb_interface *interface,
+			      pm_message_t message)
 {
-    struct drm_device *dev = usb_get_intfdata(interface);
-    return drm_mode_config_helper_suspend(dev);
+	struct drm_device *dev = usb_get_intfdata(interface);
+	return drm_mode_config_helper_suspend(dev);
 }
 
-// Reanudar el dispositivo USB
 static int ms912x_usb_resume(struct usb_interface *interface)
 {
-    struct drm_device *dev = usb_get_intfdata(interface);
-    return drm_mode_config_helper_resume(dev);
+	struct drm_device *dev = usb_get_intfdata(interface);
+	return drm_mode_config_helper_resume(dev);
 }
 
-// Importar objetos GEM usando DMA
-static struct drm_gem_object *ms912x_driver_gem_prime_import(struct drm_device *dev, struct dma_buf *dma_buf)
+static struct drm_gem_object *
+ms912x_driver_gem_prime_import(struct drm_device *dev, struct dma_buf *dma_buf)
 {
-    struct ms912x_device *ms912x = to_ms912x(dev);
-    if (!ms912x->dmadev)
-        return ERR_PTR(-ENODEV);
+	struct ms912x_device *ms912x = to_ms912x(dev);
+	if (!ms912x->dmadev)
+		return ERR_PTR(-ENODEV);
 
-    return drm_gem_prime_import_dev(dev, dma_buf, ms912x->dmadev);
+	return drm_gem_prime_import_dev(dev, dma_buf, ms912x->dmadev);
 }
 
 DEFINE_DRM_GEM_FOPS(ms912x_driver_fops);
 
 static const struct drm_driver driver = {
-    .driver_features = DRIVER_ATOMIC | DRIVER_GEM | DRIVER_MODESET | DRIVER_RENDER,
-    .fops = &ms912x_driver_fops,
-    DRM_GEM_SHMEM_DRIVER_OPS,
-    .gem_prime_import = ms912x_driver_gem_prime_import,
-    .name = DRIVER_NAME,
-    .desc = DRIVER_DESC,
-    .major = DRIVER_MAJOR,
-    .minor = DRIVER_MINOR,
-    .patchlevel = DRIVER_PATCHLEVEL,
+	.driver_features =
+		DRIVER_ATOMIC | DRIVER_GEM | DRIVER_MODESET | DRIVER_RENDER,
+	.fops = &ms912x_driver_fops,
+	DRM_GEM_SHMEM_DRIVER_OPS,
+	.gem_prime_import = ms912x_driver_gem_prime_import,
+	.name = DRIVER_NAME,
+	.desc = DRIVER_DESC,
+	.major = DRIVER_MAJOR,
+	.minor = DRIVER_MINOR,
+	.patchlevel = DRIVER_PATCHLEVEL,
 };
 
 static const struct drm_mode_config_funcs ms912x_mode_config_funcs = {
-    .fb_create = drm_gem_fb_create_with_dirty,
-    .atomic_check = drm_atomic_helper_check,
-    .atomic_commit = drm_atomic_helper_commit,
+	.fb_create = drm_gem_fb_create_with_dirty,
+	.atomic_check = drm_atomic_helper_check,
+	.atomic_commit = drm_atomic_helper_commit,
 };
 
-// Lista de modos de pantalla
 static const struct ms912x_mode ms912x_mode_list[] = {
-    /* Found in captures of the Windows driver */
-	MS912X_MODE( 800,  600, 60, 0x4200, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1024,  768, 60, 0x4700, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1152,  864, 60, 0x4c00, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1280,  720, 60, 0x4f00, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1280,  800, 60, 0x5700, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1280,  960, 60, 0x5b00, MS912X_PIXFMT_UYVY),
+	/* Found in captures of the Windows driver */
+	MS912X_MODE(800, 600, 60, 0x4200, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1024, 768, 60, 0x4700, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1152, 864, 60, 0x4c00, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280, 720, 60, 0x4f00, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280, 800, 60, 0x5700, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280, 960, 60, 0x5b00, MS912X_PIXFMT_UYVY),
 	MS912X_MODE(1280, 1024, 60, 0x6000, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1366,  768, 60, 0x6600, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1366, 768, 60, 0x6600, MS912X_PIXFMT_UYVY),
 	MS912X_MODE(1400, 1050, 60, 0x6700, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1440,  900, 60, 0x6b00, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1440, 900, 60, 0x6b00, MS912X_PIXFMT_UYVY),
 	MS912X_MODE(1680, 1050, 60, 0x7800, MS912X_PIXFMT_UYVY),
 	MS912X_MODE(1920, 1080, 60, 0x8100, MS912X_PIXFMT_UYVY),
 
 	/* Dumped from the device */
-	MS912X_MODE( 720,  480, 60, 0x0200, MS912X_PIXFMT_UYVY),
-	MS912X_MODE( 720,  576, 60, 0x1100, MS912X_PIXFMT_UYVY),
-	MS912X_MODE( 640,  480, 60, 0x4000, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1024,  768, 60, 0x4900, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1280,  600, 60, 0x4e00, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1280,  768, 60, 0x5400, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(720, 480, 60, 0x0200, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(720, 576, 60, 0x1100, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(640, 480, 60, 0x4000, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1024, 768, 60, 0x4900, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280, 600, 60, 0x4e00, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280, 768, 60, 0x5400, MS912X_PIXFMT_UYVY),
 	MS912X_MODE(1280, 1024, 60, 0x6100, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1360,  768, 60, 0x6400, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1360, 768, 60, 0x6400, MS912X_PIXFMT_UYVY),
 	MS912X_MODE(1600, 1200, 60, 0x7300, MS912X_PIXFMT_UYVY),
 	/* TODO: more mode numbers? */
 };
 
-// Obtener un modo específico basado en la resolución
-static const struct ms912x_mode *ms912x_get_mode(const struct drm_display_mode *mode)
+static const struct ms912x_mode *
+ms912x_get_mode(const struct drm_display_mode *mode)
 {
-    int i;
-    int width = mode->hdisplay;
-    int height = mode->vdisplay;
-    int hz = drm_mode_vrefresh(mode);
+	int i;
+	int width = mode->hdisplay;
+	int height = mode->vdisplay;
+	int hz = drm_mode_vrefresh(mode);
 
-    for (i = 0; i < ARRAY_SIZE(ms912x_mode_list); i++) {
-        if (ms912x_mode_list[i].width == width &&
-            ms912x_mode_list[i].height == height &&
-            ms912x_mode_list[i].hz == hz) {
-            return &ms912x_mode_list[i];
-        }
-    }
-    return ERR_PTR(-EINVAL);
+	for (i = 0; i < ARRAY_SIZE(ms912x_mode_list); i++) {
+		if (ms912x_mode_list[i].width == width &&
+		    ms912x_mode_list[i].height == height &&
+		    ms912x_mode_list[i].hz == hz) {
+			return &ms912x_mode_list[i];
+		}
+	}
+	return ERR_PTR(-EINVAL);
 }
 
-// Activar la pantalla (power on)
 static void ms912x_pipe_enable(struct drm_simple_display_pipe *pipe,
-                               struct drm_crtc_state *crtc_state,
-                               struct drm_plane_state *plane_state)
+			       struct drm_crtc_state *crtc_state,
+			       struct drm_plane_state *plane_state)
 {
-    struct ms912x_device *ms912x = to_ms912x(pipe->crtc.dev);
-    struct drm_display_mode *mode = &crtc_state->mode;
+	struct ms912x_device *ms912x = to_ms912x(pipe->crtc.dev);
+	struct drm_display_mode *mode = &crtc_state->mode;
 
-    ms912x_power_on(ms912x);
+	ms912x_power_on(ms912x);
 
-    if (crtc_state->mode_changed) {
-        ms912x_set_resolution(ms912x, ms912x_get_mode(mode));
-    }
+	if (crtc_state->mode_changed) {
+		ms912x_set_resolution(ms912x, ms912x_get_mode(mode));
+	}
 }
 
-// Desactivar la pantalla (power off)
 static void ms912x_pipe_disable(struct drm_simple_display_pipe *pipe)
 {
-    struct ms912x_device *ms912x = to_ms912x(pipe->crtc.dev);
-    ms912x_power_off(ms912x);
+	struct ms912x_device *ms912x = to_ms912x(pipe->crtc.dev);
+	ms912x_power_off(ms912x);
 }
 
-// Validar el modo de pantalla
-static enum drm_mode_status ms912x_pipe_mode_valid(struct drm_simple_display_pipe *pipe,
-                                                   const struct drm_display_mode *mode)
+static enum drm_mode_status
+ms912x_pipe_mode_valid(struct drm_simple_display_pipe *pipe,
+		       const struct drm_display_mode *mode)
 {
-    const struct ms912x_mode *ret = ms912x_get_mode(mode);
-    return IS_ERR(ret) ? MODE_BAD : MODE_OK;
+	const struct ms912x_mode *ret = ms912x_get_mode(mode);
+	return IS_ERR(ret) ? MODE_BAD : MODE_OK;
 }
 
-// Comprobar si la nueva configuración es válida
 static int ms912x_pipe_check(struct drm_simple_display_pipe *pipe,
-                             struct drm_plane_state *new_plane_state,
-                             struct drm_crtc_state *new_crtc_state)
+			     struct drm_plane_state *new_plane_state,
+			     struct drm_crtc_state *new_crtc_state)
 {
-    return 0;
+	return 0;
 }
-
-
 
 #define INVALID_COORD 0x7fffffff
 
 static void ms912x_update_rect_init(struct drm_rect *rect)
 {
-    rect->x1 = INVALID_COORD;
-    rect->y1 = INVALID_COORD;
-    rect->x2 = 0;
-    rect->y2 = 0;
+	rect->x1 = INVALID_COORD;
+	rect->y1 = INVALID_COORD;
+	rect->x2 = 0;
+	rect->y2 = 0;
 }
 
 static bool ms912x_rect_is_valid(const struct drm_rect *rect)
 {
-    return rect->x1 <= rect->x2 && rect->y1 <= rect->y2;
+	return rect->x1 <= rect->x2 && rect->y1 <= rect->y2;
 }
 
 static void ms912x_merge_rects(struct drm_rect *dest, const struct drm_rect *r1,
-                               const struct drm_rect *r2)
+			       const struct drm_rect *r2)
 {
-    if (!ms912x_rect_is_valid(r1)) {
-        *dest = *r2;
-        return;
-    }
-    if (!ms912x_rect_is_valid(r2)) {
-        *dest = *r1;
-        return;
-    }
-    dest->x1 = min(r1->x1, r2->x1);
-    dest->y1 = min(r1->y1, r2->y1);
-    dest->x2 = max(r1->x2, r2->x2);
-    dest->y2 = max(r1->y2, r2->y2);
+	if (!ms912x_rect_is_valid(r1)) {
+		*dest = *r2;
+		return;
+	}
+	if (!ms912x_rect_is_valid(r2)) {
+		*dest = *r1;
+		return;
+	}
+	dest->x1 = min(r1->x1, r2->x1);
+	dest->y1 = min(r1->y1, r2->y1);
+	dest->x2 = max(r1->x2, r2->x2);
+	dest->y2 = max(r1->y2, r2->y2);
 }
-
 
 static void ms912x_pipe_update(struct drm_simple_display_pipe *pipe,
-                               struct drm_plane_state *old_state)
+			       struct drm_plane_state *old_state)
 {
-    struct drm_plane_state *state = pipe->plane.state;
-    struct drm_shadow_plane_state *shadow_plane_state = to_drm_shadow_plane_state(state);
-    struct ms912x_device *ms912x = to_ms912x(state->fb->dev);
-    struct drm_rect current_rect, rect;
+	struct drm_plane_state *state = pipe->plane.state;
+	struct drm_shadow_plane_state *shadow_plane_state =
+		to_drm_shadow_plane_state(state);
+	struct ms912x_device *ms912x = to_ms912x(state->fb->dev);
+	struct drm_rect current_rect, rect;
 
-    if (!ms912x_rect_is_valid(&ms912x->update_rect))
-        ms912x_update_rect_init(&ms912x->update_rect);
+	if (!ms912x_rect_is_valid(&ms912x->update_rect))
+		ms912x_update_rect_init(&ms912x->update_rect);
 
-    if (drm_atomic_helper_damage_merged(old_state, state, &current_rect)) {
-        ms912x_merge_rects(&rect, &current_rect, &ms912x->update_rect);
+	if (drm_atomic_helper_damage_merged(old_state, state, &current_rect)) {
+		ms912x_merge_rects(&rect, &current_rect, &ms912x->update_rect);
 
-        int ret = ms912x_fb_send_rect(state->fb, &shadow_plane_state->data[0], &rect);
-        if (ret == 0) {
-            // Envío correcto, borrar update_rect
-            ms912x_update_rect_init(&ms912x->update_rect);
-        } else {
-            // Envío fallido, acumular para luego
-            ms912x_merge_rects(&ms912x->update_rect, &ms912x->update_rect, &rect);
-        }
-    }
+		int ret = ms912x_fb_send_rect(
+			state->fb, &shadow_plane_state->data[0], &rect);
+		if (ret == 0) {
+			ms912x_update_rect_init(&ms912x->update_rect);
+		} else {
+			ms912x_merge_rects(&ms912x->update_rect,
+					   &ms912x->update_rect, &rect);
+		}
+	}
 }
 
-
 static const struct drm_simple_display_pipe_funcs ms912x_pipe_funcs = {
-    .enable = ms912x_pipe_enable,
-    .disable = ms912x_pipe_disable,
-    .check = ms912x_pipe_check,
-    .mode_valid = ms912x_pipe_mode_valid,
-    .update = ms912x_pipe_update,
-    DRM_GEM_SIMPLE_DISPLAY_PIPE_SHADOW_PLANE_FUNCS,
+	.enable = ms912x_pipe_enable,
+	.disable = ms912x_pipe_disable,
+	.check = ms912x_pipe_check,
+	.mode_valid = ms912x_pipe_mode_valid,
+	.update = ms912x_pipe_update,
+	DRM_GEM_SIMPLE_DISPLAY_PIPE_SHADOW_PLANE_FUNCS,
 };
 
 static const uint32_t ms912x_pipe_formats[] = {
-    DRM_FORMAT_XRGB8888,
+	DRM_FORMAT_XRGB8888,
 };
 
 static bool yuv_lut_initialized;
-
-
-
-// Probe para inicializar el dispositivo USB
 static int ms912x_usb_probe(struct usb_interface *interface,
-                            const struct usb_device_id *id)
+			    const struct usb_device_id *id)
 {
-    if (!yuv_lut_initialized){
-	    ms912x_init_yuv_lut();
-	    yuv_lut_initialized = true;
-    }
-    
-    int ret;
-    struct ms912x_device *ms912x;
-    struct drm_device *dev;
+	if (!yuv_lut_initialized) {
+		ms912x_init_yuv_lut();
+		yuv_lut_initialized = true;
+	}
 
-    ms912x = devm_drm_dev_alloc(&interface->dev, &driver, struct ms912x_device, drm);
-    if (IS_ERR(ms912x))
-        return PTR_ERR(ms912x);
+	int ret;
+	struct ms912x_device *ms912x;
+	struct drm_device *dev;
 
-    ms912x->intf = interface;
-    dev = &ms912x->drm;
-    
-    ms912x->dmadev = usb_intf_get_dma_device(interface);
-    if (!ms912x->dmadev)
-        drm_warn(dev, "buffer sharing not supported");
+	ms912x = devm_drm_dev_alloc(&interface->dev, &driver,
+				    struct ms912x_device, drm);
+	if (IS_ERR(ms912x))
+		return PTR_ERR(ms912x);
 
-    ret = drmm_mode_config_init(dev);
-    if (ret)
-        goto err_put_device;
+	ms912x->intf = interface;
+	dev = &ms912x->drm;
 
-    dev->mode_config.min_width = 0;
-    dev->mode_config.max_width = 2048;
-    dev->mode_config.min_height = 0;
-    dev->mode_config.max_height = 2048;
-    dev->mode_config.funcs = &ms912x_mode_config_funcs;
+	ms912x->dmadev = usb_intf_get_dma_device(interface);
+	if (!ms912x->dmadev)
+		drm_warn(dev, "buffer sharing not supported");
 
-    ms912x_set_resolution(ms912x, &ms912x_mode_list[0]);
+	ret = drmm_mode_config_init(dev);
+	if (ret)
+		goto err_put_device;
 
-    ret = ms912x_init_request(ms912x, &ms912x->requests[0], 2048 * 2048 * 2);
-    if (ret)
-        goto err_put_device;
+	dev->mode_config.min_width = 0;
+	dev->mode_config.max_width = 2048;
+	dev->mode_config.min_height = 0;
+	dev->mode_config.max_height = 2048;
+	dev->mode_config.funcs = &ms912x_mode_config_funcs;
 
-    ret = ms912x_init_request(ms912x, &ms912x->requests[1], 2048 * 2048 * 2);
-    if (ret)
-        goto err_free_request_0;
-    complete(&ms912x->requests[1].done);
+	ms912x_set_resolution(ms912x, &ms912x_mode_list[0]);
 
-    ret = ms912x_connector_init(ms912x);
-    if (ret)
-        goto err_free_request_1;
+	ret = ms912x_init_request(ms912x, &ms912x->requests[0],
+				  2048 * 2048 * 2);
+	if (ret)
+		goto err_put_device;
 
-    ret = drm_simple_display_pipe_init(&ms912x->drm, &ms912x->display_pipe,
-                                       &ms912x_pipe_funcs, ms912x_pipe_formats,
-                                       ARRAY_SIZE(ms912x_pipe_formats), NULL, &ms912x->connector);
-    if (ret)
-        goto err_free_request_1;
+	ret = ms912x_init_request(ms912x, &ms912x->requests[1],
+				  2048 * 2048 * 2);
+	if (ret)
+		goto err_free_request_0;
+	complete(&ms912x->requests[1].done);
 
-    drm_plane_enable_fb_damage_clips(&ms912x->display_pipe.plane);
-    drm_mode_config_reset(dev);
-    usb_set_intfdata(interface, ms912x);
-    drm_kms_helper_poll_init(dev);
-    
-    dev->dev_private = ms912x;
+	ret = ms912x_connector_init(ms912x);
+	if (ret)
+		goto err_free_request_1;
 
-    ret = drm_dev_register(dev, 0);
-    if (ret)
-        goto err_free_request_1;
+	ret = drm_simple_display_pipe_init(&ms912x->drm, &ms912x->display_pipe,
+					   &ms912x_pipe_funcs,
+					   ms912x_pipe_formats,
+					   ARRAY_SIZE(ms912x_pipe_formats),
+					   NULL, &ms912x->connector);
+	if (ret)
+		goto err_free_request_1;
 
-    drm_fbdev_ttm_setup(dev, 0);
+	drm_plane_enable_fb_damage_clips(&ms912x->display_pipe.plane);
+	drm_mode_config_reset(dev);
+	usb_set_intfdata(interface, ms912x);
+	drm_kms_helper_poll_init(dev);
 
-    return 0;
+	dev->dev_private = ms912x;
+
+	ret = drm_dev_register(dev, 0);
+	if (ret)
+		goto err_free_request_1;
+
+	drm_fbdev_ttm_setup(dev, 0);
+
+	return 0;
 
 err_free_request_1:
-    ms912x_free_request(&ms912x->requests[1]);
+	ms912x_free_request(&ms912x->requests[1]);
 err_free_request_0:
-    ms912x_free_request(&ms912x->requests[0]);
+	ms912x_free_request(&ms912x->requests[0]);
 err_put_device:
-    put_device(ms912x->dmadev);
-    return ret;
+	put_device(ms912x->dmadev);
+	return ret;
 }
 
-// Desconectar el dispositivo USB
 static void ms912x_usb_disconnect(struct usb_interface *interface)
 {
-    struct ms912x_device *ms912x = usb_get_intfdata(interface);
-    struct drm_device *dev = &ms912x->drm;
+	struct ms912x_device *ms912x = usb_get_intfdata(interface);
+	struct drm_device *dev = &ms912x->drm;
 
-    cancel_work_sync(&ms912x->requests[0].work);
-    cancel_work_sync(&ms912x->requests[1].work);
-    drm_kms_helper_poll_fini(dev);
-    drm_dev_unplug(dev);
-    drm_atomic_helper_shutdown(dev);
-    ms912x_free_request(&ms912x->requests[0]);
-    ms912x_free_request(&ms912x->requests[1]);
-    put_device(ms912x->dmadev);
-    ms912x->dmadev = NULL;
+	cancel_work_sync(&ms912x->requests[0].work);
+	cancel_work_sync(&ms912x->requests[1].work);
+	drm_kms_helper_poll_fini(dev);
+	drm_dev_unplug(dev);
+	drm_atomic_helper_shutdown(dev);
+	ms912x_free_request(&ms912x->requests[0]);
+	ms912x_free_request(&ms912x->requests[1]);
+	put_device(ms912x->dmadev);
+	ms912x->dmadev = NULL;
 }
 
 static const struct usb_device_id id_table[] = {
-    { USB_DEVICE_AND_INTERFACE_INFO(0x534d, 0x6021, 0xff, 0x00, 0x00) },
-    { USB_DEVICE_AND_INTERFACE_INFO(0x534d, 0x0821, 0xff, 0x00, 0x00) },
-    { USB_DEVICE_AND_INTERFACE_INFO(0x345f, 0x9132, 0xff, 0x00, 0x00) },
-    {},
+	{ USB_DEVICE_AND_INTERFACE_INFO(0x534d, 0x6021, 0xff, 0x00, 0x00) },
+	{ USB_DEVICE_AND_INTERFACE_INFO(0x534d, 0x0821, 0xff, 0x00, 0x00) },
+	{ USB_DEVICE_AND_INTERFACE_INFO(0x345f, 0x9132, 0xff, 0x00, 0x00) },
+	{},
 };
 MODULE_DEVICE_TABLE(usb, id_table);
 
 static struct usb_driver ms912x_driver = {
-    .name = "ms912x",
-    .probe = ms912x_usb_probe,
-    .disconnect = ms912x_usb_disconnect,
-    .suspend = ms912x_usb_suspend,
-    .resume = ms912x_usb_resume,
-    .id_table = id_table,
+	.name = "ms912x",
+	.probe = ms912x_usb_probe,
+	.disconnect = ms912x_usb_disconnect,
+	.suspend = ms912x_usb_suspend,
+	.resume = ms912x_usb_resume,
+	.id_table = id_table,
 };
 module_usb_driver(ms912x_driver);
 MODULE_LICENSE("GPL");
-MODULE_DESCRIPTION("Driver USB a HDMI para ms912x");
-
+MODULE_DESCRIPTION("USB to HDMI driver for ms912x");
