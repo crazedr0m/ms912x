@@ -213,17 +213,16 @@ static int ms912x_fb_xrgb8888_to_yuv422(void *dst, const struct iosys_map *src,
 	return 0;
 }
 
-static unsigned long last_send_jiffies = 0;
 
 int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 			struct drm_rect *rect)
 {
+	struct ms912x_device *ms912x = to_ms912x(fb->dev);
 	unsigned long now = jiffies;
-	if (time_before(now, last_send_jiffies + msecs_to_jiffies(16)))
+	if (time_before(now, ms912x->last_send_jiffies + msecs_to_jiffies(16)))
 		return 0;
 
 	int ret = 0, idx;
-	struct ms912x_device *ms912x = to_ms912x(fb->dev);
 	struct drm_device *drm = &ms912x->drm;
 	struct ms912x_usb_request *prev_request, *current_request;
 	int x, width;
@@ -266,6 +265,7 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 	current_request->transfer_len = width * 2 * drm_rect_height(rect) + 16;
 	queue_work(system_long_wq, &current_request->work);
 	ms912x->current_request = 1 - ms912x->current_request;
+	ms912x->last_send_jiffies = jiffies;
 
 dev_exit:
 	drm_dev_exit(idx);

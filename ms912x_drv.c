@@ -185,6 +185,10 @@ static void ms912x_pipe_update(struct drm_simple_display_pipe *pipe,
 	struct drm_plane_state *state = pipe->plane.state;
 	struct drm_shadow_plane_state *shadow_plane_state =
 		to_drm_shadow_plane_state(state);
+		
+	if (!state->fb)
+		return;
+		
 	struct ms912x_device *ms912x = to_ms912x(state->fb->dev);
 	struct drm_rect current_rect, rect;
 

@@ -49,6 +49,7 @@ struct ms912x_device {
 	 */
 	int current_request;
 	struct ms912x_usb_request requests[2];
+	unsigned long last_send_jiffies;
 };
 
 struct ms912x_request {
