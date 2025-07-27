@@ -10,9 +10,6 @@ static int ms912x_read_edid_block(struct ms912x_device *ms912x, u8 *buf,
 				  unsigned int offset, size_t len)
 {
 	const u16 base = 0xc000 + offset;
-#if defined(HAS_BLOCK_READ)
-	return ms912x_read_block(ms912x, base, buf, len);
-#else
 	for (size_t i = 0; i < len; i++) {
 		u16 address = base + i;
 		int ret = ms912x_read_byte(ms912x, address);
@@ -21,7 +18,6 @@ static int ms912x_read_edid_block(struct ms912x_device *ms912x, u8 *buf,
 		buf[i] = ret;
 	}
 	return 0;
-#endif
 }
 
 static int ms912x_read_edid(void *data, u8 *buf, unsigned int block, size_t len)

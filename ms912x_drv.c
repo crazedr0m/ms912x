@@ -16,6 +16,7 @@
 #include <drm/drm_probe_helper.h>
 #include <drm/drm_print.h>
 #include <drm/drm_simple_kms_helper.h>
+#include <linux/mutex.h>
 
 #include "ms912x.h"
 
@@ -46,7 +47,7 @@ DEFINE_DRM_GEM_FOPS(ms912x_driver_fops);
 
 static const struct drm_driver driver = {
 	.driver_features =
-		DRIVER_ATOMIC | DRIVER_GEM | DRIVER_MODESET | DRIVER_RENDER,
+		DRIVER_ATOMIC | DRIVER_GEM | DRIVER_MODESET,
 	.fops = &ms912x_driver_fops,
 	DRM_GEM_SHMEM_DRIVER_OPS,
 	.gem_prime_import = ms912x_driver_gem_prime_import,
@@ -65,28 +66,28 @@ static const struct drm_mode_config_funcs ms912x_mode_config_funcs = {
 
 static const struct ms912x_mode ms912x_mode_list[] = {
 	/* Found in captures of the Windows driver */
-	MS912X_MODE(800, 600, 60, 0x4200, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1024, 768, 60, 0x4700, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1152, 864, 60, 0x4c00, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1280, 720, 60, 0x4f00, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1280, 800, 60, 0x5700, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1280, 960, 60, 0x5b00, MS912X_PIXFMT_UYVY),
+	MS912X_MODE( 800,  600, 60, 0x4200, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1024,  768, 60, 0x4700, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1152,  864, 60, 0x4c00, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280,  720, 60, 0x4f00, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280,  800, 60, 0x5700, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280,  960, 60, 0x5b00, MS912X_PIXFMT_UYVY),
 	MS912X_MODE(1280, 1024, 60, 0x6000, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1366, 768, 60, 0x6600, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1366,  768, 60, 0x6600, MS912X_PIXFMT_UYVY),
 	MS912X_MODE(1400, 1050, 60, 0x6700, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1440, 900, 60, 0x6b00, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1440,  900, 60, 0x6b00, MS912X_PIXFMT_UYVY),
 	MS912X_MODE(1680, 1050, 60, 0x7800, MS912X_PIXFMT_UYVY),
 	MS912X_MODE(1920, 1080, 60, 0x8100, MS912X_PIXFMT_UYVY),
 
 	/* Dumped from the device */
-	MS912X_MODE(720, 480, 60, 0x0200, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(720, 576, 60, 0x1100, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(640, 480, 60, 0x4000, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1024, 768, 60, 0x4900, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1280, 600, 60, 0x4e00, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1280, 768, 60, 0x5400, MS912X_PIXFMT_UYVY),
+	MS912X_MODE( 720,  480, 60, 0x0200, MS912X_PIXFMT_UYVY),
+	MS912X_MODE( 720,  576, 60, 0x1100, MS912X_PIXFMT_UYVY),
+	MS912X_MODE( 640,  480, 60, 0x4000, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1024,  768, 60, 0x4900, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280,  600, 60, 0x4e00, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280,  768, 60, 0x5400, MS912X_PIXFMT_UYVY),
 	MS912X_MODE(1280, 1024, 60, 0x6100, MS912X_PIXFMT_UYVY),
-	MS912X_MODE(1360, 768, 60, 0x6400, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1360,  768, 60, 0x6400, MS912X_PIXFMT_UYVY),
 	MS912X_MODE(1600, 1200, 60, 0x7300, MS912X_PIXFMT_UYVY),
 	/* TODO: more mode numbers? */
 };
@@ -182,6 +183,10 @@ static void ms912x_pipe_update(struct drm_simple_display_pipe *pipe,
 	struct drm_plane_state *state = pipe->plane.state;
 	struct drm_shadow_plane_state *shadow_plane_state =
 		to_drm_shadow_plane_state(state);
+	
+	if (!state->fb)
+		return;
+		
 	struct ms912x_device *ms912x = to_ms912x(state->fb->dev);
 	struct drm_rect current_rect, rect;
 
@@ -215,14 +220,18 @@ static const uint32_t ms912x_pipe_formats[] = {
 	DRM_FORMAT_XRGB8888,
 };
 
-static bool yuv_lut_initialized;
+
+static DEFINE_MUTEX(yuv_lut_mutex);
+static bool yuv_lut_initialized = false;
 static int ms912x_usb_probe(struct usb_interface *interface,
 			    const struct usb_device_id *id)
 {
+	mutex_lock(&yuv_lut_mutex);
 	if (!yuv_lut_initialized) {
 		ms912x_init_yuv_lut();
 		yuv_lut_initialized = true;
 	}
+	mutex_unlock(&yuv_lut_mutex);
 
 	int ret;
 	struct ms912x_device *ms912x;
