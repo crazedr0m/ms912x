@@ -17,6 +17,7 @@
 #include <drm/drm_print.h>
 #include <drm/drm_simple_kms_helper.h>
 #include <drm/clients/drm_client_setup.h>
+#include <linux/mutex.h>
 
 #include "ms912x.h"
 
@@ -217,14 +218,17 @@ static const uint32_t ms912x_pipe_formats[] = {
 	DRM_FORMAT_XRGB8888,
 };
 
-static bool yuv_lut_initialized;
+static DEFINE_MUTEX(yuv_lut_mutex);
+static bool yuv_lut_initialized = false;
 static int ms912x_usb_probe(struct usb_interface *interface,
 			    const struct usb_device_id *id)
 {
+	mutex_lock(&yuv_lut_mutex);
 	if (!yuv_lut_initialized) {
 		ms912x_init_yuv_lut();
 		yuv_lut_initialized = true;
 	}
+	mutex_unlock(&yuv_lut_mutex);
 
 	int ret;
 	struct ms912x_device *ms912x;
