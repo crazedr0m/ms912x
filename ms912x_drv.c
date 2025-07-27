@@ -48,7 +48,7 @@ DEFINE_DRM_GEM_FOPS(ms912x_driver_fops);
 
 static const struct drm_driver driver = {
 	.driver_features =
-		DRIVER_ATOMIC | DRIVER_GEM | DRIVER_MODESET | DRIVER_RENDER,
+		DRIVER_ATOMIC | DRIVER_GEM | DRIVER_MODESET,
 	.fops = &ms912x_driver_fops,
 	DRM_GEM_SHMEM_DRIVER_OPS,
 	.gem_prime_import = ms912x_driver_gem_prime_import,
@@ -132,6 +132,7 @@ static void ms912x_pipe_disable(struct drm_simple_display_pipe *pipe)
 	ms912x_power_off(ms912x);
 }
 
+static enum drm_mode_status
 ms912x_pipe_mode_valid(struct drm_simple_display_pipe *pipe,
 		       const struct drm_display_mode *mode)
 {
