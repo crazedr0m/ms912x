@@ -227,9 +227,14 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 	struct drm_device *drm = &ms912x->drm;
 	struct ms912x_usb_request *prev_request, *current_request;
 	int x, width;
-
-	/* Align width to multiples of 16 */
+	
+	/* Seems like hardware can only update framebuffer 
+	 * in multiples of 16 horizontally
+	 */
 	x = ALIGN_DOWN(rect->x1, 16);
+	/* Resolutions that are not a multiple of 16 like 1366*768 
+	 * need to be aligned
+	 */
 	width = min(ALIGN(rect->x2, 16), ALIGN_DOWN((int)fb->width, 16)) - x;
 	rect->x1 = x;
 	rect->x2 = x + width;
