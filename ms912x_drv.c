@@ -132,7 +132,6 @@ static void ms912x_pipe_disable(struct drm_simple_display_pipe *pipe)
 	ms912x_power_off(ms912x);
 }
 
-static enum drm_mode_status
 ms912x_pipe_mode_valid(struct drm_simple_display_pipe *pipe,
 		       const struct drm_display_mode *mode)
 {
