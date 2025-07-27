@@ -108,7 +108,7 @@ int ms912x_set_resolution(struct ms912x_device *ms912x,
 	if (ret < 0)
 		return ret;
 
-	/*Same data reused here*/
+	/* Same data reused here */
 	ret = ms912x_write_6_bytes(ms912x, 0x05, data);
 	return ret;
 }
