@@ -7,6 +7,7 @@ There are two variants:
  - VID/PID is 345f:9132. Device is USB 3
 
 Driver adapted for Linux kernel 6.15. by Andrey Rodríguez Araya
+Improved performance.
 
 For kernel 6.1 checkout branch kernel-6.1
 
@@ -25,11 +26,11 @@ Driver is written by analyzing wireshark captures of the device.
 
 Run `sudo dkms install .`
 
--make clean
--make all -j
--sudo rmmod ms912x # It will not work if the device is in use.
--sudo modprobe drm_shmem_helper
--sudo insmod ms912x.ko
+- make clean
+- make all -j
+- sudo rmmod ms912x # It will not work if the device is in use.
+- sudo modprobe drm_shmem_helper
+- sudo insmod ms912x.ko
 
 Forked From: https://github.com/rhgndf/ms912x
 
