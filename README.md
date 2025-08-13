@@ -6,6 +6,7 @@ There are two variants:
  - VID/PID is 534d:6021. Device is USB 2
  - VID/PID is 345f:9132. Device is USB 3
 
+
 - Driver adapted for Linux kernel 6.12(6.10, 6.11). by Andrey Rodríguez Araya
 - Improved performance.
 
