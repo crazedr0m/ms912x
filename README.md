@@ -9,11 +9,11 @@ There are two variants:
 - Driver adapted for Linux kernel 6.15. by Andrey Rodríguez Araya
 - Improved performance.
 
-For kernel 6.16 checkout branch kernel-6.16
-For kernel 6.15 checkout branch kernel-6.15
-For kernel 6.12 checkout branch kernel-6.12
-For kernel 6.11 ?
-For kernel 6.8 - 6.10 checkout branch kernel-6.8
+- For kernel 6.16 checkout branch kernel-6.16
+- For kernel 6.15 checkout branch kernel-6.15
+- For kernel 6.12 checkout branch kernel-6.12
+- For kernel 6.11 ?
+- For kernel 6.8 - 6.10 checkout branch kernel-6.8
 
 TODOs:
 
