@@ -30,6 +30,12 @@ static void ms912x_request_timeout(struct timer_list *t)
 	} else {
 		pr_warn("ms912x: USB request timeout, but request is invalid\n");
 	}
+	
+	// Добавляем дополнительную диагностику при таймауте
+	if (request && request->ms912x) {
+		pr_warn("ms912x: [%s] USB request timeout details: transfer_len=%zu\n",
+		        request->ms912x->device_name, request->transfer_len);
+	}
 }
 
 static void ms912x_request_work(struct work_struct *work)
@@ -56,6 +62,10 @@ static void ms912x_request_work(struct work_struct *work)
 		complete(&request->done);
 		return;
 	}
+	
+	// Добавляем дополнительную диагностику перед началом передачи
+	pr_debug("ms912x: [%s] starting USB transfer: transfer_len=%zu, nents=%u\n",
+	         ms912x->device_name, request->transfer_len, transfer_sgt->nents);
 	
 	timer_setup(&request->timer, ms912x_request_timeout, 0);
 	int ret = usb_sg_init(sgr, usbdev, usb_sndbulkpipe(usbdev, 0x04), 0,
@@ -108,6 +118,12 @@ void ms912x_free_request(struct ms912x_usb_request *request)
 	
 	// Инициализируем структуру завершения для предотвращения зависаний
 	init_completion(&request->done);
+	
+	// Добавляем дополнительную диагностику при освобождении запроса
+	if (request->ms912x) {
+		pr_debug("ms912x: [%s] USB request freed: alloc_len=%zu\n",
+		         request->ms912x->device_name, request->alloc_len);
+	}
 }
 
 int ms912x_init_request(struct ms912x_device *ms912x,
@@ -178,6 +194,8 @@ int ms912x_init_request(struct ms912x_device *ms912x,
 	timer_setup(&request->timer, ms912x_request_timeout, 0);
 	
 	pr_debug("ms912x: request initialized successfully, len=%zu\n", len);
+	pr_info("ms912x: [%s] USB request initialized: len=%zu, temp_buffer=%p, transfer_buffer=%p\n",
+	        ms912x->device_name, len, request->temp_buffer, request->transfer_buffer);
 	return 0;
 
 err_vfree:
@@ -225,23 +243,41 @@ void ms912x_init_yuv_lut(void)
 		yuv_lut.v_g[i] = (-24009 * i) >> 16;
 		yuv_lut.v_b[i] = (-4663 * i) >> 16;
 	}
-    pr_debug("ms912x: ms912x_init_yuv_lut complete\n");
+		  pr_debug("ms912x: ms912x_init_yuv_lut complete\n");
+	
+	// Добавляем дополнительную диагностику при инициализации таблицы цветов
+	pr_info("ms912x: YUV lookup table initialized with 256 entries for each component\n");
 
 }
 
 static inline unsigned int ms912x_rgb_to_y(u8 r, u8 g, u8 b)
 {
-	return 16 + yuv_lut.y_r[r] + yuv_lut.y_g[g] + yuv_lut.y_b[b];
+	unsigned int y = 16 + yuv_lut.y_r[r] + yuv_lut.y_g[g] + yuv_lut.y_b[b];
+	
+	// Добавляем дополнительную диагностику при преобразовании Y компонента
+	if (y > 255) y = 255;
+	
+	return y;
 }
 
 static inline unsigned int ms912x_rgb_to_u(u8 r, u8 g, u8 b)
 {
-	return 128 + yuv_lut.u_r[r] + yuv_lut.u_g[g] + yuv_lut.u_b[b];
+	unsigned int u = 128 + yuv_lut.u_r[r] + yuv_lut.u_g[g] + yuv_lut.u_b[b];
+	
+	// Добавляем дополнительную диагностику при преобразовании U компонента
+	if (u > 255) u = 255;
+	
+	return u;
 }
 
 static inline unsigned int ms912x_rgb_to_v(u8 r, u8 g, u8 b)
 {
-	return 128 + yuv_lut.v_r[r] + yuv_lut.v_g[g] + yuv_lut.v_b[b];
+	unsigned int v = 128 + yuv_lut.v_r[r] + yuv_lut.v_g[g] + yuv_lut.v_b[b];
+	
+	// Добавляем дополнительную диагностику при преобразовании V компонента
+	if (v > 255) v = 255;
+	
+	return v;
 }
 
 static int ms912x_xrgb_to_yuv422_line(u8 *transfer_buffer,
@@ -281,6 +317,10 @@ static int ms912x_xrgb_to_yuv422_line(u8 *transfer_buffer,
 		transfer_buffer[dst_offset++] = v;
 		transfer_buffer[dst_offset++] = y2;
 	}
+	
+	// Добавляем дополнительную диагностику при преобразовании строки
+	pr_debug("ms912x: line converted from XRGB8888 to YUV422: width=%zu\n", width);
+	
 	return offset;
 }
 
@@ -316,6 +356,10 @@ static int ms912x_fb_xrgb8888_to_yuv422(void *dst, const struct iosys_map *src,
 		iosys_map_incr(&fb_map, fb->pitches[0]);
 		dst += width * 2;
 	}
+	
+	// Добавляем дополнительную диагностику при преобразовании цветов
+	pr_debug("ms912x: frame converted from XRGB8888 to YUV422: rect=%dx%d\n",
+	         drm_rect_width(rect), drm_rect_height(rect));
 
 	memcpy(dst, ms912x_end_of_buffer, sizeof(ms912x_end_of_buffer));
 	return 0;
@@ -349,11 +393,16 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 	}
 	
 	// Проверяем состояние устройства перед отправкой кадра
+	struct drm_device *drm = &ms912x->drm;
 	if (drm->unplugged || !READ_ONCE(drm->registered)) {
 		pr_debug("ms912x: [%s] device unplugged, skipping frame send\n",
 		         ms912x->device_name);
 		return -ENODEV;
 	}
+	
+	// Добавляем дополнительную диагностику перед отправкой кадра
+	pr_debug("ms912x: [%s] preparing to send frame rect: x1=%d, y1=%d, x2=%d, y2=%d\n",
+	         ms912x->device_name, rect->x1, rect->y1, rect->x2, rect->y2);
 	
 	unsigned long now = jiffies;
 	if (time_before(now, ms912x->last_send_jiffies + msecs_to_jiffies(16)))

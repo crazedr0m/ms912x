@@ -30,8 +30,12 @@ int ms912x_diag_check_connection(struct ms912x_device *ms912x)
 		return -EIO;
 	}
 	
-	pr_info("ms912x: [%s] connection diagnostic passed: reg30=0x%02x, reg33=0x%02x\n", 
+	pr_info("ms912x: [%s] connection diagnostic passed: reg30=0x%02x, reg33=0x%02x\n",
 	        ms912x->device_name, reg30, reg33);
+	
+	// Добавляем дополнительную диагностику при успешной проверке подключения
+	pr_info("ms912x: [%s] device connection verified: registers indicate device is present\n",
+	        ms912x->device_name);
 	
 	return 0;
 }
@@ -59,8 +63,12 @@ int ms912x_diag_check_memory(struct ms912x_device *ms912x)
 		return -EIO;
 	}
 	
-	pr_info("ms912x: [%s] memory diagnostic passed: reg_c620=0x%02x\n", 
+	pr_info("ms912x: [%s] memory diagnostic passed: reg_c620=0x%02x\n",
 	        ms912x->device_name, reg_c620);
+	
+	// Добавляем дополнительную диагностику при успешной проверке памяти
+	pr_info("ms912x: [%s] memory access verified: extended register c620 is accessible\n",
+	        ms912x->device_name);
 	
 	return 0;
 }
@@ -100,6 +108,10 @@ int ms912x_diag_check_edid(struct ms912x_device *ms912x)
 	}
 	
 	pr_info("ms912x: [%s] EDID diagnostic completed\n", ms912x->device_name);
+	
+	// Добавляем дополнительную диагностику при завершении проверки EDID
+	pr_info("ms912x: [%s] EDID access verified: monitor information is readable\n",
+	        ms912x->device_name);
 	
 	return 0;
 }
@@ -143,6 +155,15 @@ int ms912x_run_diagnostics(struct ms912x_device *ms912x)
 	}
 	
 	pr_info("ms912x: [%s] all diagnostics passed successfully\n", ms912x->device_name);
+	
+	// Выводим список видеорежимов, поддерживаемых монитором
+	ms912x_print_monitor_modes(ms912x);
+	
+	// Добавляем дополнительную информацию о состоянии устройства после диагностики
+	int reg30 = ms912x_read_byte(ms912x, 0x30);
+	int reg33 = ms912x_read_byte(ms912x, 0x33);
+	pr_info("ms912x: [%s] device status after diagnostics: reg30=0x%02x, reg33=0x%02x\n",
+	        ms912x->device_name, reg30 >= 0 ? reg30 : 0, reg33 >= 0 ? reg33 : 0);
 	
 	return 0;
 }
@@ -194,4 +215,36 @@ int ms912x_get_device_info(struct ms912x_device *ms912x, char *buf, size_t size)
 			reg_c620 >= 0 ? reg_c620 : 0,
 			ms912x->current_request,
 			ms912x->last_send_jiffies);
+	
+	// Добавляем дополнительную диагностику при получении информации об устройстве
+	pr_debug("ms912x: [%s] device info retrieved: %d bytes written\n",
+			       ms912x->device_name, ret);
+	
+	return ret;
+}
+
+/**
+	* @brief Выводит список видеорежимов, поддерживаемых монитором
+	*
+	* @param ms912x Устройство
+	*/
+void ms912x_print_monitor_modes(struct ms912x_device *ms912x)
+{
+	if (!ms912x) {
+		pr_err("ms912x: invalid device pointer in print_monitor_modes\n");
+		return;
+	}
+	
+	pr_info("ms912x: [%s] supported video modes:\n", ms912x->device_name);
+	
+	// Проходим по всему списку режимов
+	for (int i = 0; i < ARRAY_SIZE(ms912x_mode_list); i++) {
+		const struct ms912x_mode *mode = &ms912x_mode_list[i];
+		pr_info("ms912x: [%s] mode %d: %dx%d@%dHz, mode=0x%04x, pixfmt=0x%02x\n",
+			       ms912x->device_name, i, mode->width, mode->height,
+			       mode->hz, mode->mode, mode->pixfmt);
+	}
+	
+	pr_info("ms912x: [%s] total supported modes: %d\n",
+			      ms912x->device_name, (int)ARRAY_SIZE(ms912x_mode_list));
 }

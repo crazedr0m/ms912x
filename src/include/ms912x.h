@@ -134,5 +134,6 @@ int ms912x_diag_check_memory(struct ms912x_device *ms912x);
 int ms912x_diag_check_edid(struct ms912x_device *ms912x);
 int ms912x_run_diagnostics(struct ms912x_device *ms912x);
 int ms912x_get_device_info(struct ms912x_device *ms912x, char *buf, size_t size);
+void ms912x_print_monitor_modes(struct ms912x_device *ms912x);
 
 #endif

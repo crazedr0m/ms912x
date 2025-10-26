@@ -40,12 +40,30 @@ static int ms912x_usb_suspend(struct usb_interface *interface,
 			      pm_message_t message)
 {
 	struct drm_device *dev = usb_get_intfdata(interface);
+	
+	// Добавляем дополнительную диагностику при приостановке работы
+	if (dev) {
+		struct ms912x_device *ms912x = to_ms912x(dev);
+		if (ms912x) {
+			pr_info("ms912x: [%s] suspending device operation\n", ms912x->device_name);
+		}
+	}
+	
 	return drm_mode_config_helper_suspend(dev);
 }
 
 static int ms912x_usb_resume(struct usb_interface *interface)
 {
 	struct drm_device *dev = usb_get_intfdata(interface);
+	
+	// Добавляем дополнительную диагностику при возобновлении работы
+	if (dev) {
+		struct ms912x_device *ms912x = to_ms912x(dev);
+		if (ms912x) {
+			pr_info("ms912x: [%s] resuming device operation\n", ms912x->device_name);
+		}
+	}
+	
 	return drm_mode_config_helper_resume(dev);
 }
 
@@ -70,6 +88,9 @@ ms912x_driver_gem_prime_import(struct drm_device *dev, struct dma_buf *dma_buf)
 		return ERR_PTR(-EINVAL);
 	}
 
+	pr_debug("ms912x: [%s] importing DMA buffer: dmadev=%p\n",
+		        ms912x->device_name, ms912x->dmadev);
+	
 	return drm_gem_prime_import_dev(dev, dma_buf, ms912x->dmadev);
 }
 
@@ -151,6 +172,10 @@ ms912x_get_mode(const struct drm_display_mode *mode)
 			return &ms912x_mode_list[i];
 		}
 	}
+	
+	// Добавляем дополнительную диагностику при неудачном поиске режима
+	pr_debug("ms912x: mode not found for %dx%d@%dHz\n", width, height, hz);
+	
 	return ERR_PTR(-EINVAL);
 }
 
@@ -161,16 +186,43 @@ static void ms912x_pipe_enable(struct drm_simple_display_pipe *pipe,
 	struct ms912x_device *ms912x = to_ms912x(pipe->crtc.dev);
 	struct drm_display_mode *mode = &crtc_state->mode;
 
+	pr_info("ms912x: [%s] enabling display pipe, mode: %dx%d@%dHz\n",
+	        ms912x->device_name, mode->hdisplay, mode->vdisplay, drm_mode_vrefresh(mode));
+	
 	ms912x_power_on(ms912x);
 
 	if (crtc_state->mode_changed) {
-		ms912x_set_resolution(ms912x, ms912x_get_mode(mode));
+		const struct ms912x_mode *ms_mode = ms912x_get_mode(mode);
+		if (IS_ERR(ms_mode)) {
+			pr_err("ms912x: [%s] failed to get mode for %dx%d@%dHz: %ld\n",
+			       ms912x->device_name, mode->hdisplay, mode->vdisplay,
+			       drm_mode_vrefresh(mode), PTR_ERR(ms_mode));
+		} else {
+			pr_info("ms912x: [%s] setting resolution: %dx%d@%dHz, mode=0x%04x\n",
+			        ms912x->device_name, ms_mode->width, ms_mode->height,
+			        ms_mode->hz, ms_mode->mode);
+			ms912x_set_resolution(ms912x, ms_mode);
+			
+			// Добавляем дополнительную диагностику при инициализации прямоугольника
+			pr_debug("ms912x: update rectangle initialized to invalid coordinates\n");
+			
+			// Добавляем дополнительную диагностику при проверке валидности прямоугольника
+			bool valid = rect->x1 <= rect->x2 && rect->y1 <= rect->y2;
+			pr_debug("ms912x: rectangle validity check: x1=%d, y1=%d, x2=%d, y2=%d, valid=%s\n",
+			         rect->x1, rect->y1, rect->x2, rect->y2, valid ? "true" : "false");
+			
+			return valid;
+		}
 	}
 }
 
 static void ms912x_pipe_disable(struct drm_simple_display_pipe *pipe)
 {
 	struct ms912x_device *ms912x = to_ms912x(pipe->crtc.dev);
+	
+	// Добавляем дополнительную диагностику при отключении пайплайна
+	pr_info("ms912x: [%s] disabling display pipe\n", ms912x->device_name);
+	
 	ms912x_power_off(ms912x);
 }
 
@@ -179,7 +231,17 @@ ms912x_pipe_mode_valid(struct drm_simple_display_pipe *pipe,
 		       const struct drm_display_mode *mode)
 {
 	const struct ms912x_mode *ret = ms912x_get_mode(mode);
-	return IS_ERR(ret) ? MODE_BAD : MODE_OK;
+	
+	// Добавляем дополнительную диагностику при проверке валидности режима
+	if (IS_ERR(ret)) {
+		pr_debug("ms912x: mode %dx%d@%dHz is not supported\n",
+		         mode->hdisplay, mode->vdisplay, drm_mode_vrefresh(mode));
+		return MODE_BAD;
+	} else {
+		pr_debug("ms912x: mode %dx%d@%dHz is supported\n",
+		         mode->hdisplay, mode->vdisplay, drm_mode_vrefresh(mode));
+		return MODE_OK;
+	}
 }
 
 static int ms912x_pipe_check(struct drm_simple_display_pipe *pipe,
@@ -199,11 +261,6 @@ static void ms912x_update_rect_init(struct drm_rect *rect)
 	rect->y2 = 0;
 }
 
-static bool ms912x_rect_is_valid(const struct drm_rect *rect)
-{
-	return rect->x1 <= rect->x2 && rect->y1 <= rect->y2;
-}
-
 static void ms912x_merge_rects(struct drm_rect *dest, const struct drm_rect *r1,
 			       const struct drm_rect *r2)
 {
@@ -221,6 +278,13 @@ static void ms912x_merge_rects(struct drm_rect *dest, const struct drm_rect *r1,
 	dest->y2 = max(r1->y2, r2->y2);
 }
 
+static bool ms912x_rect_is_valid(const struct drm_rect *rect)
+{
+	bool valid = rect->x1 <= rect->x2 && rect->y1 <= rect->y2;
+	pr_debug("ms912x: rectangle validity check: x1=%d, y1=%d, x2=%d, y2=%d, valid=%s\n",
+	         rect->x1, rect->y1, rect->x2, rect->y2, valid ? "true" : "false");
+	return valid;
+}
 static void ms912x_pipe_update(struct drm_simple_display_pipe *pipe,
 			       struct drm_plane_state *old_state)
 {
@@ -367,6 +431,13 @@ static int ms912x_usb_probe(struct usb_interface *interface,
 	dev->mode_config.min_height = 0;
 	dev->mode_config.max_height = 2048;
 	dev->mode_config.funcs = &ms912x_mode_config_funcs;
+	
+	pr_info("ms912x: [%s] mode_config initialized: min_width=%d, max_width=%d, min_height=%d, max_height=%d\n",
+	        ms912x->device_name,
+	        dev->mode_config.min_width,
+	        dev->mode_config.max_width,
+	        dev->mode_config.min_height,
+	        dev->mode_config.max_height);
 
 	pr_debug("ms912x: set_resolution begin\n");
 	ret = ms912x_set_resolution(ms912x, &ms912x_mode_list[0]);
@@ -409,9 +480,12 @@ static int ms912x_usb_probe(struct usb_interface *interface,
 					   ARRAY_SIZE(ms912x_pipe_formats),
 					   NULL, &ms912x->connector);
 	if (ret) {
-		pr_err("ms912x: failed to initialize display pipe: %d\n", ret);
+		pr_err("ms912x: [%s] failed to initialize display pipe: %d\n",
+		       ms912x->device_name, ret);
 		goto err_free_request_1;
 	}
+	
+	pr_info("ms912x: [%s] display pipe initialized successfully\n", ms912x->device_name);
 
 	pr_debug("ms912x: drm_plane_enable_fb_damage_clips \n");
 	drm_plane_enable_fb_damage_clips(&ms912x->display_pipe.plane);
@@ -429,9 +503,12 @@ static int ms912x_usb_probe(struct usb_interface *interface,
 	pr_debug("ms912x: drm_dev_register \n");
 	ret = drm_dev_register(dev, 0);
 	if (ret) {
-		pr_err("ms912x: drm_dev_register failed: %d\n", ret);
+		pr_err("ms912x: [%s] drm_dev_register failed: %d\n",
+		       ms912x->device_name, ret);
 		goto err_kms_poll_fini;
 	}
+	
+	pr_info("ms912x: [%s] drm device registered successfully\n", ms912x->device_name);
 
 	pr_info("ms912x: drm_fbdev_generic_setup \n");
 #if (LINUX_VERSION_CODE < KERNEL_VERSION(6, 11, 0))
@@ -439,6 +516,8 @@ static int ms912x_usb_probe(struct usb_interface *interface,
 #else
 	drm_fbdev_ttm_setup(dev, 0);
 #endif
+	
+	pr_info("ms912x: [%s] framebuffer device setup completed\n", ms912x->device_name);
 
 	pr_info("ms912x: probe completed successfully for device %s\n", ms912x->device_name);
 	
@@ -492,6 +571,10 @@ static void ms912x_usb_disconnect(struct usb_interface *interface)
 	}
 	
 	pr_info("ms912x: disconnect started for device %s\n", ms912x->device_name);
+	
+	// Добавляем дополнительную диагностику перед отключением
+	pr_info("ms912x: [%s] device state before disconnect: unplugged=%d, registered=%d\n",
+	        ms912x->device_name, dev->unplugged, READ_ONCE(dev->registered));
 	
 	struct drm_device *dev = &ms912x->drm;
 

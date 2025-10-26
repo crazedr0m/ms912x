@@ -39,6 +39,13 @@ int ms912x_read_edid_block(struct ms912x_device *ms912x, u8 *buf,
 	}
 	
 	pr_debug("ms912x: successfully read %zu bytes from EDID\n", len);
+	
+	// Добавляем дополнительную диагностику при успешном чтении
+	if (len >= 8) {
+		pr_debug("ms912x: [%s] EDID header: %*ph\n",
+		         ms912x->device_name, 8, buf);
+	}
+	
 	return 0;
 }
 
@@ -93,6 +100,12 @@ static void ms912x_add_fallback_mode(struct drm_connector *connector)
 	mode->flags = DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC;
 
 	drm_mode_probed_add(connector, mode);
+	
+	// Добавляем дополнительную диагностику при добавлении резервного режима
+	if (mode->name) {
+		pr_info("ms912x: added fallback mode: %s %dx%d@%dHz\n",
+		        mode->name, mode->hdisplay, mode->vdisplay, drm_mode_vrefresh(mode));
+	}
 }
 
 static int ms912x_connector_get_modes(struct drm_connector *connector)
@@ -117,6 +130,8 @@ static int ms912x_connector_get_modes(struct drm_connector *connector)
 	}
 
 	pr_debug("ms912x: EDID read successfully, updating connector\n");
+	pr_info("ms912x: [%s] EDID read successfully, updating connector with EDID data\n",
+	        ms912x->device_name);
 	
 	ret = drm_edid_connector_update(connector, edid);
 	if (ret < 0) {
@@ -143,6 +158,9 @@ static int ms912x_connector_get_modes(struct drm_connector *connector)
 			mode_count++;
 		}
 		pr_info("ms912x: total monitor modes: %d\n", mode_count);
+		
+		// Вызываем функцию диагностики для вывода списка видеорежимов
+		ms912x_print_monitor_modes(ms912x);
 	}
 
 edid_free:
@@ -181,6 +199,12 @@ static enum drm_connector_status ms912x_detect(struct drm_connector *connector,
 	pr_debug("ms912x: detect result: %s\n",
 		result == connector_status_connected ? "connected" : "disconnected");
 		
+	// Добавляем дополнительную диагностику после обнаружения
+	pr_info("ms912x: [%s] HDMI detection result: %s (status register: %d)\n",
+	        ms912x->device_name,
+	        result == connector_status_connected ? "connected" : "disconnected",
+	        status);
+		
 	return result;
 }
 
@@ -201,6 +225,8 @@ int ms912x_connector_init(struct ms912x_device *ms912x)
 {
 	int ret;
 
+	pr_info("ms912x: [%s] initializing connector\n", ms912x->device_name);
+	
 	drm_connector_helper_add(&ms912x->connector,
 				 &ms912x_connector_helper_funcs);
 
@@ -208,15 +234,18 @@ int ms912x_connector_init(struct ms912x_device *ms912x)
 				 &ms912x_connector_funcs,
 				 DRM_MODE_CONNECTOR_HDMIA);
 	if (ret) {
-		pr_err("ms912x: failed to initialize connector\n");
+		pr_err("ms912x: [%s] failed to initialize connector: %d\n",
+		       ms912x->device_name, ret);
 		return ret;
 	}
+	
+	pr_info("ms912x: [%s] connector initialized successfully\n", ms912x->device_name);
 
 	ms912x->connector.polled =
 		DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT;
 
-	// Добавляем более подробное логирование
-	pr_debug("ms912x: connector initialized successfully\n");
+	pr_info("ms912x: [%s] connector polling enabled: CONNECT|DISCONNECT\n",
+	        ms912x->device_name);
 
 	return 0;
 }

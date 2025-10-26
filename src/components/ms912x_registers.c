@@ -56,6 +56,12 @@ int ms912x_read_byte(struct ms912x_device *ms912x, u16 address)
 	ret = (ret > 0) ? request->data[0] : (ret == 0) ? -EIO : ret;
 	
 	pr_debug("ms912x: read byte from address 0x%04x: 0x%02x\n", address, ret);
+	
+	// Добавляем дополнительную диагностику при ошибках чтения
+	if (ret < 0) {
+		pr_err("ms912x: [%s] failed to read byte from address 0x%04x: %d\n",
+		       ms912x->device_name, address, ret);
+	}
 
 	kfree(request);
 	return ret;
@@ -106,9 +112,11 @@ static inline int ms912x_write_6_bytes(struct ms912x_device *ms912x,
 		request, sizeof(*request), USB_CTRL_SET_TIMEOUT);
 	
 	if (ret < 0) {
-		pr_err("ms912x: failed to write 6 bytes to address 0x%04x: %d\n", address, ret);
+		pr_err("ms912x: [%s] failed to write 6 bytes to address 0x%04x: %d\n",
+		       ms912x->device_name, address, ret);
 	} else {
-		pr_debug("ms912x: successfully wrote 6 bytes to address 0x%04x\n", address);
+		pr_debug("ms912x: [%s] successfully wrote 6 bytes to address 0x%04x\n",
+		         ms912x->device_name, address);
 	}
 
 	kfree(request);
@@ -123,7 +131,7 @@ int ms912x_power_on(struct ms912x_device *ms912x)
 		return -EINVAL;
 	}
 	
-	pr_info("ms912x: powering on device\n");
+	pr_info("ms912x: [%s] powering on device\n", ms912x->device_name);
 	
 	u8 data[6] = { 0x01, 0x02 };
 	int ret = ms912x_write_6_bytes(ms912x, 0x07, data);
@@ -145,7 +153,7 @@ int ms912x_power_off(struct ms912x_device *ms912x)
 		return -EINVAL;
 	}
 	
-	pr_info("ms912x: powering off device\n");
+	pr_info("ms912x: [%s] powering off device\n", ms912x->device_name);
 	
 	u8 data[6] = { 0 };
 	int ret = ms912x_write_6_bytes(ms912x, 0x07, data);
@@ -175,6 +183,10 @@ int ms912x_set_resolution(struct ms912x_device *ms912x,
 	
 	pr_info("ms912x: setting resolution %dx%d, mode 0x%04x\n",
 		mode->width, mode->height, mode->mode);
+	
+	// Добавляем дополнительную диагностику перед установкой разрешения
+	pr_info("ms912x: [%s] setting resolution: width=%d, height=%d, mode=0x%04x, pix_fmt=0x%04x\n",
+	        ms912x->device_name, mode->width, mode->height, mode->mode, mode->pix_fmt);
 	
 	u8 data[6] = { 0 };
 	int ret;
