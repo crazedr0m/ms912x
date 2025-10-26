@@ -21,7 +21,15 @@
 static void ms912x_request_timeout(struct timer_list *t)
 {
 	struct ms912x_usb_request *request = from_timer(request, t, timer);
-	usb_sg_cancel(&request->sgr);
+	
+	// Добавляем проверку состояния перед отменой запроса
+	if (request && request->ms912x) {
+		pr_warn("ms912x: [%s] USB request timeout, cancelling transfer\n",
+		        request->ms912x->device_name);
+		usb_sg_cancel(&request->sgr);
+	} else {
+		pr_warn("ms912x: USB request timeout, but request is invalid\n");
+	}
 }
 
 static void ms912x_request_work(struct work_struct *work)
@@ -33,10 +41,35 @@ static void ms912x_request_work(struct work_struct *work)
 	struct usb_sg_request *sgr = &request->sgr;
 	struct sg_table *transfer_sgt = &request->transfer_sgt;
 
+	// Добавляем проверку состояния устройства перед началом передачи
+	if (!usbdev || !ms912x || !ms912x->intf) {
+		pr_err("ms912x: invalid device state in request_work\n");
+		complete(&request->done);
+		return;
+	}
+	
+	// Проверяем, что устройство все еще подключено
+	struct drm_device *drm = &ms912x->drm;
+	if (drm->unplugged || !READ_ONCE(drm->registered)) {
+		pr_debug("ms912x: [%s] device unplugged, skipping USB transfer\n",
+		         ms912x->device_name);
+		complete(&request->done);
+		return;
+	}
+	
 	timer_setup(&request->timer, ms912x_request_timeout, 0);
-	usb_sg_init(sgr, usbdev, usb_sndbulkpipe(usbdev, 0x04), 0,
+	int ret = usb_sg_init(sgr, usbdev, usb_sndbulkpipe(usbdev, 0x04), 0,
 		    transfer_sgt->sgl, transfer_sgt->nents,
 		    request->transfer_len, GFP_KERNEL);
+		    
+	// Проверяем результат инициализации
+	if (ret < 0) {
+		pr_err("ms912x: [%s] usb_sg_init failed: %d\n", ms912x->device_name, ret);
+		timer_delete_sync(&request->timer);
+		complete(&request->done);
+		return;
+	}
+	
 	mod_timer(&request->timer, jiffies + msecs_to_jiffies(5000));
 	usb_sg_wait(sgr);
 	timer_delete_sync(&request->timer);
@@ -45,6 +78,24 @@ static void ms912x_request_work(struct work_struct *work)
 
 void ms912x_free_request(struct ms912x_usb_request *request)
 {
+	// Добавляем проверку на NULL
+	if (!request) {
+		pr_err("ms912x: invalid request pointer in free_request\n");
+		return;
+	}
+	
+	// Отменяем рабочий поток, если он активен
+	if (work_pending(&request->work)) {
+		pr_debug("ms912x: canceling pending work\n");
+		cancel_work_sync(&request->work);
+	}
+	
+	// Удаляем таймер, если он активен
+	if (timer_pending(&request->timer)) {
+		pr_debug("ms912x: deleting pending timer\n");
+		timer_delete_sync(&request->timer);
+	}
+	
 	if (request->transfer_buffer) {
 		sg_free_table(&request->transfer_sgt);
 		vfree(request->transfer_buffer);
@@ -54,6 +105,9 @@ void ms912x_free_request(struct ms912x_usb_request *request)
 	kfree(request->temp_buffer);
 	request->temp_buffer = NULL;
 	request->alloc_len = 0;
+	
+	// Инициализируем структуру завершения для предотвращения зависаний
+	init_completion(&request->done);
 }
 
 int ms912x_init_request(struct ms912x_device *ms912x,
@@ -119,6 +173,9 @@ int ms912x_init_request(struct ms912x_device *ms912x,
 
 	init_completion(&request->done);
 	INIT_WORK(&request->work, ms912x_request_work);
+	
+	// Инициализируем таймер для запроса
+	timer_setup(&request->timer, ms912x_request_timeout, 0);
 	
 	pr_debug("ms912x: request initialized successfully, len=%zu\n", len);
 	return 0;
@@ -291,6 +348,13 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 		return -EINVAL;
 	}
 	
+	// Проверяем состояние устройства перед отправкой кадра
+	if (drm->unplugged || !READ_ONCE(drm->registered)) {
+		pr_debug("ms912x: [%s] device unplugged, skipping frame send\n",
+		         ms912x->device_name);
+		return -ENODEV;
+	}
+	
 	unsigned long now = jiffies;
 	if (time_before(now, ms912x->last_send_jiffies + msecs_to_jiffies(16)))
 		return 0;
@@ -347,6 +411,14 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 	if (ret) {
 		pr_err("ms912x: [%s] failed to enter drm device after %d attempts: %d (device unplugged=%d, registered=%d)\n",
 		       ms912x->device_name, max_attempts, ret, drm->unplugged, READ_ONCE(drm->registered));
+		
+		// Добавляем дополнительную проверку состояния устройства
+		if (drm->unplugged || !READ_ONCE(drm->registered)) {
+			pr_info("ms912x: [%s] device is unplugged or unregistered, skipping frame send\n",
+			        ms912x->device_name);
+			return -ENODEV;
+		}
+		
 		return ret;
 	}
 	

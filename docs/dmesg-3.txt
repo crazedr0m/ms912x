@@ -1,0 +1,299 @@
+[ 2022.091844] ACPI Error: Aborting method \_SB.PCI0.LPCB.EC0._Q37 due to previous error (AE_NOT_FOUND) (20230628/psparse-529)
+[ 2055.389011] usb 1-1: new high-speed USB device number 4 using xhci_hcd
+[ 2055.516577] usb 1-1: New USB device found, idVendor=534d, idProduct=6021, bcdDevice= 1.10
+[ 2055.516593] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[ 2055.516600] usb 1-1: Product: usb extscreen
+[ 2055.516606] usb 1-1: Manufacturer: USB Display 
+[ 2055.516611] usb 1-1: SerialNumber: 2019BA7160B0
+[ 2055.519927] ms912x: initializing YUV lookup table
+[ 2055.519944] ms912x: probe started for device 534d:6021 at 1-4
+[ 2055.519977] ms912x: assigned device ID 1, name ms912x-1
+[ 2055.520017] ms912x: setting resolution 800x600, mode 0x4200
+[ 2055.521016] ms912x: resolution set successfully
+[ 2055.525259] [drm] Initialized ms912x 0.0.1 20220101 for 1-1:1.3 on minor 0
+[ 2055.525272] ms912x: drm_fbdev_generic_setup 
+[ 2055.525489] ms912x 1-1:1.3: [drm] Cannot find any crtc or sizes
+[ 2055.525521] ms912x: probe completed successfully for device ms912x-1
+[ 2055.526227] ms912x 1-1:1.3: [drm] Cannot find any crtc or sizes
+[ 2055.596413] hid: raw HID events driver (C) Jiri Kosina
+[ 2055.608737] usbcore: registered new interface driver usbhid
+[ 2055.608750] usbhid: USB HID core driver
+[ 2055.646410] usbcore: registered new interface driver snd-usb-audio
+[ 2055.704301] hid-generic 0003:534D:6021.0001: hiddev0,hidraw0: USB HID v1.10 Device [USB Display  usb extscreen] on usb-0000:00:14.0-1/input0
+[ 2055.773412] ms912x: added 43 modes from EDID
+[ 2055.810706] ms912x: added 43 modes from EDID
+[ 2055.811852] fbcon: Deferring console take-over
+[ 2055.811859] ms912x 1-1:1.3: [drm] fb1: ms912xdrmfb frame buffer device
+[ 2055.848630] ms912x: added 43 modes from EDID
+[ 2056.016945] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 2056.016955] ms912x: powering on device
+[ 2056.017077] ms912x: device powered on successfully
+[ 2056.017080] ms912x: setting resolution 1920x1080, mode 0x8100
+[ 2056.021059] ms912x: resolution set successfully
+[ 2056.086986] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 2056.316507] ms912x: added 43 modes from EDID
+[ 2056.564932] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 2056.645998] ms912x: added 43 modes from EDID
+[ 2056.723538] ms912x: added 43 modes from EDID
+[ 2056.780980] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 2056.866375] ms912x: added 43 modes from EDID
+[ 2056.924977] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 2056.981979] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 2057.225944] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 2057.308985] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 2057.859959] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 2057.930974] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 2057.997954] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 2061.894908] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 2063.674856] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 2076.447689] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 2084.991537] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 2087.076123] usb 1-1: USB disconnect, device number 4
+[ 2087.089612] ms912x: disconnect started for device ms912x-1
+[ 2212.936203] INFO: task systemd-journal:388 blocked for more than 122 seconds.
+[ 2212.936220]       Tainted: P           OE      6.8.0-86-generic #87-Ubuntu
+[ 2212.936228] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+[ 2212.936233] task:systemd-journal state:D stack:0     pid:388   tgid:388   ppid:1      flags:0x00000002
+[ 2212.936246] Call Trace:
+[ 2212.936252]  <TASK>
+[ 2212.936261]  __schedule+0x27c/0x6b0
+[ 2212.936283]  schedule+0x33/0x110
+[ 2212.936295]  schedule_preempt_disabled+0x15/0x30
+[ 2212.936307]  __mutex_lock.constprop.0+0x42f/0x740
+[ 2212.936317]  ? __memcg_slab_post_alloc_hook+0x18e/0x230
+[ 2212.936329]  __mutex_lock_slowpath+0x13/0x20
+[ 2212.936337]  mutex_lock+0x3c/0x50
+[ 2212.936345]  uevent_show+0xc4/0x170
+[ 2212.936360]  dev_attr_show+0x1a/0x70
+[ 2212.936368]  sysfs_kf_seq_show+0xa4/0x120
+[ 2212.936377]  kernfs_seq_show+0x24/0x40
+[ 2212.936387]  seq_read_iter+0x12f/0x4b0
+[ 2212.936400]  kernfs_fop_read_iter+0x34/0x40
+[ 2212.936410]  vfs_read+0x25c/0x390
+[ 2212.936425]  ksys_read+0x73/0x100
+[ 2212.936435]  __x64_sys_read+0x19/0x30
+[ 2212.936443]  x64_sys_call+0x1bf0/0x25a0
+[ 2212.936453]  do_syscall_64+0x7f/0x180
+[ 2212.936466]  ? do_syscall_64+0x8c/0x180
+[ 2212.936476]  ? irqentry_exit+0x43/0x50
+[ 2212.936483]  ? exc_page_fault+0x94/0x1b0
+[ 2212.936496]  entry_SYSCALL_64_after_hwframe+0x78/0x80
+[ 2212.936506] RIP: 0033:0x7129cff1baca
+[ 2212.936554] RSP: 002b:00007ffc3299bbc0 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
+[ 2212.936564] RAX: ffffffffffffffda RBX: 0000000000001008 RCX: 00007129cff1baca
+[ 2212.936571] RDX: 0000000000001008 RSI: 000058acd0fed690 RDI: 0000000000000043
+[ 2212.936576] RBP: 00007ffc3299bbe0 R08: 0000000000000000 R09: 0000000000000000
+[ 2212.936582] R10: 00007129d0004140 R11: 0000000000000246 R12: 0000000000000043
+[ 2212.936587] R13: 0000000000001008 R14: ffffffffffffffff R15: 000058acd0fed690
+[ 2212.936600]  </TASK>
+[ 2212.936605] INFO: task kworker/6:3:475 blocked for more than 122 seconds.
+[ 2212.936614]       Tainted: P           OE      6.8.0-86-generic #87-Ubuntu
+[ 2212.936620] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+[ 2212.936625] task:kworker/6:3     state:D stack:0     pid:475   tgid:475   ppid:2      flags:0x00004000
+[ 2212.936638] Workqueue: usb_hub_wq hub_event
+[ 2212.936653] Call Trace:
+[ 2212.936657]  <TASK>
+[ 2212.936662]  __schedule+0x27c/0x6b0
+[ 2212.936678]  schedule+0x33/0x110
+[ 2212.936689]  schedule_timeout+0x157/0x170
+[ 2212.936702]  wait_for_completion+0x88/0x150
+[ 2212.936713]  __synchronize_srcu+0x91/0xd0
+[ 2212.936726]  ? __pfx_wakeme_after_rcu+0x10/0x10
+[ 2212.936738]  synchronize_srcu+0xb9/0x110
+[ 2212.936754]  drm_dev_unplug+0x1d/0x50
+[ 2212.936767]  ms912x_usb_disconnect+0x75/0x150 [ms912x]
+[ 2212.936780]  usb_unbind_interface+0x91/0x2b0
+[ 2212.936801]  device_remove+0x65/0x80
+[ 2212.936813]  device_release_driver_internal+0x20b/0x270
+[ 2212.936822]  device_release_driver+0x12/0x20
+[ 2212.936829]  bus_remove_device+0xcb/0x140
+[ 2212.936840]  device_del+0x161/0x3e0
+[ 2212.936851]  ? kobject_put+0x67/0xa0
+[ 2212.936861]  usb_disable_device+0xe1/0x280
+[ 2212.936874]  usb_disconnect+0xe5/0x2f0
+[ 2212.936886]  hub_port_connect+0x8e/0xb70
+[ 2212.936902]  hub_port_connect_change+0x88/0x2b0
+[ 2212.936915]  port_event+0x651/0x810
+[ 2212.936932]  hub_event+0x14a/0x450
+[ 2212.936946]  process_one_work+0x181/0x3a0
+[ 2212.936958]  worker_thread+0x306/0x440
+[ 2212.936967]  ? _raw_spin_lock_irqsave+0xe/0x20
+[ 2212.936979]  ? __pfx_worker_thread+0x10/0x10
+[ 2212.936987]  kthread+0xef/0x120
+[ 2212.936999]  ? __pfx_kthread+0x10/0x10
+[ 2212.937011]  ret_from_fork+0x44/0x70
+[ 2212.937021]  ? __pfx_kthread+0x10/0x10
+[ 2212.937032]  ret_from_fork_asm+0x1b/0x30
+[ 2212.937079]  </TASK>
+[ 2212.937272] INFO: task (udev-worker):27881 blocked for more than 122 seconds.
+[ 2212.937281]       Tainted: P           OE      6.8.0-86-generic #87-Ubuntu
+[ 2212.937287] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+[ 2212.937292] task:(udev-worker)   state:D stack:0     pid:27881 tgid:27881 ppid:450    flags:0x00000002
+[ 2212.937303] Call Trace:
+[ 2212.937307]  <TASK>
+[ 2212.937313]  __schedule+0x27c/0x6b0
+[ 2212.937329]  schedule+0x33/0x110
+[ 2212.937340]  schedule_preempt_disabled+0x15/0x30
+[ 2212.937351]  __mutex_lock.constprop.0+0x42f/0x740
+[ 2212.937361]  ? __memcg_slab_post_alloc_hook+0x18e/0x230
+[ 2212.937372]  __mutex_lock_slowpath+0x13/0x20
+[ 2212.937379]  mutex_lock+0x3c/0x50
+[ 2212.937386]  uevent_show+0xc4/0x170
+[ 2212.937399]  dev_attr_show+0x1a/0x70
+[ 2212.937407]  sysfs_kf_seq_show+0xa4/0x120
+[ 2212.937415]  kernfs_seq_show+0x24/0x40
+[ 2212.937425]  seq_read_iter+0x12f/0x4b0
+[ 2212.937437]  kernfs_fop_read_iter+0x34/0x40
+[ 2212.937447]  vfs_read+0x25c/0x390
+[ 2212.937461]  ksys_read+0x73/0x100
+[ 2212.937471]  __x64_sys_read+0x19/0x30
+[ 2212.937478]  x64_sys_call+0x1bf0/0x25a0
+[ 2212.937486]  do_syscall_64+0x7f/0x180
+[ 2212.937498]  ? __do_sys_newfstat+0x76/0x80
+[ 2212.937515]  ? syscall_exit_to_user_mode+0x86/0x260
+[ 2212.937528]  ? do_syscall_64+0x8c/0x180
+[ 2212.937541]  ? syscall_exit_to_user_mode+0x86/0x260
+[ 2212.937553]  ? do_syscall_64+0x8c/0x180
+[ 2212.937566]  ? syscall_exit_to_user_mode+0x86/0x260
+[ 2212.937578]  ? do_syscall_64+0x8c/0x180
+[ 2212.937589]  ? do_user_addr_fault+0x334/0x670
+[ 2212.937601]  ? irqentry_exit_to_user_mode+0x7b/0x260
+[ 2212.937609]  ? irqentry_exit+0x43/0x50
+[ 2212.937615]  ? exc_page_fault+0x94/0x1b0
+[ 2212.937627]  entry_SYSCALL_64_after_hwframe+0x78/0x80
+[ 2212.937636] RIP: 0033:0x70d6a231ba91
+[ 2212.937664] RSP: 002b:00007ffd3a985ba8 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
+[ 2212.937672] RAX: ffffffffffffffda RBX: 0000000000000012 RCX: 000070d6a231ba91
+[ 2212.937678] RDX: 0000000000001008 RSI: 00005bd4e924f6e0 RDI: 0000000000000012
+[ 2212.937683] RBP: 00007ffd3a985cb0 R08: 000070d6a2403b20 R09: 0000000000000000
+[ 2212.937688] R10: 00005bd4e92506e0 R11: 0000000000000246 R12: 0000000000001008
+[ 2212.937693] R13: ffffffffffffffff R14: 0000000000001008 R15: 00005bd4e924f6e0
+[ 2212.937705]  </TASK>
+[ 2212.937709] INFO: task (udev-worker):27882 blocked for more than 122 seconds.
+[ 2212.937716]       Tainted: P           OE      6.8.0-86-generic #87-Ubuntu
+[ 2212.937722] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+[ 2212.937727] task:(udev-worker)   state:D stack:0     pid:27882 tgid:27882 ppid:450    flags:0x00000002
+[ 2212.937737] Call Trace:
+[ 2212.937740]  <TASK>
+[ 2212.937746]  __schedule+0x27c/0x6b0
+[ 2212.937762]  schedule+0x33/0x110
+[ 2212.937773]  schedule_preempt_disabled+0x15/0x30
+[ 2212.937784]  __mutex_lock.constprop.0+0x42f/0x740
+[ 2212.937792]  ? __memcg_slab_post_alloc_hook+0x18e/0x230
+[ 2212.937803]  __mutex_lock_slowpath+0x13/0x20
+[ 2212.937810]  mutex_lock+0x3c/0x50
+[ 2212.937818]  uevent_show+0xc4/0x170
+[ 2212.937831]  dev_attr_show+0x1a/0x70
+[ 2212.937838]  sysfs_kf_seq_show+0xa4/0x120
+[ 2212.937846]  kernfs_seq_show+0x24/0x40
+[ 2212.937855]  seq_read_iter+0x12f/0x4b0
+[ 2212.937867]  kernfs_fop_read_iter+0x34/0x40
+[ 2212.937877]  vfs_read+0x25c/0x390
+[ 2212.937890]  ksys_read+0x73/0x100
+[ 2212.937900]  __x64_sys_read+0x19/0x30
+[ 2212.937907]  x64_sys_call+0x1bf0/0x25a0
+[ 2212.937915]  do_syscall_64+0x7f/0x180
+[ 2212.937931]  ? __do_sys_newfstat+0x76/0x80
+[ 2212.937947]  ? syscall_exit_to_user_mode+0x86/0x260
+[ 2212.937959]  ? do_syscall_64+0x8c/0x180
+[ 2212.937970]  ? do_syscall_64+0x8c/0x180
+[ 2212.937983]  ? __do_sys_newfstatat+0x53/0x90
+[ 2212.938000]  ? syscall_exit_to_user_mode+0x86/0x260
+[ 2212.938012]  ? do_syscall_64+0x8c/0x180
+[ 2212.938023]  ? syscall_exit_to_user_mode+0x86/0x260
+[ 2212.938035]  ? do_syscall_64+0x8c/0x180
+[ 2212.938061]  ? irqentry_exit_to_user_mode+0x7b/0x260
+[ 2212.938069]  ? irqentry_exit+0x43/0x50
+[ 2212.938076]  ? exc_page_fault+0x94/0x1b0
+[ 2212.938088]  entry_SYSCALL_64_after_hwframe+0x78/0x80
+[ 2212.938097] RIP: 0033:0x70d6a231ba91
+[ 2212.938117] RSP: 002b:00007ffd3a985a68 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
+[ 2212.938124] RAX: ffffffffffffffda RBX: 0000000000000013 RCX: 000070d6a231ba91
+[ 2212.938129] RDX: 0000000000001008 RSI: 00005bd4e92bb2e0 RDI: 0000000000000013
+[ 2212.938134] RBP: 00007ffd3a985b70 R08: 000070d6a2403b20 R09: 0000000000000000
+[ 2212.938139] R10: 000070d6a2403b80 R11: 0000000000000246 R12: 0000000000001008
+[ 2212.938144] R13: ffffffffffffffff R14: 0000000000001008 R15: 00005bd4e92bb2e0
+[ 2212.938156]  </TASK>
+[ 2212.938161] INFO: task (udev-worker):27884 blocked for more than 122 seconds.
+[ 2212.938167]       Tainted: P           OE      6.8.0-86-generic #87-Ubuntu
+[ 2212.938173] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+[ 2212.938177] task:(udev-worker)   state:D stack:0     pid:27884 tgid:27884 ppid:450    flags:0x00000002
+[ 2212.938186] Call Trace:
+[ 2212.938189]  <TASK>
+[ 2212.938195]  __schedule+0x27c/0x6b0
+[ 2212.938210]  schedule+0x33/0x110
+[ 2212.938221]  schedule_preempt_disabled+0x15/0x30
+[ 2212.938232]  __mutex_lock.constprop.0+0x42f/0x740
+[ 2212.938241]  ? __memcg_slab_post_alloc_hook+0x18e/0x230
+[ 2212.938251]  __mutex_lock_slowpath+0x13/0x20
+[ 2212.938259]  mutex_lock+0x3c/0x50
+[ 2212.938266]  uevent_show+0xc4/0x170
+[ 2212.938279]  dev_attr_show+0x1a/0x70
+[ 2212.938287]  sysfs_kf_seq_show+0xa4/0x120
+[ 2212.938294]  kernfs_seq_show+0x24/0x40
+[ 2212.938304]  seq_read_iter+0x12f/0x4b0
+[ 2212.938316]  kernfs_fop_read_iter+0x34/0x40
+[ 2212.938326]  vfs_read+0x25c/0x390
+[ 2212.938339]  ksys_read+0x73/0x100
+[ 2212.938349]  __x64_sys_read+0x19/0x30
+[ 2212.938357]  x64_sys_call+0x1bf0/0x25a0
+[ 2212.938365]  do_syscall_64+0x7f/0x180
+[ 2212.938377]  ? filename_lookup+0xe4/0x200
+[ 2212.938387]  ? _copy_to_user+0x25/0x50
+[ 2212.938397]  ? cp_new_stat+0x143/0x180
+[ 2212.938412]  ? __do_sys_newfstat+0x76/0x80
+[ 2212.938428]  ? syscall_exit_to_user_mode+0x86/0x260
+[ 2212.938440]  ? do_syscall_64+0x8c/0x180
+[ 2212.938454]  ? syscall_exit_to_user_mode+0x86/0x260
+[ 2212.938466]  ? do_syscall_64+0x8c/0x180
+[ 2212.938476]  ? exc_page_fault+0x94/0x1b0
+[ 2212.938487]  entry_SYSCALL_64_after_hwframe+0x78/0x80
+[ 2212.938495] RIP: 0033:0x70d6a231ba91
+[ 2212.938511] RSP: 002b:00007ffd3a985a68 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
+[ 2212.938518] RAX: ffffffffffffffda RBX: 0000000000000015 RCX: 000070d6a231ba91
+[ 2212.938522] RDX: 0000000000001008 RSI: 00005bd4e925ee70 RDI: 0000000000000015
+[ 2212.938527] RBP: 00007ffd3a985b70 R08: 000070d6a2403b20 R09: 0000000000000000
+[ 2212.938532] R10: 0000000000000001 R11: 0000000000000246 R12: 0000000000001008
+[ 2212.938537] R13: ffffffffffffffff R14: 0000000000001008 R15: 00005bd4e925ee70
+[ 2212.938549]  </TASK>
+[ 2212.938552] INFO: task (udev-worker):27885 blocked for more than 122 seconds.
+[ 2212.938558]       Tainted: P           OE      6.8.0-86-generic #87-Ubuntu
+[ 2212.938564] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+[ 2212.938568] task:(udev-worker)   state:D stack:0     pid:27885 tgid:27885 ppid:450    flags:0x00000002
+[ 2212.938576] Call Trace:
+[ 2212.938579]  <TASK>
+[ 2212.938585]  __schedule+0x27c/0x6b0
+[ 2212.938600]  schedule+0x33/0x110
+[ 2212.938611]  schedule_preempt_disabled+0x15/0x30
+[ 2212.938621]  __mutex_lock.constprop.0+0x42f/0x740
+[ 2212.938631]  ? __memcg_slab_post_alloc_hook+0x18e/0x230
+[ 2212.938641]  __mutex_lock_slowpath+0x13/0x20
+[ 2212.938648]  mutex_lock+0x3c/0x50
+[ 2212.938655]  uevent_show+0xc4/0x170
+[ 2212.938668]  dev_attr_show+0x1a/0x70
+[ 2212.938675]  sysfs_kf_seq_show+0xa4/0x120
+[ 2212.938683]  kernfs_seq_show+0x24/0x40
+[ 2212.938692]  seq_read_iter+0x12f/0x4b0
+[ 2212.938704]  kernfs_fop_read_iter+0x34/0x40
+[ 2212.938714]  vfs_read+0x25c/0x390
+[ 2212.938727]  ksys_read+0x73/0x100
+[ 2212.938736]  __x64_sys_read+0x19/0x30
+[ 2212.938743]  x64_sys_call+0x1bf0/0x25a0
+[ 2212.938751]  do_syscall_64+0x7f/0x180
+[ 2212.938761]  ? irqentry_exit_to_user_mode+0x7b/0x260
+[ 2212.938769]  ? irqentry_exit+0x43/0x50
+[ 2212.938775]  ? exc_page_fault+0x94/0x1b0
+[ 2212.938787]  entry_SYSCALL_64_after_hwframe+0x78/0x80
+[ 2212.938795] RIP: 0033:0x70d6a231ba91
+[ 2212.938810] RSP: 002b:00007ffd3a985ba8 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
+[ 2212.938816] RAX: ffffffffffffffda RBX: 0000000000000016 RCX: 000070d6a231ba91
+[ 2212.938821] RDX: 0000000000001008 RSI: 00005bd4e92bb2a0 RDI: 0000000000000016
+[ 2212.938826] RBP: 00007ffd3a985cb0 R08: 000070d6a2403b20 R09: 0000000000000000
+[ 2212.938830] R10: 000070d6a2403cb0 R11: 0000000000000246 R12: 0000000000001008
+[ 2212.938835] R13: ffffffffffffffff R14: 0000000000001008 R15: 00005bd4e92bb2a0
+[ 2212.938847]  </TASK>
+[ 2224.392079] ACPI BIOS Error (bug): Could not resolve symbol [\_SB.PCI0.LPCB.EC0._Q37.POWS], AE_NOT_FOUND (20230628/psargs-332)
+
+[ 2224.392123] No Local Variables are initialized for Method [_Q37]
+
+[ 2224.392131] No Arguments are initialized for method [_Q37]

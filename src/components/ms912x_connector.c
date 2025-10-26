@@ -129,6 +129,21 @@ static int ms912x_connector_get_modes(struct drm_connector *connector)
 	ret = drm_edid_connector_add_modes(connector);
 	
 	pr_info("ms912x: added %d modes from EDID\n", ret);
+	
+	// Выводим список видеорежимов, поддерживаемых монитором
+	if (ret > 0) {
+		struct drm_display_mode *mode;
+		int mode_count = 0;
+		
+		pr_info("ms912x: monitor supported video modes:\n");
+		list_for_each_entry(mode, &connector->modes, head) {
+			pr_info("ms912x: mode %d: %dx%d@%dHz flags=0x%x type=0x%x\n",
+			        mode_count, mode->hdisplay, mode->vdisplay,
+			        drm_mode_vrefresh(mode), mode->flags, mode->type);
+			mode_count++;
+		}
+		pr_info("ms912x: total monitor modes: %d\n", mode_count);
+	}
 
 edid_free:
 	drm_edid_free(edid);

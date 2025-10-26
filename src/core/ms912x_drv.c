@@ -441,6 +441,16 @@ static int ms912x_usb_probe(struct usb_interface *interface,
 #endif
 
 	pr_info("ms912x: probe completed successfully for device %s\n", ms912x->device_name);
+	
+	// Запускаем диагностику устройства после успешной инициализации
+	int diag_result = ms912x_run_diagnostics(ms912x);
+	if (diag_result < 0) {
+		pr_warn("ms912x: [%s] diagnostics failed: %d\n",
+		        ms912x->device_name, diag_result);
+	} else {
+		pr_info("ms912x: [%s] diagnostics passed\n", ms912x->device_name);
+	}
+	
 	return 0;
 
 err_kms_poll_fini:
@@ -456,7 +466,14 @@ err_put_device:
 		put_device(ms912x->dmadev);
 		ms912x->dmadev = NULL;
 	}
-	pr_err("ms912x: probe failed for device %s\n", ms912x->device_name);
+	
+	// Добавляем дополнительную очистку ресурсов при ошибке
+	if (ms912x->device_name[0] != '\0') {
+		pr_err("ms912x: probe failed for device %s\n", ms912x->device_name);
+	} else {
+		pr_err("ms912x: probe failed for unknown device\n");
+	}
+	
 	return ret;
 }
 
@@ -487,6 +504,24 @@ static void ms912x_usb_disconnect(struct usb_interface *interface)
 
 	// Завершаем работу с DRM
 	drm_kms_helper_poll_fini(dev);
+	
+	// Добавляем проверку состояния устройства перед отключением
+	if (!READ_ONCE(dev->registered)) {
+		pr_warn("ms912x: [%s] device already unregistered\n", ms912x->device_name);
+		return;
+	}
+	
+	// Принудительно завершаем все рабочие потоки перед отключением
+	if (cancel_work_sync(&ms912x->requests[0].work))
+		pr_debug("ms912x: [%s] cancelled work [0] during disconnect\n", ms912x->device_name);
+		
+	if (cancel_work_sync(&ms912x->requests[1].work))
+		pr_debug("ms912x: [%s] cancelled work [1] during disconnect\n", ms912x->device_name);
+	
+	// Ждем завершения всех текущих операций
+	wait_for_completion_timeout(&ms912x->requests[0].done, msecs_to_jiffies(1000));
+	wait_for_completion_timeout(&ms912x->requests[1].done, msecs_to_jiffies(1000));
+	
 	drm_dev_unplug(dev);
 	drm_atomic_helper_shutdown(dev);
 
