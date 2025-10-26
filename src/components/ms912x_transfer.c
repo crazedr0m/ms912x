@@ -314,17 +314,66 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 	current_request = &ms912x->requests[ms912x->current_request];
 	prev_request = &ms912x->requests[1 - ms912x->current_request];
 
-	ret = drm_dev_enter(drm, &idx);
+	// Добавляем более подробное логирование перед вызовом drm_dev_enter
+	pr_debug("ms912x: [%s] attempting to enter drm device, current_request=%d\n",
+	         ms912x->device_name, ms912x->current_request);
+	
+	// Реализуем механизм повторных попыток для drm_dev_enter
+	int attempts = 0;
+	const int max_attempts = 5;
+	const int retry_delay_ms = 10;
+	
+	do {
+		ret = drm_dev_enter(drm, &idx);
+		if (ret) {
+			attempts++;
+			pr_debug("ms912x: [%s] drm_dev_enter attempt %d failed: %d\n",
+			         ms912x->device_name, attempts, ret);
+			
+			// Проверяем, не отключено ли устройство
+			if (drm->unplugged || !READ_ONCE(drm->registered)) {
+				pr_err("ms912x: [%s] device is unplugged or not registered\n",
+				       ms912x->device_name);
+				return ret;
+			}
+			
+			// Если это не последняя попытка, ждем немного
+			if (attempts < max_attempts) {
+				msleep(retry_delay_ms);
+			}
+		}
+	} while (ret && attempts < max_attempts);
+	
 	if (ret) {
-		pr_err("ms912x: failed to enter drm device: %d\n", ret);
+		pr_err("ms912x: [%s] failed to enter drm device after %d attempts: %d (device unplugged=%d, registered=%d)\n",
+		       ms912x->device_name, max_attempts, ret, drm->unplugged, READ_ONCE(drm->registered));
 		return ret;
 	}
-
-	ret = drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE);
-	if (ret < 0) {
-		pr_err("ms912x: failed to begin CPU access: %d\n", ret);
-		goto dev_exit;
-	}
+	
+	pr_debug("ms912x: [%s] successfully entered drm device after %d attempts, idx=%d\n",
+	         ms912x->device_name, attempts, idx);
+	
+	// Дополнительная проверка, что устройство все еще подключено
+	if (drm->unplugged || !READ_ONCE(drm->registered)) {
+		pr_warn("ms912x: [%s] device was unplugged during drm_dev_enter\n",
+		        ms912x->device_name);
+		drm_dev_exit(idx);
+		return -ENODEV;
+		}
+		
+		// Проверка перед вызовом drm_gem_fb_begin_cpu_access
+		if (drm->unplugged || !READ_ONCE(drm->registered)) {
+			pr_warn("ms912x: [%s] device was unplugged before CPU access\n",
+			        ms912x->device_name);
+			drm_dev_exit(idx);
+			return -ENODEV;
+		}
+		
+		ret = drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE);
+		if (ret < 0) {
+			pr_err("ms912x: failed to begin CPU access: %d\n", ret);
+			goto dev_exit;
+		}
 
 	ret = ms912x_fb_xrgb8888_to_yuv422(current_request->transfer_buffer,
 					   map, fb, rect,
@@ -341,6 +390,14 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 					 msecs_to_jiffies(1))) {
 		pr_warn("ms912x: previous request timed out\n");
 		ret = -ETIMEDOUT;
+		goto dev_exit;
+	}
+
+	// Проверка перед постановкой работы в очередь
+	if (drm->unplugged || !READ_ONCE(drm->registered)) {
+		pr_warn("ms912x: [%s] device was unplugged before queueing work\n",
+		        ms912x->device_name);
+		ret = -ENODEV;
 		goto dev_exit;
 	}
 

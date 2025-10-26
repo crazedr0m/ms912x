@@ -1,0 +1,41 @@
+[ 1838.555759] No Arguments are initialized for method [_Q37]
+
+[ 1838.555776] ACPI Error: Aborting method \_SB.PCI0.LPCB.EC0._Q37 due to previous error (AE_NOT_FOUND) (20230628/psparse-529)
+[ 1925.288342] usb 1-1: new high-speed USB device number 9 using xhci_hcd
+[ 1925.415845] usb 1-1: New USB device found, idVendor=534d, idProduct=6021, bcdDevice= 1.10
+[ 1925.415861] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[ 1925.415869] usb 1-1: Product: usb extscreen
+[ 1925.415875] usb 1-1: Manufacturer: USB Display 
+[ 1925.415880] usb 1-1: SerialNumber: 2019BA7160B0
+[ 1925.419107] hid-generic 0003:534D:6021.0006: hiddev0,hidraw0: USB HID v1.10 Device [USB Display  usb extscreen] on usb-0000:00:14.0-1/input0
+[ 1925.423546] ms912x: initializing YUV lookup table
+[ 1925.423573] ms912x: probe started for device 534d:6021 at 1-9
+[ 1925.423627] ms912x: assigned device ID 1, name ms912x-1
+[ 1925.423704] ms912x: setting resolution 800x600, mode 0x4200
+[ 1925.424750] ms912x: resolution set successfully
+[ 1925.429015] [drm] Initialized ms912x 0.0.1 20220101 for 1-1:1.3 on minor 0
+[ 1925.429029] ms912x: drm_fbdev_generic_setup 
+[ 1925.429252] ms912x 1-1:1.3: [drm] Cannot find any crtc or sizes
+[ 1925.429284] ms912x: probe completed successfully for device ms912x-1
+[ 1925.429932] ms912x 1-1:1.3: [drm] Cannot find any crtc or sizes
+[ 1925.743482] ms912x: added 43 modes from EDID
+[ 1925.781222] ms912x: added 43 modes from EDID
+[ 1925.818129] ms912x: added 43 modes from EDID
+[ 1925.819328] fbcon: Deferring console take-over
+[ 1925.819335] ms912x 1-1:1.3: [drm] fb1: ms912xdrmfb frame buffer device
+[ 1925.944518] ms912x: failed to enter drm device: 1
+[ 1925.944527] ms912x: powering on device
+[ 1925.944679] ms912x: device powered on successfully
+[ 1925.944683] ms912x: setting resolution 1920x1080, mode 0x8100
+[ 1925.948973] ms912x: resolution set successfully
+[ 1925.963155] ms912x: failed to enter drm device: 1
+[ 1926.130335] ms912x: added 43 modes from EDID
+[ 1926.314947] ms912x: failed to enter drm device: 1
+[ 1926.442218] ms912x: added 43 modes from EDID
+[ 1926.450007] ms912x: failed to enter drm device: 1
+[ 1926.531660] ms912x: added 43 modes from EDID
+[ 1926.541003] ms912x: failed to enter drm device: 1
+[ 1926.547850] ms912x: failed to enter drm device: 1
+[ 1926.624386] ms912x: added 43 modes from EDID
+[ 1926.631496] ms912x: failed to enter drm device: 1
+[ 1926.655710] ms912x: failed to enter drm device: 1
