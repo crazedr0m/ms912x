@@ -1,5 +1,5 @@
 #include <uapi/linux/hid.h>
-#include "ms912x.h"
+#include "../include/ms912x.h"
 
 int ms912x_read_byte(struct ms912x_device *ms912x, u16 address)
 {
@@ -240,5 +240,5 @@ int ms912x_set_resolution(struct ms912x_device *ms912x,
 	}
 	
 	pr_info("ms912x: resolution set successfully\n");
-	return ret;
+	return 0;
 }

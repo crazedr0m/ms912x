@@ -11,7 +11,7 @@
 #include <drm/drm_gem.h>
 #include <drm/drm_simple_kms_helper.h>
 
-#include "ms912x_diagnostics.h"
+#include "../components/ms912x_diagnostics.h"
 
 #define DRIVER_NAME "ms912x"
 #define DRIVER_DESC "MacroSilicon USB to VGA/HDMI"
@@ -111,6 +111,8 @@ struct ms912x_mode {
 #define to_ms912x(x) container_of(x, struct ms912x_device, drm)
 
 int ms912x_read_byte(struct ms912x_device *ms912x, u16 address);
+int ms912x_read_edid_block(struct ms912x_device *ms912x, u8 *buf,
+				  unsigned int offset, size_t len);
 int ms912x_connector_init(struct ms912x_device *ms912x);
 int ms912x_set_resolution(struct ms912x_device *ms912x,
 			  const struct ms912x_mode *mode);
@@ -125,4 +127,12 @@ void ms912x_free_request(struct ms912x_usb_request *request);
 int ms912x_init_request(struct ms912x_device *ms912x,
 			struct ms912x_usb_request *request, size_t len);
 void ms912x_init_yuv_lut(void);
+
+// Diagnostics functions
+int ms912x_diag_check_connection(struct ms912x_device *ms912x);
+int ms912x_diag_check_memory(struct ms912x_device *ms912x);
+int ms912x_diag_check_edid(struct ms912x_device *ms912x);
+int ms912x_run_diagnostics(struct ms912x_device *ms912x);
+int ms912x_get_device_info(struct ms912x_device *ms912x, char *buf, size_t size);
+
 #endif

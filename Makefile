@@ -1,9 +1,11 @@
+ccflags-y := -I$(src)/src/include
+
 ms912x-y := \
-	ms912x_registers.o \
-	ms912x_connector.o \
-	ms912x_transfer.o \
-	ms912x_diagnostics.o \
-	ms912x_drv.o
+	src/components/ms912x_registers.o \
+	src/components/ms912x_connector.o \
+	src/components/ms912x_transfer.o \
+	src/components/ms912x_diagnostics.o \
+	src/core/ms912x_drv.o
 
 obj-m := ms912x.o
 

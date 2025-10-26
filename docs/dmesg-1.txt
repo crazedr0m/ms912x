@@ -1,0 +1,78 @@
+[  295.288630] usb 1-1: new high-speed USB device number 5 using xhci_hcd
+[  295.416000] usb 1-1: New USB device found, idVendor=534d, idProduct=6021, bcdDevice= 1.10
+[  295.416017] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[  295.416025] usb 1-1: Product: usb extscreen
+[  295.416030] usb 1-1: Manufacturer: USB Display 
+[  295.416036] usb 1-1: SerialNumber: 2019BA7160B0
+[  295.419347] hid-generic 0003:534D:6021.0002: hiddev0,hidraw0: USB HID v1.10 Device [USB Display  usb extscreen] on usb-0000:00:14.0-1/input0
+[  295.422628] ms912x: probe started for device 534d:6021 at 1-5
+[  295.422661] ms912x: assigned device ID 2, name ms912x-2
+[  295.422700] ms912x: setting resolution 800x600, mode 0x4200
+[  295.423654] ms912x: resolution set successfully
+[  295.423660] ms912x: set_resolution failed: 8
+[  295.423668] ms912x: probe failed for device ms912x-2
+[  295.423675] ms912x: probe of 1-1:1.3 failed with error 8
+[  515.358126] ACPI BIOS Error (bug): Could not resolve symbol [\_SB.PCI0.LPCB.EC0._Q37.POWS], AE_NOT_FOUND (20230628/psargs-332)
+
+[  515.358191] No Local Variables are initialized for Method [_Q37]
+
+[  515.358205] No Arguments are initialized for method [_Q37]
+
+[  515.358221] ACPI Error: Aborting method \_SB.PCI0.LPCB.EC0._Q37 due to previous error (AE_NOT_FOUND) (20230628/psparse-529)
+[  556.317844] ACPI BIOS Error (bug): Could not resolve symbol [\_SB.PCI0.LPCB.EC0._Q37.POWS], AE_NOT_FOUND (20230628/psargs-332)
+
+[  556.317877] No Local Variables are initialized for Method [_Q37]
+
+[  556.317883] No Arguments are initialized for method [_Q37]
+
+[  556.317890] ACPI Error: Aborting method \_SB.PCI0.LPCB.EC0._Q37 due to previous error (AE_NOT_FOUND) (20230628/psparse-529)
+[  704.449372] usb 1-1: USB disconnect, device number 5
+[  719.382190] usb 1-1: new high-speed USB device number 6 using xhci_hcd
+[  719.511627] usb 1-1: New USB device found, idVendor=534d, idProduct=6021, bcdDevice= 1.10
+[  719.511643] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[  719.511651] usb 1-1: Product: usb extscreen
+[  719.511656] usb 1-1: Manufacturer: USB Display 
+[  719.511662] usb 1-1: SerialNumber: 2019BA7160B0
+[  719.514746] hid-generic 0003:534D:6021.0003: hiddev0,hidraw0: USB HID v1.10 Device [USB Display  usb extscreen] on usb-0000:00:14.0-1/input0
+[  719.517892] ms912x: probe started for device 534d:6021 at 1-6
+[  719.517927] ms912x: assigned device ID 3, name ms912x-3
+[  719.517967] ms912x: setting resolution 800x600, mode 0x4200
+[  719.518909] ms912x: resolution set successfully
+[  719.518917] ms912x: set_resolution failed: 8
+[  719.518928] ms912x: probe failed for device ms912x-3
+[  719.518936] ms912x: probe of 1-1:1.3 failed with error 8
+[  775.020674] usb 1-1: USB disconnect, device number 6
+[  782.849703] usbcore: deregistering interface driver ms912x
+[  782.937707] usbcore: registered new interface driver ms912x
+[  786.749942] usb 1-1: new high-speed USB device number 7 using xhci_hcd
+[  786.878317] usb 1-1: New USB device found, idVendor=534d, idProduct=6021, bcdDevice= 1.10
+[  786.878333] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[  786.878341] usb 1-1: Product: usb extscreen
+[  786.878347] usb 1-1: Manufacturer: USB Display 
+[  786.878352] usb 1-1: SerialNumber: 2019BA7160B0
+[  786.881580] hid-generic 0003:534D:6021.0004: hiddev0,hidraw0: USB HID v1.10 Device [USB Display  usb extscreen] on usb-0000:00:14.0-1/input0
+[  786.885126] ms912x: initializing YUV lookup table
+[  786.885139] ms912x: probe started for device 534d:6021 at 1-7
+[  786.885172] ms912x: assigned device ID 1, name ms912x-1
+[  786.885212] ms912x: setting resolution 800x600, mode 0x4200
+[  786.886148] ms912x: resolution set successfully
+[  786.886153] ms912x: set_resolution failed: 8
+[  786.886161] ms912x: probe failed for device ms912x-1
+[  786.886168] ms912x: probe of 1-1:1.3 failed with error 8
+[  839.861506] usb 1-1: USB disconnect, device number 7
+[  840.752335] kauditd_printk_skb: 13 callbacks suppressed
+[  840.752337] audit: type=1400 audit(1761490840.961:203): apparmor="DENIED" operation="open" class="file" profile="snap.firmware-updater.firmware-notifier" name="/proc/sys/vm/max_map_count" pid=18800 comm="firmware-notifi" requested_mask="r" denied_mask="r" fsuid=1000 ouid=0
+[  923.652404] usb 1-1: new high-speed USB device number 8 using xhci_hcd
+[  923.780902] usb 1-1: New USB device found, idVendor=534d, idProduct=6021, bcdDevice= 1.10
+[  923.780919] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[  923.780926] usb 1-1: Product: usb extscreen
+[  923.780932] usb 1-1: Manufacturer: USB Display 
+[  923.780938] usb 1-1: SerialNumber: 2019BA7160B0
+[  923.783988] hid-generic 0003:534D:6021.0005: hiddev0,hidraw0: USB HID v1.10 Device [USB Display  usb extscreen] on usb-0000:00:14.0-1/input0
+[  923.787119] ms912x: probe started for device 534d:6021 at 1-8
+[  923.787154] ms912x: assigned device ID 2, name ms912x-2
+[  923.787194] ms912x: setting resolution 800x600, mode 0x4200
+[  923.788266] ms912x: resolution set successfully
+[  923.788272] ms912x: set_resolution failed: 8
+[  923.788280] ms912x: probe failed for device ms912x-2
+[  923.788287] ms912x: probe of 1-1:1.3 failed with error 8

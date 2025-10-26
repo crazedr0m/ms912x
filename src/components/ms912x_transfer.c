@@ -5,7 +5,7 @@
 #include <drm/drm_gem_framebuffer_helper.h>
 #include <linux/jiffies.h>
 
-#include "ms912x.h"
+#include "../include/ms912x.h"
 
 #define MS912X_REQUEST_TYPE 0xb5
 #define MS912X_WRITE_TYPE 0xa6

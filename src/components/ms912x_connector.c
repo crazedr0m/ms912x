@@ -4,9 +4,9 @@
 #include <drm/drm_modeset_helper_vtables.h>
 #include <drm/drm_probe_helper.h>
 
-#include "ms912x.h"
+#include "../include/ms912x.h"
 
-static int ms912x_read_edid_block(struct ms912x_device *ms912x, u8 *buf,
+int ms912x_read_edid_block(struct ms912x_device *ms912x, u8 *buf,
 				  unsigned int offset, size_t len)
 {
 	// Добавляем проверки на NULL

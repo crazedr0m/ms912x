@@ -74,12 +74,6 @@ ms912x_driver_gem_prime_import(struct drm_device *dev, struct dma_buf *dma_buf)
 }
 
 DEFINE_DRM_GEM_FOPS(ms912x_driver_fops);
-
-static int ms912x_driver_setup(struct drm_device *dev)
-{
-	return 0;
-}
-
 static const struct drm_driver driver = {
 	.driver_features =
 		DRIVER_ATOMIC | DRIVER_GEM | DRIVER_MODESET,

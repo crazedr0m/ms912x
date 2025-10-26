@@ -3,7 +3,7 @@
 #include <linux/usb.h>
 #include <drm/drm_print.h>
 
-#include "ms912x.h"
+#include "../include/ms912x.h"
 
 /**
  * @brief Проверяет подключение устройства
