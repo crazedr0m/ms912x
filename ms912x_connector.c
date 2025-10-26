@@ -9,24 +9,64 @@
 static int ms912x_read_edid_block(struct ms912x_device *ms912x, u8 *buf,
 				  unsigned int offset, size_t len)
 {
+	// Добавляем проверки на NULL
+	if (!ms912x) {
+		pr_err("ms912x: invalid device pointer in read_edid_block\n");
+		return -EINVAL;
+	}
+	
+	if (!buf) {
+		pr_err("ms912x: invalid buffer pointer in read_edid_block\n");
+		return -EINVAL;
+	}
+	
+	if (len == 0) {
+		pr_warn("ms912x: zero length requested in read_edid_block\n");
+		return 0;
+	}
+
 	const u16 base = 0xc000 + offset;
+	pr_debug("ms912x: reading EDID block at offset %u, len %zu\n", offset, len);
+	
 	for (size_t i = 0; i < len; i++) {
 		u16 address = base + i;
 		int ret = ms912x_read_byte(ms912x, address);
-		if (ret < 0)
+		if (ret < 0) {
+			pr_err("ms912x: failed to read EDID byte at 0x%04x: %d\n", address, ret);
 			return ret;
+		}
 		buf[i] = ret;
 	}
+	
+	pr_debug("ms912x: successfully read %zu bytes from EDID\n", len);
 	return 0;
 }
 
 static int ms912x_read_edid(void *data, u8 *buf, unsigned int block, size_t len)
 {
+	// Добавляем проверки на NULL
+	if (!data) {
+		pr_err("ms912x: invalid data pointer in read_edid\n");
+		return -EINVAL;
+	}
+	
+	if (!buf) {
+		pr_err("ms912x: invalid buffer pointer in read_edid\n");
+		return -EINVAL;
+	}
+	
 	struct ms912x_device *ms912x = data;
 	const int offset = block * EDID_LENGTH;
+	
+	pr_debug("ms912x: reading EDID block %u, offset %d, len %zu\n", block, offset, len);
+	
 	int ret = ms912x_read_edid_block(ms912x, buf, offset, len);
-	if (ret < 0)
-		pr_err("ms912x: failed to read EDID block %u\n", block);
+	if (ret < 0) {
+		pr_err("ms912x: failed to read EDID block %u: %d\n", block, ret);
+		return ret;
+	}
+	
+	pr_debug("ms912x: successfully read EDID block %u\n", block);
 	return ret;
 }
 
@@ -57,10 +97,18 @@ static void ms912x_add_fallback_mode(struct drm_connector *connector)
 
 static int ms912x_connector_get_modes(struct drm_connector *connector)
 {
+	// Добавляем проверку на NULL
+	if (!connector) {
+		pr_err("ms912x: invalid connector pointer in get_modes\n");
+		return -EINVAL;
+	}
+	
 	int ret = 0;
 	struct ms912x_device *ms912x = to_ms912x(connector->dev);
 	const struct drm_edid *edid;
 
+	pr_debug("ms912x: reading EDID information\n");
+	
 	edid = drm_edid_read_custom(connector, ms912x_read_edid, ms912x);
 	if (!edid) {
 		pr_warn("ms912x: EDID not found, falling back to default mode\n");
@@ -68,14 +116,19 @@ static int ms912x_connector_get_modes(struct drm_connector *connector)
 		return 1;
 	}
 
+	pr_debug("ms912x: EDID read successfully, updating connector\n");
+	
 	ret = drm_edid_connector_update(connector, edid);
 	if (ret < 0) {
-		pr_err("ms912x: failed to update EDID connector\n");
+		pr_err("ms912x: failed to update EDID connector: %d\n", ret);
 		ret = 0;
 		goto edid_free;
 	}
 
+	pr_debug("ms912x: adding modes from EDID\n");
 	ret = drm_edid_connector_add_modes(connector);
+	
+	pr_info("ms912x: added %d modes from EDID\n", ret);
 
 edid_free:
 	drm_edid_free(edid);
@@ -85,16 +138,35 @@ edid_free:
 static enum drm_connector_status ms912x_detect(struct drm_connector *connector,
 					       bool force)
 {
+	// Добавляем проверку на NULL
+	if (!connector) {
+		pr_err("ms912x: invalid connector pointer in detect\n");
+		return connector_status_unknown;
+	}
+	
 	struct ms912x_device *ms912x = to_ms912x(connector->dev);
+	if (!ms912x) {
+		pr_err("ms912x: invalid device pointer in detect\n");
+		return connector_status_unknown;
+	}
+	
+	pr_debug("ms912x: detecting HDMI status\n");
+	
 	int status = ms912x_read_byte(ms912x, 0x32);
+	pr_debug("ms912x: HDMI status register value: %d\n", status);
 
 	if (status < 0) {
-		pr_err("ms912x: failed to detect HDMI status\n");
+		pr_err("ms912x: failed to detect HDMI status: %d\n", status);
 		return connector_status_unknown;
 	}
 
-	return (status == 1) ? connector_status_connected :
+	enum drm_connector_status result = (status == 1) ? connector_status_connected :
 			       connector_status_disconnected;
+			       
+	pr_debug("ms912x: detect result: %s\n",
+		result == connector_status_connected ? "connected" : "disconnected");
+		
+	return result;
 }
 
 static const struct drm_connector_helper_funcs ms912x_connector_helper_funcs = {

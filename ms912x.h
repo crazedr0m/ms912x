@@ -11,6 +11,8 @@
 #include <drm/drm_gem.h>
 #include <drm/drm_simple_kms_helper.h>
 
+#include "ms912x_diagnostics.h"
+
 #define DRIVER_NAME "ms912x"
 #define DRIVER_DESC "MacroSilicon USB to VGA/HDMI"
 #define DRIVER_DATE "20220101"
@@ -38,13 +40,17 @@ struct ms912x_device {
 	struct drm_device drm;
 	struct usb_interface *intf;
 	struct device *dmadev;
+	
+	/* Уникальный идентификатор устройства */
+	u32 device_id;
+	char device_name[32];
 
 	struct drm_connector connector;
 	struct drm_simple_display_pipe display_pipe;
 
 	struct drm_rect update_rect;
 
-	/* Double buffer to allow memcpy and transfer 
+	/* Double buffer to allow memcpy and transfer
 	 * to happen in parallel
 	 */
 	int current_request;

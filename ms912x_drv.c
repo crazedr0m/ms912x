@@ -112,8 +112,12 @@ struct ms912x_mode ms912x_mode_list[] = {
 	MS912X_MODE(1366,  768, 60, 0x6600, MS912X_PIXFMT_UYVY),
 	MS912X_MODE(1400, 1050, 60, 0x6700, MS912X_PIXFMT_UYVY),
 	MS912X_MODE(1440,  900, 60, 0x6b00, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1600,  900, 60, 0x7000, MS912X_PIXFMT_UYVY),
 	MS912X_MODE(1680, 1050, 60, 0x7800, MS912X_PIXFMT_UYVY),
 	MS912X_MODE(1920, 1080, 60, 0x8100, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1920, 1200, 60, 0x8500, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(2048, 1152, 60, 0x8900, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(2560, 1440, 60, 0x9000, MS912X_PIXFMT_UYVY),
 
 	/* Dumped from the device */
 	MS912X_MODE( 720,  480, 60, 0x0200, MS912X_PIXFMT_UYVY),
@@ -125,7 +129,17 @@ struct ms912x_mode ms912x_mode_list[] = {
 	MS912X_MODE(1280, 1024, 60, 0x6100, MS912X_PIXFMT_UYVY),
 	MS912X_MODE(1360,  768, 60, 0x6400, MS912X_PIXFMT_UYVY),
 	MS912X_MODE(1600, 1200, 60, 0x7300, MS912X_PIXFMT_UYVY),
-	/* TODO: more mode numbers? */
+	
+	/* Дополнительные режимы для лучшей совместимости */
+	MS912X_MODE( 800,  480, 60, 0x3000, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1024,  600, 60, 0x4500, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1152,  864, 75, 0x4d00, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280,  768, 60, 0x5300, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1280,  800, 75, 0x5800, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1400, 1050, 75, 0x6800, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1680, 1050, 75, 0x7900, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1920, 1080, 50, 0x8000, MS912X_PIXFMT_UYVY),
+	MS912X_MODE(1920, 1080, 75, 0x8200, MS912X_PIXFMT_UYVY),
 };
 
 static const struct ms912x_mode *
@@ -259,6 +273,7 @@ static const uint32_t ms912x_pipe_formats[] = {
 
 static DEFINE_MUTEX(yuv_lut_mutex);
 static bool yuv_lut_initialized = false;
+static atomic_t device_counter = ATOMIC_INIT(0);
 /**
  * @brief Probe function for ms912x USB device
  *
@@ -307,9 +322,11 @@ static int ms912x_usb_probe(struct usb_interface *interface,
 	int ret;
 	struct ms912x_device *ms912x;
 	struct drm_device *dev;
+	struct usb_device *usb_dev = interface_to_usbdev(interface);
 
-	pr_info("ms912x: probe started for device %04x:%04x\n",
-		id->idVendor, id->idProduct);
+	pr_info("ms912x: probe started for device %04x:%04x at %d-%d\n",
+		id->idVendor, id->idProduct,
+		usb_dev->bus->busnum, usb_dev->devnum);
 	
 	pr_debug("ms912x: devm_drm_dev_alloc begin\n");
 	ms912x = devm_drm_dev_alloc(&interface->dev, &driver,
@@ -322,6 +339,14 @@ static int ms912x_usb_probe(struct usb_interface *interface,
 		pr_err("ms912x: devm_drm_dev_alloc failed: %d\n", ret);
 		return ret;
 	}
+
+	// Инициализируем уникальный идентификатор устройства
+	ms912x->device_id = atomic_inc_return(&device_counter);
+	snprintf(ms912x->device_name, sizeof(ms912x->device_name),
+		 "ms912x-%u", ms912x->device_id);
+	
+	pr_info("ms912x: assigned device ID %u, name %s\n",
+		ms912x->device_id, ms912x->device_name);
 
 	ms912x->intf = interface;
 	dev = &ms912x->drm;
@@ -421,7 +446,7 @@ static int ms912x_usb_probe(struct usb_interface *interface,
 	drm_fbdev_ttm_setup(dev, 0);
 #endif
 
-	pr_info("ms912x: probe completed successfully\n");
+	pr_info("ms912x: probe completed successfully for device %s\n", ms912x->device_name);
 	return 0;
 
 err_kms_poll_fini:
@@ -437,6 +462,7 @@ err_put_device:
 		put_device(ms912x->dmadev);
 		ms912x->dmadev = NULL;
 	}
+	pr_err("ms912x: probe failed for device %s\n", ms912x->device_name);
 	return ret;
 }
 
@@ -454,16 +480,16 @@ static void ms912x_usb_disconnect(struct usb_interface *interface)
 		return;
 	}
 	
-	pr_info("ms912x: disconnect started\n");
+	pr_info("ms912x: disconnect started for device %s\n", ms912x->device_name);
 	
 	struct drm_device *dev = &ms912x->drm;
 
 	// Отменяем все работы
 	if (cancel_work_sync(&ms912x->requests[0].work))
-		pr_debug("ms912x: cancelled work [0]\n");
+		pr_debug("ms912x: cancelled work [0] for device %s\n", ms912x->device_name);
 		
 	if (cancel_work_sync(&ms912x->requests[1].work))
-		pr_debug("ms912x: cancelled work [1]\n");
+		pr_debug("ms912x: cancelled work [1] for device %s\n", ms912x->device_name);
 
 	// Завершаем работу с DRM
 	drm_kms_helper_poll_fini(dev);
@@ -480,7 +506,7 @@ static void ms912x_usb_disconnect(struct usb_interface *interface)
 		ms912x->dmadev = NULL;
 	}
 	
-	pr_info("ms912x: disconnect completed\n");
+	pr_info("ms912x: disconnect completed for device %s\n", ms912x->device_name);
 }
 
 static const struct usb_device_id id_table[] = {
