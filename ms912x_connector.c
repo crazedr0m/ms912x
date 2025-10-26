@@ -128,5 +128,8 @@ int ms912x_connector_init(struct ms912x_device *ms912x)
 	ms912x->connector.polled =
 		DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT;
 
+	// Добавляем более подробное логирование
+	pr_debug("ms912x: connector initialized successfully\n");
+
 	return 0;
 }

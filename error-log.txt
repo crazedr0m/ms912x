@@ -1,0 +1,99 @@
+[336056.160737] NVRM: API mismatch: the client has the version 535.274.02, but
+                NVRM: this kernel module has the version 535.230.02.  Please
+                NVRM: make sure that this kernel module and all NVIDIA driver
+                NVRM: components have the same version.
+[336294.094068] traps: cheese[1724283] trap int3 ip:7fbd589eb0ef sp:7ffdad1902c0 error:0 in libglib-2.0.so.0.8000.0[7fbd589a7000+a0000]
+[336294.239123] rtsx_pci 0000:06:00.0: VPD access failed.  This is likely a firmware bug on this device.  Contact the card vendor for a firmware update
+[339915.149780] ACPI BIOS Error (bug): Could not resolve symbol [\_SB.PCI0.LPCB.EC0._Q37.POWS], AE_NOT_FOUND (20230628/psargs-332)
+
+[339915.149805] No Local Variables are initialized for Method [_Q37]
+
+[339915.149809] No Arguments are initialized for method [_Q37]
+
+[339915.149814] ACPI Error: Aborting method \_SB.PCI0.LPCB.EC0._Q37 due to previous error (AE_NOT_FOUND) (20230628/psparse-529)
+[339916.621923] ACPI BIOS Error (bug): Could not resolve symbol [\_SB.PCI0.LPCB.EC0._Q37.POWS], AE_NOT_FOUND (20230628/psargs-332)
+
+[339916.621994] No Local Variables are initialized for Method [_Q37]
+
+[339916.622008] No Arguments are initialized for method [_Q37]
+
+[339916.622024] ACPI Error: Aborting method \_SB.PCI0.LPCB.EC0._Q37 due to previous error (AE_NOT_FOUND) (20230628/psparse-529)
+[339918.988768] ACPI BIOS Error (bug): Could not resolve symbol [\_SB.PCI0.LPCB.EC0._Q37.POWS], AE_NOT_FOUND (20230628/psargs-332)
+
+[339918.988797] No Local Variables are initialized for Method [_Q37]
+
+[339918.988802] No Arguments are initialized for method [_Q37]
+
+[339918.988808] ACPI Error: Aborting method \_SB.PCI0.LPCB.EC0._Q37 due to previous error (AE_NOT_FOUND) (20230628/psparse-529)
+[339920.464548] usb 1-3: new high-speed USB device number 4 using xhci_hcd
+[339920.593727] usb 1-3: New USB device found, idVendor=534d, idProduct=6021, bcdDevice= 1.10
+[339920.593734] usb 1-3: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[339920.593736] usb 1-3: Product: usb extscreen
+[339920.593738] usb 1-3: Manufacturer: USB Display 
+[339920.593740] usb 1-3: SerialNumber: 2019BA7160B0
+[339920.639265] [drm] Initialized ms912x 0.0.1 (null) for 1-3:1.3 on minor 0
+[339920.639721] hid: raw HID events driver (C) Jiri Kosina
+[339920.641401] ms912x 1-3:1.3: [drm] Cannot find any crtc or sizes
+[339920.641480] usbcore: registered new interface driver ms912x
+[339920.641980] ms912x 1-3:1.3: [drm] Cannot find any crtc or sizes
+[339920.643951] usbcore: registered new interface driver usbhid
+[339920.643956] usbhid: USB HID core driver
+[339920.660351] usbcore: registered new interface driver snd-usb-audio
+[339920.673273] hid-generic 0003:534D:6021.0001: hiddev0,hidraw0: USB HID v1.10 Device [USB Display  usb extscreen] on usb-0000:00:14.0-3/input0
+[339920.733796] ------------[ cut here ]------------
+[339920.733799] BUG: the value to copy was not set!
+[339920.733810] WARNING: CPU: 3 PID: 6539 at drivers/gpu/drm/drm_ioctl.c:489 drm_copy_field+0xb8/0xc0
+[339920.733816] Modules linked in: hid_generic snd_usb_audio usbhid snd_usbmidi_lib snd_ump hid ms912x(OE) cpuid vhost_net vhost vhost_iotlb tap tls xt_nat vxlan ip6_udp_tunnel udp_tunnel xt_policy xt_mark xt_bpf veth nf_conntrack_netlink br_netfilter xfrm_user xfrm_algo xt_addrtype rfcomm snd_seq_dummy snd_hrtimer ccm xt_CHECKSUM xt_MASQUERADE xt_conntrack ipt_REJECT nf_reject_ipv4 xt_tcpudp nft_compat nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 nf_tables libcrc32c bridge stp llc overlay qrtr cmac algif_hash algif_skcipher af_alg bnep sunrpc binfmt_misc zfs(PO) spl(O) snd_ctl_led ledtrig_audio snd_hda_codec_realtek snd_hda_codec_generic nvidia_uvm(POE) nvidia_drm(POE) nvidia_modeset(POE) intel_rapl_msr intel_rapl_common intel_uncore_frequency intel_uncore_frequency_common x86_pkg_temp_thermal snd_sof_pci_intel_cnl snd_sof_intel_hda_common soundwire_intel snd_sof_intel_hda_mlink soundwire_cadence snd_sof_intel_hda snd_sof_pci snd_sof_xtensa_dsp snd_sof snd_sof_utils snd_soc_hdac_hda snd_hda_ext_core
+[339920.733870]  snd_soc_acpi_intel_match snd_soc_acpi soundwire_generic_allocation soundwire_bus snd_soc_core snd_hda_codec_hdmi snd_compress ac97_bus snd_pcm_dmaengine nls_iso8859_1 snd_hda_intel intel_powerclamp coretemp snd_intel_dspcfg snd_intel_sdw_acpi iwlmvm snd_hda_codec kvm_intel uvcvideo snd_hda_core videobuf2_vmalloc nvidia(POE) snd_hwdep kvm uvc videobuf2_memops videobuf2_v4l2 snd_pcm mac80211 btusb videodev i915 irqbypass btrtl snd_seq_midi crct10dif_pclmul btintel cmdlinepart polyval_clmulni polyval_generic videobuf2_common snd_seq_midi_event ghash_clmulni_intel spi_nor btbcm btmtk sha256_ssse3 libarc4 mc mei_hdcp ee1004 mei_pxp snd_rawmidi mtd sha1_ssse3 bluetooth aesni_intel drm_buddy crypto_simd snd_seq ttm ecdh_generic iwlwifi ecc cryptd snd_seq_device drm_display_helper snd_timer acer_wmi rapl cec rc_core i2c_i801 sparse_keymap spi_intel_pci intel_cstate platform_profile intel_wmi_thunderbolt i2c_algo_bit wmi_bmof intel_pmc_core mei_me snd i2c_smbus spi_intel cfg80211 soundcore intel_pch_thermal mei
+[339920.733927]  intel_vsec pmt_telemetry input_leds joydev pmt_class acer_wireless acpi_pad mac_hid serio_raw sch_fq_codel msr parport_pc ppdev lp parport efi_pstore nfnetlink dmi_sysfs ip_tables x_tables autofs4 8250_dw rtsx_pci_sdmmc crc32_pclmul psmouse r8169 intel_lpss_pci ahci rtsx_pci intel_lpss xhci_pci realtek libahci idma64 xhci_pci_renesas video wmi pinctrl_cannonlake
+[339920.733952] CPU: 3 PID: 6539 Comm: Xorg Tainted: P           OE      6.8.0-85-generic #85-Ubuntu
+[339920.733954] Hardware name: Acer Predator PH315-51/Sienta_CFS, BIOS V1.15 06/12/2018
+[339920.733955] RIP: 0010:drm_copy_field+0xb8/0xc0
+[339920.733959] Code: 83 e3 01 74 12 49 c7 06 00 00 00 00 eb cd 0f 0b b8 f2 ff ff ff eb c6 48 c7 c7 60 d2 2f be c6 05 7b e5 d3 01 01 e8 c8 ae 44 ff <0f> 0b eb d7 0f 1f 40 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90
+[339920.733960] RSP: 0018:ffffa708495dbd08 EFLAGS: 00010246
+[339920.733962] RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000000
+[339920.733964] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+[339920.733965] RBP: ffffa708495dbd28 R08: 0000000000000000 R09: 0000000000000000
+[339920.733966] R10: 0000000000000000 R11: 0000000000000000 R12: ffff999aec1a4000
+[339920.733967] R13: ffffffffbd2bad20 R14: ffffa708495dbe10 R15: ffff999aec1a4000
+[339920.733968] FS:  0000771f542d4ac0(0000) GS:ffff99a0ce180000(0000) knlGS:0000000000000000
+[339920.733970] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[339920.733971] CR2: 00005e7e2dd14c40 CR3: 0000000192d44005 CR4: 00000000003706f0
+[339920.733973] Call Trace:
+[339920.733974]  <TASK>
+[339920.733977]  ? show_regs+0x6d/0x80
+[339920.733980]  ? __warn+0x89/0x160
+[339920.733983]  ? drm_copy_field+0xb8/0xc0
+[339920.733986]  ? report_bug+0x17e/0x1b0
+[339920.733989]  ? handle_bug+0x6e/0xb0
+[339920.733992]  ? exc_invalid_op+0x18/0x80
+[339920.733993]  ? asm_exc_invalid_op+0x1b/0x20
+[339920.733996]  ? __pfx_drm_version+0x10/0x10
+[339920.734000]  ? drm_copy_field+0xb8/0xc0
+[339920.734003]  ? drm_copy_field+0xb8/0xc0
+[339920.734005]  ? __pfx_drm_version+0x10/0x10
+[339920.734008]  drm_version+0x7d/0xb0
+[339920.734012]  drm_ioctl_kernel+0xb9/0x120
+[339920.734015]  drm_ioctl+0x2d4/0x550
+[339920.734018]  ? __pfx_drm_version+0x10/0x10
+[339920.734024]  __x64_sys_ioctl+0xa0/0xf0
+[339920.734029]  x64_sys_call+0x12a3/0x25a0
+[339920.734031]  do_syscall_64+0x7f/0x180
+[339920.734034]  ? irqentry_exit+0x43/0x50
+[339920.734036]  ? exc_page_fault+0x94/0x1b0
+[339920.734039]  entry_SYSCALL_64_after_hwframe+0x78/0x80
+[339920.734042] RIP: 0033:0x771f54724e1d
+[339920.734060] Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
+[339920.734062] RSP: 002b:00007ffcfcfa4c00 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+[339920.734064] RAX: ffffffffffffffda RBX: 00005e7e4f782450 RCX: 0000771f54724e1d
+[339920.734065] RDX: 00005e7e4f782450 RSI: 00000000c0406400 RDI: 0000000000000089
+[339920.734066] RBP: 00007ffcfcfa4c50 R08: 00005e7e4d9fe010 R09: 0000000000000007
+[339920.734067] R10: 0000000000000007 R11: 0000000000000246 R12: 00005e7e4f782450
+[339920.734069] R13: 00000000c0406400 R14: 0000000000000089 R15: 00005e7e4fd64860
+[339920.734072]  </TASK>
+[339920.734073] ---[ end trace 0000000000000000 ]---
+[339923.303026] fbcon: Taking over console
+[339923.313718] Console: switching to colour frame buffer device 240x67
+[339925.177962] traps: cheese[1758822] trap int3 ip:78da1ccb80ef sp:7ffdafd52930 error:0 in libglib-2.0.so.0.8000.0[78da1cc74000+a0000]
+[339925.309529] rtsx_pci 0000:06:00.0: VPD access failed.  This is likely a firmware bug on this device.  Contact the card vendor for a firmware update
+[339928.175852] usb 1-3: USB disconnect, device number 4

@@ -25,6 +25,17 @@
 
 #include "ms912x.h"
 
+/**
+ * @brief Suspend function for ms912x USB device
+ *
+ * This function is called when the USB device is about to be suspended.
+ * It suspends the DRM mode configuration to properly handle the power
+ * management event.
+ *
+ * @param interface USB interface structure representing the device
+ * @param message Power management message indicating the suspend state
+ * @return 0 on success, negative error code on failure
+ */
 static int ms912x_usb_suspend(struct usb_interface *interface,
 			      pm_message_t message)
 {
@@ -42,13 +53,32 @@ static struct drm_gem_object *
 ms912x_driver_gem_prime_import(struct drm_device *dev, struct dma_buf *dma_buf)
 {
 	struct ms912x_device *ms912x = to_ms912x(dev);
-	if (!ms912x->dmadev)
+	
+	// Добавляем более подробную проверку и логирование
+	if (!ms912x) {
+		pr_err("ms912x: invalid device pointer\n");
+		return ERR_PTR(-EINVAL);
+	}
+	
+	if (!ms912x->dmadev) {
+		pr_warn("ms912x: buffer sharing not supported, dmadev is NULL\n");
 		return ERR_PTR(-ENODEV);
+	}
+
+	if (!dma_buf) {
+		pr_err("ms912x: invalid dma_buf pointer\n");
+		return ERR_PTR(-EINVAL);
+	}
 
 	return drm_gem_prime_import_dev(dev, dma_buf, ms912x->dmadev);
 }
 
 DEFINE_DRM_GEM_FOPS(ms912x_driver_fops);
+
+static int ms912x_driver_setup(struct drm_device *dev)
+{
+	return 0;
+}
 
 static const struct drm_driver driver = {
 	.driver_features =
@@ -58,6 +88,7 @@ static const struct drm_driver driver = {
 	.gem_prime_import = ms912x_driver_gem_prime_import,
 	.name = DRIVER_NAME,
 	.desc = DRIVER_DESC,
+	.date = DRIVER_DATE,
 	.major = DRIVER_MAJOR,
 	.minor = DRIVER_MINOR,
 	.patchlevel = DRIVER_PATCHLEVEL,
@@ -228,11 +259,46 @@ static const uint32_t ms912x_pipe_formats[] = {
 
 static DEFINE_MUTEX(yuv_lut_mutex);
 static bool yuv_lut_initialized = false;
+/**
+ * @brief Probe function for ms912x USB device
+ *
+ * This function is called when a USB device matching the ms912x driver is
+ * connected to the system. It initializes all necessary components for the
+ * device to function as a DRM display device.
+ *
+ * Initialization steps include:
+ * - Initializing YUV lookup table if not already done
+ * - Allocating and initializing DRM device structure
+ * - Setting up DMA device for buffer sharing
+ * - Initializing mode configuration with supported resolutions
+ * - Setting initial display resolution
+ * - Initializing USB transfer requests
+ * - Initializing display connector
+ * - Setting up simple display pipe
+ * - Registering DRM device
+ * - Setting up framebuffer device
+ *
+ * @param interface USB interface structure representing the connected device
+ * @param id USB device ID matching the device to this driver
+ * @return 0 on success, negative error code on failure
+ */
 static int ms912x_usb_probe(struct usb_interface *interface,
 			    const struct usb_device_id *id)
 {
+	// Добавляем проверки на NULL
+	if (!interface) {
+		pr_err("ms912x: invalid interface pointer\n");
+		return -EINVAL;
+	}
+	
+	if (!id) {
+		pr_err("ms912x: invalid id pointer\n");
+		return -EINVAL;
+	}
+
 	mutex_lock(&yuv_lut_mutex);
 	if (!yuv_lut_initialized) {
+		pr_info("ms912x: initializing YUV lookup table\n");
 		ms912x_init_yuv_lut();
 		yuv_lut_initialized = true;
 	}
@@ -242,21 +308,40 @@ static int ms912x_usb_probe(struct usb_interface *interface,
 	struct ms912x_device *ms912x;
 	struct drm_device *dev;
 
+	pr_info("ms912x: probe started for device %04x:%04x\n",
+		id->idVendor, id->idProduct);
+	
+	pr_debug("ms912x: devm_drm_dev_alloc begin\n");
 	ms912x = devm_drm_dev_alloc(&interface->dev, &driver,
 				    struct ms912x_device, drm);
-	if (IS_ERR(ms912x))
-		return PTR_ERR(ms912x);
+
+	pr_debug("ms912x: devm_drm_dev_alloc end\n");
+
+	if (IS_ERR(ms912x)) {
+		ret = PTR_ERR(ms912x);
+		pr_err("ms912x: devm_drm_dev_alloc failed: %d\n", ret);
+		return ret;
+	}
 
 	ms912x->intf = interface;
 	dev = &ms912x->drm;
 
+	pr_debug("ms912x: usb_intf_get_dma_device\n");
 	ms912x->dmadev = usb_intf_get_dma_device(interface);
-	if (!ms912x->dmadev)
-		drm_warn(dev, "buffer sharing not supported");
 
+	if (!ms912x->dmadev) {
+		pr_warn("ms912x: buffer sharing not supported\n");
+		drm_warn(dev, "buffer sharing not supported");
+	}
+
+	pr_debug("ms912x: drmm_mode_config_init begin\n");
 	ret = drmm_mode_config_init(dev);
-	if (ret)
+	if (ret) {
+		pr_err("ms912x: drmm_mode_config_init failed: %d\n", ret);
 		goto err_put_device;
+	}
+
+	pr_debug("ms912x: set dev->mode_config\n");
 
 	dev->mode_config.min_width = 0;
 	dev->mode_config.max_width = 2048;
@@ -264,73 +349,138 @@ static int ms912x_usb_probe(struct usb_interface *interface,
 	dev->mode_config.max_height = 2048;
 	dev->mode_config.funcs = &ms912x_mode_config_funcs;
 
-	ms912x_set_resolution(ms912x, &ms912x_mode_list[0]);
+	pr_debug("ms912x: set_resolution begin\n");
+	ret = ms912x_set_resolution(ms912x, &ms912x_mode_list[0]);
+	if (ret) {
+		pr_err("ms912x: set_resolution failed: %d\n", ret);
+		goto err_mode_config_cleanup;
+	}
+	pr_debug("ms912x: set_resolution end\n");
 
+	pr_debug("ms912x: init_request [0] \n");
 	ret = ms912x_init_request(ms912x, &ms912x->requests[0],
 				  2048 * 2048 * 2);
-	if (ret)
-		goto err_put_device;
+	if (ret) {
+		pr_err("ms912x: init_request [0] failed: %d\n", ret);
+		goto err_mode_config_cleanup;
+	}
 
+	pr_debug("ms912x: init_request [1] \n");
 	ret = ms912x_init_request(ms912x, &ms912x->requests[1],
 				  2048 * 2048 * 2);
-	if (ret)
+	if (ret) {
+		pr_err("ms912x: init_request [1] failed: %d\n", ret);
 		goto err_free_request_0;
+	}
+
+	pr_debug("ms912x: complete request [1] \n");
 	complete(&ms912x->requests[1].done);
 
+	pr_debug("ms912x: connector_init \n");
 	ret = ms912x_connector_init(ms912x);
-	if (ret)
+	if (ret) {
+		pr_err("ms912x: connector_init failed: %d\n", ret);
 		goto err_free_request_1;
+	}
 
+	pr_debug("ms912x: drm_simple_display_pipe_init \n");
 	ret = drm_simple_display_pipe_init(&ms912x->drm, &ms912x->display_pipe,
 					   &ms912x_pipe_funcs,
 					   ms912x_pipe_formats,
 					   ARRAY_SIZE(ms912x_pipe_formats),
 					   NULL, &ms912x->connector);
-	if (ret)
+	if (ret) {
+		pr_err("ms912x: failed to initialize display pipe: %d\n", ret);
 		goto err_free_request_1;
+	}
 
+	pr_debug("ms912x: drm_plane_enable_fb_damage_clips \n");
 	drm_plane_enable_fb_damage_clips(&ms912x->display_pipe.plane);
+
+	pr_debug("ms912x: drm_mode_config_reset \n");
 	drm_mode_config_reset(dev);
+
+	pr_debug("ms912x: usb_set_intfdata \n");
 	usb_set_intfdata(interface, ms912x);
+	pr_debug("ms912x: drm_kms_helper_poll_init \n");
 	drm_kms_helper_poll_init(dev);
 
 	dev->dev_private = ms912x;
 
+	pr_debug("ms912x: drm_dev_register \n");
 	ret = drm_dev_register(dev, 0);
-	if (ret)
-		goto err_free_request_1;
+	if (ret) {
+		pr_err("ms912x: drm_dev_register failed: %d\n", ret);
+		goto err_kms_poll_fini;
+	}
 
+	pr_info("ms912x: drm_fbdev_generic_setup \n");
 #if (LINUX_VERSION_CODE < KERNEL_VERSION(6, 11, 0))
 	drm_fbdev_generic_setup(dev, 0);
 #else
 	drm_fbdev_ttm_setup(dev, 0);
 #endif
 
+	pr_info("ms912x: probe completed successfully\n");
 	return 0;
 
+err_kms_poll_fini:
+	drm_kms_helper_poll_fini(dev);
 err_free_request_1:
 	ms912x_free_request(&ms912x->requests[1]);
 err_free_request_0:
 	ms912x_free_request(&ms912x->requests[0]);
+err_mode_config_cleanup:
+	// Note: drmm_mode_config_init автоматически освобождает ресурсы
 err_put_device:
-	put_device(ms912x->dmadev);
+	if (ms912x->dmadev) {
+		put_device(ms912x->dmadev);
+		ms912x->dmadev = NULL;
+	}
 	return ret;
 }
 
 static void ms912x_usb_disconnect(struct usb_interface *interface)
 {
+	// Добавляем проверку на NULL
+	if (!interface) {
+		pr_err("ms912x: invalid interface pointer\n");
+		return;
+	}
+	
 	struct ms912x_device *ms912x = usb_get_intfdata(interface);
+	if (!ms912x) {
+		pr_warn("ms912x: no device data found\n");
+		return;
+	}
+	
+	pr_info("ms912x: disconnect started\n");
+	
 	struct drm_device *dev = &ms912x->drm;
 
-	cancel_work_sync(&ms912x->requests[0].work);
-	cancel_work_sync(&ms912x->requests[1].work);
+	// Отменяем все работы
+	if (cancel_work_sync(&ms912x->requests[0].work))
+		pr_debug("ms912x: cancelled work [0]\n");
+		
+	if (cancel_work_sync(&ms912x->requests[1].work))
+		pr_debug("ms912x: cancelled work [1]\n");
+
+	// Завершаем работу с DRM
 	drm_kms_helper_poll_fini(dev);
 	drm_dev_unplug(dev);
 	drm_atomic_helper_shutdown(dev);
+
+	// Освобождаем запросы
 	ms912x_free_request(&ms912x->requests[0]);
 	ms912x_free_request(&ms912x->requests[1]);
-	put_device(ms912x->dmadev);
-	ms912x->dmadev = NULL;
+
+	// Освобождаем устройство DMA
+	if (ms912x->dmadev) {
+		put_device(ms912x->dmadev);
+		ms912x->dmadev = NULL;
+	}
+	
+	pr_info("ms912x: disconnect completed\n");
 }
 
 static const struct usb_device_id id_table[] = {

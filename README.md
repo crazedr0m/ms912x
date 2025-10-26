@@ -8,11 +8,17 @@ There are two variants:
 
 - Driver adapted for Linux kernel 6.8 by dcomp7
 - Improved performance.
+- Fixed DRM_COPY_FIELD error
+- Enhanced error handling and logging
 
 For kernel 6.15 checkout branch kernel-6.15
 For kernel 6.10,6.12,6.11 checkout branch kernel-6.10
 
-## Development 
+## Installation
+
+See INSTALL.md for detailed installation instructions.
+
+## Development
 
 Driver is written by analyzing wireshark captures of the device.
 

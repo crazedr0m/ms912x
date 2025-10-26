@@ -10,6 +10,14 @@
 #define MS912X_REQUEST_TYPE 0xb5
 #define MS912X_WRITE_TYPE 0xa6
 
+/**
+ * ms912x_request_timeout - Timer callback to cancel a USB request
+ * @t: Pointer to the timer_list structure
+ *
+ * This function is called when a USB request times out. It extracts the
+ * associated USB request from the timer and cancels the scatter-gather
+ * request using usb_sg_cancel().
+ */
 static void ms912x_request_timeout(struct timer_list *t)
 {
 	struct ms912x_usb_request *request = from_timer(request, t, timer);
@@ -57,12 +65,31 @@ int ms912x_init_request(struct ms912x_device *ms912x,
 	struct page **pages;
 	void *ptr;
 
+	// Добавляем проверки на NULL
+	if (!ms912x) {
+		pr_err("ms912x: invalid device pointer\n");
+		return -EINVAL;
+	}
+	
+	if (!request) {
+		pr_err("ms912x: invalid request pointer\n");
+		return -EINVAL;
+	}
+	
+	if (len == 0) {
+		pr_err("ms912x: invalid length\n");
+		return -EINVAL;
+	}
+
 	data = vmalloc_32(len);
-	if (!data)
+	if (!data) {
+		pr_err("ms912x: failed to allocate transfer buffer\n");
 		return -ENOMEM;
+	}
 
 	request->temp_buffer = kmalloc(1920 * 4, GFP_KERNEL);
 	if (!request->temp_buffer) {
+		pr_err("ms912x: failed to allocate temp buffer\n");
 		vfree(data);
 		return -ENOMEM;
 	}
@@ -70,6 +97,7 @@ int ms912x_init_request(struct ms912x_device *ms912x,
 	num_pages = DIV_ROUND_UP(len, PAGE_SIZE);
 	pages = kmalloc_array(num_pages, sizeof(struct page *), GFP_KERNEL);
 	if (!pages) {
+		pr_err("ms912x: failed to allocate pages array\n");
 		ret = -ENOMEM;
 		goto err_vfree;
 	}
@@ -80,8 +108,10 @@ int ms912x_init_request(struct ms912x_device *ms912x,
 	ret = sg_alloc_table_from_pages(&request->transfer_sgt, pages,
 					num_pages, 0, len, GFP_KERNEL);
 	kfree(pages);
-	if (ret)
+	if (ret) {
+		pr_err("ms912x: failed to allocate sg table: %d\n", ret);
 		goto err_vfree;
+	}
 
 	request->alloc_len = len;
 	request->transfer_buffer = data;
@@ -89,10 +119,14 @@ int ms912x_init_request(struct ms912x_device *ms912x,
 
 	init_completion(&request->done);
 	INIT_WORK(&request->work, ms912x_request_work);
+	
+	pr_debug("ms912x: request initialized successfully, len=%zu\n", len);
 	return 0;
 
 err_vfree:
 	vfree(data);
+	kfree(request->temp_buffer);
+	request->temp_buffer = NULL;
 	return ret;
 }
 
@@ -104,6 +138,21 @@ struct ms912x_yuv_lut {
 
 static struct ms912x_yuv_lut yuv_lut;
 
+/**
+ * ms912x_init_yuv_lut - Initialize the YUV lookup table for RGB to YUV conversion
+ *
+ * This function pre-calculates and initializes the YUV lookup table with
+ * fixed-point coefficients for efficient RGB to YUV color space conversion.
+ * The lookup table contains pre-computed values for the Y, U, and V components
+ * based on the standard RGB to YUV conversion formulas.
+ *
+ * The YUV conversion uses the following formulas:
+ * Y = 0.257*R + 0.504*G + 0.098*B + 16
+ * U = -0.148*R - 0.291*G + 0.439*B + 128
+ * V = 0.439*R - 0.368*G - 0.071*B + 128
+ *
+ * The coefficients are scaled by 2^16 for fixed-point arithmetic.
+ */
 void ms912x_init_yuv_lut(void)
 {
 	for (int i = 0; i < 256; i++) {
@@ -119,6 +168,8 @@ void ms912x_init_yuv_lut(void)
 		yuv_lut.v_g[i] = (-24009 * i) >> 16;
 		yuv_lut.v_b[i] = (-4663 * i) >> 16;
 	}
+    pr_debug("ms912x: ms912x_init_yuv_lut complete\n");
+
 }
 
 static inline unsigned int ms912x_rgb_to_y(u8 r, u8 g, u8 b)
@@ -218,6 +269,28 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 			struct drm_rect *rect)
 {
 	struct ms912x_device *ms912x = to_ms912x(fb->dev);
+	
+	// Добавляем проверки на NULL
+	if (!ms912x) {
+		pr_err("ms912x: invalid device pointer\n");
+		return -EINVAL;
+	}
+	
+	if (!fb) {
+		pr_err("ms912x: invalid framebuffer pointer\n");
+		return -EINVAL;
+	}
+	
+	if (!map) {
+		pr_err("ms912x: invalid map pointer\n");
+		return -EINVAL;
+	}
+	
+	if (!rect) {
+		pr_err("ms912x: invalid rect pointer\n");
+		return -EINVAL;
+	}
+	
 	unsigned long now = jiffies;
 	if (time_before(now, ms912x->last_send_jiffies + msecs_to_jiffies(16)))
 		return 0;
@@ -227,11 +300,11 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 	struct ms912x_usb_request *prev_request, *current_request;
 	int x, width;
 	
-	/* Seems like hardware can only update framebuffer 
+	/* Seems like hardware can only update framebuffer
 	 * in multiples of 16 horizontally
 	 */
 	x = ALIGN_DOWN(rect->x1, 16);
-	/* Resolutions that are not a multiple of 16 like 1366*768 
+	/* Resolutions that are not a multiple of 16 like 1366*768
 	 * need to be aligned
 	 */
 	width = min(ALIGN(rect->x2, 16), ALIGN_DOWN((int)fb->width, 16)) - x;
@@ -241,23 +314,32 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 	current_request = &ms912x->requests[ms912x->current_request];
 	prev_request = &ms912x->requests[1 - ms912x->current_request];
 
-	drm_dev_enter(drm, &idx);
+	ret = drm_dev_enter(drm, &idx);
+	if (ret) {
+		pr_err("ms912x: failed to enter drm device: %d\n", ret);
+		return ret;
+	}
 
 	ret = drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE);
-	if (ret < 0)
+	if (ret < 0) {
+		pr_err("ms912x: failed to begin CPU access: %d\n", ret);
 		goto dev_exit;
+	}
 
 	ret = ms912x_fb_xrgb8888_to_yuv422(current_request->transfer_buffer,
 					   map, fb, rect,
 					   current_request->temp_buffer);
 
 	drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
-	if (ret < 0)
+	if (ret < 0) {
+		pr_err("ms912x: failed to convert framebuffer: %d\n", ret);
 		goto dev_exit;
+	}
 
 	/* Sending frames too fast, drop it */
 	if (!wait_for_completion_timeout(&prev_request->done,
 					 msecs_to_jiffies(1))) {
+		pr_warn("ms912x: previous request timed out\n");
 		ret = -ETIMEDOUT;
 		goto dev_exit;
 	}
