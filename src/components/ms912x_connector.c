@@ -158,9 +158,6 @@ static int ms912x_connector_get_modes(struct drm_connector *connector)
 			mode_count++;
 		}
 		pr_info("ms912x: total monitor modes: %d\n", mode_count);
-		
-		// Вызываем функцию диагностики для вывода списка видеорежимов
-		ms912x_print_monitor_modes(ms912x);
 	}
 
 edid_free:

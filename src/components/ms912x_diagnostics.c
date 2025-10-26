@@ -156,8 +156,6 @@ int ms912x_run_diagnostics(struct ms912x_device *ms912x)
 	
 	pr_info("ms912x: [%s] all diagnostics passed successfully\n", ms912x->device_name);
 	
-	// Выводим список видеорежимов, поддерживаемых монитором
-	ms912x_print_monitor_modes(ms912x);
 	
 	// Добавляем дополнительную информацию о состоянии устройства после диагностики
 	int reg30 = ms912x_read_byte(ms912x, 0x30);
@@ -166,85 +164,4 @@ int ms912x_run_diagnostics(struct ms912x_device *ms912x)
 	        ms912x->device_name, reg30 >= 0 ? reg30 : 0, reg33 >= 0 ? reg33 : 0);
 	
 	return 0;
-}
-
-/**
- * @brief Получает информацию о состоянии устройства
- * 
- * @param ms912x Устройство
- * @param buf Буфер для записи информации
- * @param size Размер буфера
- * @return Количество записанных байт
- */
-int ms912x_get_device_info(struct ms912x_device *ms912x, char *buf, size_t size)
-{
-	if (!ms912x || !buf) {
-		pr_err("ms912x: invalid parameters in get_device_info\n");
-		return -EINVAL;
-	}
-	
-	// Читаем статусные регистры
-	int reg30 = ms912x_read_byte(ms912x, 0x30);
-	int reg33 = ms912x_read_byte(ms912x, 0x33);
-	int reg_c620 = ms912x_read_byte(ms912x, 0xc620);
-	
-	// Получаем информацию о USB устройстве
-	struct usb_interface *intf = ms912x->intf;
-	struct usb_device *usb_dev = interface_to_usbdev(intf);
-	
-	return scnprintf(buf, size,
-			"Device ID: %u\n"
-			"Device Name: %s\n"
-			"USB Bus: %d\n"
-			"USB Device: %d\n"
-			"Vendor ID: 0x%04x\n"
-			"Product ID: 0x%04x\n"
-			"Status Register 0x30: 0x%02x\n"
-			"Status Register 0x33: 0x%02x\n"
-			"Extended Register 0xc620: 0x%02x\n"
-			"Current Request Buffer: %d\n"
-			"Last Send Jiffies: %lu\n",
-			ms912x->device_id,
-			ms912x->device_name,
-			usb_dev->bus->busnum,
-			usb_dev->devnum,
-			usb_dev->descriptor.idVendor,
-			usb_dev->descriptor.idProduct,
-			reg30 >= 0 ? reg30 : 0,
-			reg33 >= 0 ? reg33 : 0,
-			reg_c620 >= 0 ? reg_c620 : 0,
-			ms912x->current_request,
-			ms912x->last_send_jiffies);
-	
-	// Добавляем дополнительную диагностику при получении информации об устройстве
-	pr_debug("ms912x: [%s] device info retrieved: %d bytes written\n",
-			       ms912x->device_name, ret);
-	
-	return ret;
-}
-
-/**
-	* @brief Выводит список видеорежимов, поддерживаемых монитором
-	*
-	* @param ms912x Устройство
-	*/
-void ms912x_print_monitor_modes(struct ms912x_device *ms912x)
-{
-	if (!ms912x) {
-		pr_err("ms912x: invalid device pointer in print_monitor_modes\n");
-		return;
-	}
-	
-	pr_info("ms912x: [%s] supported video modes:\n", ms912x->device_name);
-	
-	// Проходим по всему списку режимов
-	for (int i = 0; i < ARRAY_SIZE(ms912x_mode_list); i++) {
-		const struct ms912x_mode *mode = &ms912x_mode_list[i];
-		pr_info("ms912x: [%s] mode %d: %dx%d@%dHz, mode=0x%04x, pixfmt=0x%02x\n",
-			       ms912x->device_name, i, mode->width, mode->height,
-			       mode->hz, mode->mode, mode->pixfmt);
-	}
-	
-	pr_info("ms912x: [%s] total supported modes: %d\n",
-			      ms912x->device_name, (int)ARRAY_SIZE(ms912x_mode_list));
 }

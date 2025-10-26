@@ -202,16 +202,6 @@ static void ms912x_pipe_enable(struct drm_simple_display_pipe *pipe,
 			        ms912x->device_name, ms_mode->width, ms_mode->height,
 			        ms_mode->hz, ms_mode->mode);
 			ms912x_set_resolution(ms912x, ms_mode);
-			
-			// Добавляем дополнительную диагностику при инициализации прямоугольника
-			pr_debug("ms912x: update rectangle initialized to invalid coordinates\n");
-			
-			// Добавляем дополнительную диагностику при проверке валидности прямоугольника
-			bool valid = rect->x1 <= rect->x2 && rect->y1 <= rect->y2;
-			pr_debug("ms912x: rectangle validity check: x1=%d, y1=%d, x2=%d, y2=%d, valid=%s\n",
-			         rect->x1, rect->y1, rect->x2, rect->y2, valid ? "true" : "false");
-			
-			return valid;
 		}
 	}
 }
@@ -261,6 +251,15 @@ static void ms912x_update_rect_init(struct drm_rect *rect)
 	rect->y2 = 0;
 }
 
+static bool ms912x_rect_is_valid(const struct drm_rect *rect)
+{
+	bool valid = (rect->x1 <= rect->x2 && rect->y1 <= rect->y2);
+	pr_debug("ms912x: rectangle validity check: x1=%d, y1=%d, x2=%d, y2=%d, valid=%s\n",
+	         rect->x1, rect->y1, rect->x2, rect->y2, valid ? "true" : "false");
+	return valid;
+}
+
+
 static void ms912x_merge_rects(struct drm_rect *dest, const struct drm_rect *r1,
 			       const struct drm_rect *r2)
 {
@@ -278,13 +277,6 @@ static void ms912x_merge_rects(struct drm_rect *dest, const struct drm_rect *r1,
 	dest->y2 = max(r1->y2, r2->y2);
 }
 
-static bool ms912x_rect_is_valid(const struct drm_rect *rect)
-{
-	bool valid = rect->x1 <= rect->x2 && rect->y1 <= rect->y2;
-	pr_debug("ms912x: rectangle validity check: x1=%d, y1=%d, x2=%d, y2=%d, valid=%s\n",
-	         rect->x1, rect->y1, rect->x2, rect->y2, valid ? "true" : "false");
-	return valid;
-}
 static void ms912x_pipe_update(struct drm_simple_display_pipe *pipe,
 			       struct drm_plane_state *old_state)
 {
@@ -571,12 +563,13 @@ static void ms912x_usb_disconnect(struct usb_interface *interface)
 	}
 	
 	pr_info("ms912x: disconnect started for device %s\n", ms912x->device_name);
+
+	struct drm_device *dev = &ms912x->drm;
 	
 	// Добавляем дополнительную диагностику перед отключением
 	pr_info("ms912x: [%s] device state before disconnect: unplugged=%d, registered=%d\n",
 	        ms912x->device_name, dev->unplugged, READ_ONCE(dev->registered));
 	
-	struct drm_device *dev = &ms912x->drm;
 
 	// Отменяем все работы
 	if (cancel_work_sync(&ms912x->requests[0].work))

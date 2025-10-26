@@ -409,7 +409,6 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 		return 0;
 
 	int ret = 0, idx;
-	struct drm_device *drm = &ms912x->drm;
 	struct ms912x_usb_request *prev_request, *current_request;
 	int x, width;
 	

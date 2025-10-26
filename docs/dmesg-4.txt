@@ -1,0 +1,1454 @@
+[ 8874.335902] usbcore: registered new interface driver ms912x
+[ 8965.108337] ms912x: initializing YUV lookup table
+[ 8965.108380] ms912x: YUV lookup table initialized with 256 entries for each component
+[ 8965.108385] ms912x: probe started for device 534d:6021 at 1-4
+[ 8965.108438] ms912x: assigned device ID 1, name ms912x-1
+[ 8965.108478] ms912x: [ms912x-1] mode_config initialized: min_width=0, max_width=2048, min_height=0, max_height=2048
+[ 8965.108486] ms912x: setting resolution 800x600, mode 0x4200
+[ 8965.108491] ms912x: [ms912x-1] setting resolution: width=800, height=600, mode=0x4200, pix_fmt=0x2200
+[ 8965.109601] ms912x: resolution set successfully
+[ 8965.111570] ms912x: [ms912x-1] USB request initialized: len=8388608, temp_buffer=000000002931528e, transfer_buffer=00000000f44b3741
+[ 8965.113465] ms912x: [ms912x-1] USB request initialized: len=8388608, temp_buffer=00000000cb3785db, transfer_buffer=00000000bff0de36
+[ 8965.113474] ms912x: [ms912x-1] initializing connector
+[ 8965.113489] ms912x: [ms912x-1] connector initialized successfully
+[ 8965.113493] ms912x: [ms912x-1] connector polling enabled: CONNECT|DISCONNECT
+[ 8965.113509] ms912x: [ms912x-1] display pipe initialized successfully
+[ 8965.113871] [drm] Initialized ms912x 0.0.1 20220101 for 1-1:1.3 on minor 0
+[ 8965.113881] ms912x: [ms912x-1] drm device registered successfully
+[ 8965.113885] ms912x: drm_fbdev_generic_setup 
+[ 8965.114059] ms912x: [ms912x-1] HDMI detection result: disconnected (status register: 0)
+[ 8965.114078] ms912x 1-1:1.3: [drm] Cannot find any crtc or sizes
+[ 8965.114107] ms912x: [ms912x-1] framebuffer device setup completed
+[ 8965.114111] ms912x: probe completed successfully for device ms912x-1
+[ 8965.114115] ms912x: [ms912x-1] starting full diagnostics
+[ 8965.114118] ms912x: [ms912x-1] running connection diagnostic
+[ 8965.114395] ms912x: [ms912x-1] HDMI detection result: disconnected (status register: 0)
+[ 8965.114564] ms912x: [ms912x-1] connection diagnostic passed: reg30=0x00, reg33=0x00
+[ 8965.114571] ms912x: [ms912x-1] device connection verified: registers indicate device is present
+[ 8965.114575] ms912x: [ms912x-1] running memory diagnostic
+[ 8965.114603] ms912x: [ms912x-1] HDMI detection result: disconnected (status register: 0)
+[ 8965.114616] ms912x 1-1:1.3: [drm] Cannot find any crtc or sizes
+[ 8965.114738] ms912x: [ms912x-1] memory diagnostic passed: reg_c620=0x00
+[ 8965.114743] ms912x: [ms912x-1] memory access verified: extended register c620 is accessible
+[ 8965.114747] ms912x: [ms912x-1] running EDID diagnostic
+[ 8965.116045] ms912x: [ms912x-1] unexpected EDID header: 11 b2 e6 0f 40 39 68 e8
+[ 8965.116052] ms912x: [ms912x-1] EDID diagnostic completed
+[ 8965.116055] ms912x: [ms912x-1] EDID access verified: monitor information is readable
+[ 8965.116058] ms912x: [ms912x-1] all diagnostics passed successfully
+[ 8965.116062] ms912x: [ms912x-1] supported video modes:
+[ 8965.116385] ms912x: [ms912x-1] device status after diagnostics: reg30=0x02, reg33=0x00
+[ 8965.116391] ms912x: [ms912x-1] diagnostics passed
+[ 8965.328791] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 8965.366398] ms912x: [ms912x-1] EDID read successfully, updating connector with EDID data
+[ 8965.366569] ms912x: added 43 modes from EDID
+[ 8965.366571] ms912x: monitor supported video modes:
+[ 8965.366573] ms912x: total monitor modes: 0
+[ 8965.366574] ms912x: [ms912x-1] supported video modes:
+[ 8965.366943] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 8965.402239] ms912x: [ms912x-1] EDID read successfully, updating connector with EDID data
+[ 8965.402434] ms912x: added 43 modes from EDID
+[ 8965.402436] ms912x: monitor supported video modes:
+[ 8965.402438] ms912x: mode 0: 1920x1080@60Hz flags=0x5 type=0x48
+[ 8965.402441] ms912x: mode 1: 1920x1080@60Hz flags=0x5 type=0x40
+[ 8965.402444] ms912x: mode 2: 1920x1080@60Hz flags=0x5 type=0x40
+[ 8965.402446] ms912x: mode 3: 1920x1080@50Hz flags=0x5 type=0x40
+[ 8965.402448] ms912x: mode 4: 1280x1024@60Hz flags=0x5 type=0x40
+[ 8965.402450] ms912x: mode 5: 1360x768@60Hz flags=0x5 type=0x40
+[ 8965.402453] ms912x: mode 6: 1152x864@60Hz flags=0x6 type=0x0
+[ 8965.402455] ms912x: mode 7: 1280x720@60Hz flags=0x5 type=0x40
+[ 8965.402457] ms912x: mode 8: 1280x720@60Hz flags=0x5 type=0x40
+[ 8965.402459] ms912x: mode 9: 1280x720@60Hz flags=0x5 type=0x40
+[ 8965.402461] ms912x: mode 10: 1024x768@60Hz flags=0xa type=0x40
+[ 8965.402464] ms912x: mode 11: 800x600@60Hz flags=0x5 type=0x40
+[ 8965.402466] ms912x: mode 12: 720x480@60Hz flags=0xa type=0x40
+[ 8965.402468] ms912x: mode 13: 720x480@60Hz flags=0xa type=0x40
+[ 8965.402470] ms912x: mode 14: 720x480@60Hz flags=0xa type=0x40
+[ 8965.402472] ms912x: mode 15: 720x480@60Hz flags=0xa type=0x40
+[ 8965.402475] ms912x: mode 16: 640x480@60Hz flags=0xa type=0x40
+[ 8965.402477] ms912x: mode 17: 640x480@60Hz flags=0xa type=0x40
+[ 8965.402479] ms912x: mode 18: 640x480@60Hz flags=0xa type=0x40
+[ 8965.402481] ms912x: total monitor modes: 19
+[ 8965.402482] ms912x: [ms912x-1] supported video modes:
+[ 8965.402878] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 8965.403458] ms912x 1-1:1.3: [drm] fb1: ms912xdrmfb frame buffer device
+[ 8965.442690] ms912x: [ms912x-1] EDID read successfully, updating connector with EDID data
+[ 8965.442965] ms912x: added 43 modes from EDID
+[ 8965.442968] ms912x: monitor supported video modes:
+[ 8965.442970] ms912x: mode 0: 1920x1080@60Hz flags=0x5 type=0x48
+[ 8965.442976] ms912x: mode 1: 1920x1080@60Hz flags=0x5 type=0x40
+[ 8965.442980] ms912x: mode 2: 1920x1080@60Hz flags=0x5 type=0x40
+[ 8965.442983] ms912x: mode 3: 1920x1080@50Hz flags=0x5 type=0x40
+[ 8965.442986] ms912x: mode 4: 1280x1024@60Hz flags=0x5 type=0x40
+[ 8965.442990] ms912x: mode 5: 1360x768@60Hz flags=0x5 type=0x40
+[ 8965.442993] ms912x: mode 6: 1152x864@60Hz flags=0x6 type=0x0
+[ 8965.442997] ms912x: mode 7: 1280x720@60Hz flags=0x5 type=0x40
+[ 8965.443001] ms912x: mode 8: 1280x720@60Hz flags=0x5 type=0x40
+[ 8965.443005] ms912x: mode 9: 1280x720@60Hz flags=0x5 type=0x40
+[ 8965.443008] ms912x: mode 10: 1024x768@60Hz flags=0xa type=0x40
+[ 8965.443012] ms912x: mode 11: 800x600@60Hz flags=0x5 type=0x40
+[ 8965.443016] ms912x: mode 12: 720x480@60Hz flags=0xa type=0x40
+[ 8965.443020] ms912x: mode 13: 720x480@60Hz flags=0xa type=0x40
+[ 8965.443024] ms912x: mode 14: 720x480@60Hz flags=0xa type=0x40
+[ 8965.443027] ms912x: mode 15: 720x480@60Hz flags=0xa type=0x40
+[ 8965.443031] ms912x: mode 16: 640x480@60Hz flags=0xa type=0x40
+[ 8965.443034] ms912x: mode 17: 640x480@60Hz flags=0xa type=0x40
+[ 8965.443038] ms912x: mode 18: 640x480@60Hz flags=0xa type=0x40
+[ 8965.443042] ms912x: total monitor modes: 19
+[ 8965.443045] ms912x: [ms912x-1] supported video modes:
+[ 8965.628398] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8965.628408] ms912x: [ms912x-1] enabling display pipe, mode: 1920x1080@60Hz
+[ 8965.628412] ms912x: [ms912x-1] powering on device
+[ 8965.628530] ms912x: device powered on successfully
+[ 8965.628533] ms912x: [ms912x-1] setting resolution: 1920x1080@60Hz, mode=0x8100
+[ 8965.628537] ms912x: setting resolution 1920x1080, mode 0x8100
+[ 8965.628539] ms912x: [ms912x-1] setting resolution: width=1920, height=1080, mode=0x8100, pix_fmt=0x2200
+[ 8965.634184] ms912x: resolution set successfully
+[ 8965.696451] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8965.889250] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 8965.927611] ms912x: [ms912x-1] EDID read successfully, updating connector with EDID data
+[ 8965.927781] ms912x: added 43 modes from EDID
+[ 8965.927783] ms912x: monitor supported video modes:
+[ 8965.927784] ms912x: mode 0: 1920x1080@60Hz flags=0x5 type=0x48
+[ 8965.927787] ms912x: mode 1: 1920x1080@60Hz flags=0x5 type=0x40
+[ 8965.927790] ms912x: mode 2: 1920x1080@60Hz flags=0x5 type=0x40
+[ 8965.927792] ms912x: mode 3: 1920x1080@50Hz flags=0x5 type=0x40
+[ 8965.927794] ms912x: mode 4: 1280x1024@60Hz flags=0x5 type=0x40
+[ 8965.927797] ms912x: mode 5: 1360x768@60Hz flags=0x5 type=0x40
+[ 8965.927799] ms912x: mode 6: 1152x864@60Hz flags=0x6 type=0x0
+[ 8965.927801] ms912x: mode 7: 1280x720@60Hz flags=0x5 type=0x40
+[ 8965.927803] ms912x: mode 8: 1280x720@60Hz flags=0x5 type=0x40
+[ 8965.927805] ms912x: mode 9: 1280x720@60Hz flags=0x5 type=0x40
+[ 8965.927807] ms912x: mode 10: 1024x768@60Hz flags=0xa type=0x40
+[ 8965.927809] ms912x: mode 11: 800x600@60Hz flags=0x5 type=0x40
+[ 8965.927812] ms912x: mode 12: 720x480@60Hz flags=0xa type=0x40
+[ 8965.927814] ms912x: mode 13: 720x480@60Hz flags=0xa type=0x40
+[ 8965.927816] ms912x: mode 14: 720x480@60Hz flags=0xa type=0x40
+[ 8965.927818] ms912x: mode 15: 720x480@60Hz flags=0xa type=0x40
+[ 8965.927820] ms912x: mode 16: 640x480@60Hz flags=0xa type=0x40
+[ 8965.927822] ms912x: mode 17: 640x480@60Hz flags=0xa type=0x40
+[ 8965.927824] ms912x: mode 18: 640x480@60Hz flags=0xa type=0x40
+[ 8965.927826] ms912x: total monitor modes: 19
+[ 8965.927828] ms912x: [ms912x-1] supported video modes:
+[ 8966.158405] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8966.204930] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 8966.241644] ms912x: [ms912x-1] EDID read successfully, updating connector with EDID data
+[ 8966.241816] ms912x: added 43 modes from EDID
+[ 8966.241818] ms912x: monitor supported video modes:
+[ 8966.241819] ms912x: mode 0: 1920x1080@60Hz flags=0x5 type=0x48
+[ 8966.241822] ms912x: mode 1: 1920x1080@60Hz flags=0x5 type=0x40
+[ 8966.241825] ms912x: mode 2: 1920x1080@60Hz flags=0x5 type=0x40
+[ 8966.241827] ms912x: mode 3: 1920x1080@50Hz flags=0x5 type=0x40
+[ 8966.241829] ms912x: mode 4: 1280x1024@60Hz flags=0x5 type=0x40
+[ 8966.241831] ms912x: mode 5: 1360x768@60Hz flags=0x5 type=0x40
+[ 8966.241834] ms912x: mode 6: 1152x864@60Hz flags=0x6 type=0x0
+[ 8966.241836] ms912x: mode 7: 1280x720@60Hz flags=0x5 type=0x40
+[ 8966.241838] ms912x: mode 8: 1280x720@60Hz flags=0x5 type=0x40
+[ 8966.241840] ms912x: mode 9: 1280x720@60Hz flags=0x5 type=0x40
+[ 8966.241842] ms912x: mode 10: 1024x768@60Hz flags=0xa type=0x40
+[ 8966.241844] ms912x: mode 11: 800x600@60Hz flags=0x5 type=0x40
+[ 8966.241847] ms912x: mode 12: 720x480@60Hz flags=0xa type=0x40
+[ 8966.241849] ms912x: mode 13: 720x480@60Hz flags=0xa type=0x40
+[ 8966.241851] ms912x: mode 14: 720x480@60Hz flags=0xa type=0x40
+[ 8966.241853] ms912x: mode 15: 720x480@60Hz flags=0xa type=0x40
+[ 8966.241855] ms912x: mode 16: 640x480@60Hz flags=0xa type=0x40
+[ 8966.241857] ms912x: mode 17: 640x480@60Hz flags=0xa type=0x40
+[ 8966.241859] ms912x: mode 18: 640x480@60Hz flags=0xa type=0x40
+[ 8966.241861] ms912x: total monitor modes: 19
+[ 8966.241863] ms912x: [ms912x-1] supported video modes:
+[ 8966.272165] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 8966.318407] ms912x: [ms912x-1] EDID read successfully, updating connector with EDID data
+[ 8966.318578] ms912x: added 43 modes from EDID
+[ 8966.318580] ms912x: monitor supported video modes:
+[ 8966.318582] ms912x: mode 0: 1920x1080@60Hz flags=0x5 type=0x48
+[ 8966.318585] ms912x: mode 1: 1920x1080@60Hz flags=0x5 type=0x40
+[ 8966.318588] ms912x: mode 2: 1920x1080@60Hz flags=0x5 type=0x40
+[ 8966.318590] ms912x: mode 3: 1920x1080@50Hz flags=0x5 type=0x40
+[ 8966.318592] ms912x: mode 4: 1280x1024@60Hz flags=0x5 type=0x40
+[ 8966.318594] ms912x: mode 5: 1360x768@60Hz flags=0x5 type=0x40
+[ 8966.318596] ms912x: mode 6: 1152x864@60Hz flags=0x6 type=0x0
+[ 8966.318598] ms912x: mode 7: 1280x720@60Hz flags=0x5 type=0x40
+[ 8966.318600] ms912x: mode 8: 1280x720@60Hz flags=0x5 type=0x40
+[ 8966.318602] ms912x: mode 9: 1280x720@60Hz flags=0x5 type=0x40
+[ 8966.318605] ms912x: mode 10: 1024x768@60Hz flags=0xa type=0x40
+[ 8966.318607] ms912x: mode 11: 800x600@60Hz flags=0x5 type=0x40
+[ 8966.318609] ms912x: mode 12: 720x480@60Hz flags=0xa type=0x40
+[ 8966.318611] ms912x: mode 13: 720x480@60Hz flags=0xa type=0x40
+[ 8966.318613] ms912x: mode 14: 720x480@60Hz flags=0xa type=0x40
+[ 8966.318615] ms912x: mode 15: 720x480@60Hz flags=0xa type=0x40
+[ 8966.318617] ms912x: mode 16: 640x480@60Hz flags=0xa type=0x40
+[ 8966.318619] ms912x: mode 17: 640x480@60Hz flags=0xa type=0x40
+[ 8966.318621] ms912x: mode 18: 640x480@60Hz flags=0xa type=0x40
+[ 8966.318623] ms912x: total monitor modes: 19
+[ 8966.318625] ms912x: [ms912x-1] supported video modes:
+[ 8966.374475] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8966.405815] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 8966.444475] ms912x: [ms912x-1] EDID read successfully, updating connector with EDID data
+[ 8966.444645] ms912x: added 43 modes from EDID
+[ 8966.444647] ms912x: monitor supported video modes:
+[ 8966.444648] ms912x: mode 0: 1920x1080@60Hz flags=0x5 type=0x48
+[ 8966.444652] ms912x: mode 1: 1920x1080@60Hz flags=0x5 type=0x40
+[ 8966.444654] ms912x: mode 2: 1920x1080@60Hz flags=0x5 type=0x40
+[ 8966.444656] ms912x: mode 3: 1920x1080@50Hz flags=0x5 type=0x40
+[ 8966.444659] ms912x: mode 4: 1280x1024@60Hz flags=0x5 type=0x40
+[ 8966.444661] ms912x: mode 5: 1360x768@60Hz flags=0x5 type=0x40
+[ 8966.444663] ms912x: mode 6: 1152x864@60Hz flags=0x6 type=0x0
+[ 8966.444665] ms912x: mode 7: 1280x720@60Hz flags=0x5 type=0x40
+[ 8966.444667] ms912x: mode 8: 1280x720@60Hz flags=0x5 type=0x40
+[ 8966.444669] ms912x: mode 9: 1280x720@60Hz flags=0x5 type=0x40
+[ 8966.444671] ms912x: mode 10: 1024x768@60Hz flags=0xa type=0x40
+[ 8966.444673] ms912x: mode 11: 800x600@60Hz flags=0x5 type=0x40
+[ 8966.444676] ms912x: mode 12: 720x480@60Hz flags=0xa type=0x40
+[ 8966.444678] ms912x: mode 13: 720x480@60Hz flags=0xa type=0x40
+[ 8966.444680] ms912x: mode 14: 720x480@60Hz flags=0xa type=0x40
+[ 8966.444682] ms912x: mode 15: 720x480@60Hz flags=0xa type=0x40
+[ 8966.444684] ms912x: mode 16: 640x480@60Hz flags=0xa type=0x40
+[ 8966.444686] ms912x: mode 17: 640x480@60Hz flags=0xa type=0x40
+[ 8966.444688] ms912x: mode 18: 640x480@60Hz flags=0xa type=0x40
+[ 8966.444690] ms912x: total monitor modes: 19
+[ 8966.444692] ms912x: [ms912x-1] supported video modes:
+[ 8966.500441] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8966.559437] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8966.876475] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8966.946469] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8967.422449] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8967.491484] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8967.555485] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8972.898518] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8972.960518] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8973.021488] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8973.512517] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8974.113478] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8974.712526] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8975.313533] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8975.496912] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 8975.810487] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8975.868491] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8975.927493] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8976.050511] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8976.103488] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8976.402535] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8977.006501] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8977.606505] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8978.207547] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8978.808514] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8979.410560] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8980.012512] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8980.613474] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8981.213532] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8981.814570] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8982.415539] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8983.016578] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8983.618538] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8984.219559] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8984.819585] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8985.422574] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8985.736946] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 8986.022542] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8986.562590] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8986.611551] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8986.660586] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8986.709596] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8986.759565] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8986.808592] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8986.877546] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8986.999571] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8987.048585] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8987.097591] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8987.146568] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8987.195591] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8987.244540] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8987.292589] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8987.486506] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8987.535553] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8987.584615] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8987.633588] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8987.682549] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8987.731599] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8987.780588] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8987.829604] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8988.112562] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8988.162591] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8988.211566] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8988.260569] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8988.309567] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8988.575510] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8988.624570] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8988.673597] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8988.723603] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8988.773556] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8988.824586] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8988.873594] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8988.923581] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8988.972596] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8989.021603] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8989.070597] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8989.119578] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8989.177572] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8989.226572] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8989.275554] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8989.330582] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8989.378582] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8989.439583] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8989.506597] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8989.665598] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8989.714597] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8989.763559] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8989.812575] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8989.861604] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8989.910606] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8989.959609] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8990.008625] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8990.057590] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8990.106573] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8990.155572] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8990.204517] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8990.253589] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8990.302565] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8990.351603] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8990.407603] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8990.463582] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8990.518573] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8990.572608] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8990.621568] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8990.670605] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8990.726591] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8990.782589] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8990.838619] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8990.894607] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8991.387595] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8991.463593] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8991.515594] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8991.592568] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8991.723608] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8991.775569] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8991.854588] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8991.920583] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8991.974624] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.023608] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.072613] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.121620] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.171594] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.220570] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.269556] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.320590] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.369575] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.424615] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.473616] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.522532] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.571611] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.620627] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.675619] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.724582] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.773624] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.822578] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.871601] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.920594] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8992.969628] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8993.024574] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8993.074630] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8993.123592] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8993.171593] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8993.552626] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8993.726645] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8993.776581] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8993.835607] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8993.949596] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8994.019619] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8994.086551] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8994.152558] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8994.220594] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8994.852610] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8994.917604] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8994.985619] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8995.052610] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8995.106632] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8995.155649] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8995.204641] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8995.253609] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8995.302631] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8995.351597] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8995.400603] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8995.517544] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8995.584651] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8995.902605] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8995.967594] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8995.976917] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 8996.364569] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8996.414602] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8996.463612] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8996.512593] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8996.561629] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8996.610600] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8996.658629] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8996.913564] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8996.962617] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8997.014599] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8997.063634] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8997.114607] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8997.163598] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8997.212618] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8997.285589] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8997.350607] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8997.476632] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8997.524577] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8997.574608] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8997.623613] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8997.674615] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8997.726649] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8997.774644] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8997.823646] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8997.872644] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8997.922643] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8997.971631] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8998.020645] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8998.069655] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8998.124623] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8998.174620] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8998.598647] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8998.748659] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8998.832626] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8998.898643] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8998.964631] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8999.231615] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8999.308636] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8999.357631] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8999.410619] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8999.460624] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8999.509646] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8999.558683] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8999.608654] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8999.659634] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8999.710635] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8999.759633] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8999.809627] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8999.858647] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8999.910676] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 8999.965632] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.015631] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.066630] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.115613] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.181655] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.248624] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.314661] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.370639] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.419647] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.469618] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.519622] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.568614] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.616665] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.666592] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.716634] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.766688] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.815645] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.864640] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.914635] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9000.963643] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9001.030625] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9001.097639] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9001.153675] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9001.433671] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9001.483619] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9001.532673] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9001.582655] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9001.631591] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9001.680675] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9001.729671] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9001.795649] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9001.862661] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9001.922653] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9001.977675] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9002.046636] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9002.112681] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9002.445671] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9002.512670] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9002.579580] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9002.646656] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9002.957698] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9003.023679] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9003.094640] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9003.162690] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9003.227672] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9003.296686] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9003.786635] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9003.835656] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9003.884661] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9003.933651] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9003.982683] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9004.031641] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9004.080679] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9004.150645] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9004.206683] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9004.255646] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9004.304689] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9004.353638] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9004.402645] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9004.457677] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9004.506628] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9004.555692] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9004.603644] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9004.679661] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9004.744630] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9004.926685] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9004.975706] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9005.025643] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9005.074720] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9005.123659] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9005.264619] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9005.313617] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9005.362617] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9005.411623] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9005.460669] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9005.509639] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9005.557657] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9005.625613] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9005.692668] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9006.217025] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 9006.253665] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9006.302668] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9006.351657] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9006.400673] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9006.449693] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9006.498693] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9006.547695] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9006.957657] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9007.025671] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9007.091719] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9007.157661] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9007.240683] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9007.307692] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9007.393701] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9007.458678] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9007.523712] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9007.590677] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9008.022703] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9008.078667] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9008.127666] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9008.176705] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9008.225704] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9008.274680] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9008.323707] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9008.372685] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9008.421676] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9008.470690] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9008.519689] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9008.568666] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9008.616703] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9008.690673] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9008.774666] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9008.831665] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9009.620709] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9009.669690] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9009.718714] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9009.767708] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9010.771716] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9010.838688] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9010.904689] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9010.971696] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9011.037737] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9011.104693] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9011.170680] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9011.237702] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9011.304741] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9011.375725] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9011.453731] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9011.520689] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9011.587659] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9012.525680] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9012.574721] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9012.624727] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9012.673725] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9012.753735] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9012.820732] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9012.886688] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9012.956685] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9013.019726] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9013.068728] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9013.117727] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9013.166733] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9013.215734] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9013.264728] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9013.313711] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9013.362697] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9013.411709] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9013.460703] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9013.509722] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9013.558750] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9013.608697] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9013.657747] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9013.707713] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9013.756694] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9013.805719] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9013.853740] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9014.085749] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9014.134746] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9014.183744] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9014.232740] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9014.281702] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9014.351739] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9014.400730] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9014.471738] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9014.535741] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9014.584738] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9014.641701] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9014.697715] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9014.767718] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9015.084757] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9015.151715] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9015.218723] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9015.223045] ms912x: [ms912x-1] disabling display pipe
+[ 9015.223054] ms912x: [ms912x-1] powering off device
+[ 9015.223237] ms912x: device powered off successfully
+[ 9015.278752] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9015.278774] ms912x: [ms912x-1] enabling display pipe, mode: 1360x768@60Hz
+[ 9015.278781] ms912x: [ms912x-1] powering on device
+[ 9015.278977] ms912x: device powered on successfully
+[ 9015.278984] ms912x: [ms912x-1] setting resolution: 1360x768@60Hz, mode=0x6400
+[ 9015.278993] ms912x: setting resolution 1360x768, mode 0x6400
+[ 9015.278999] ms912x: [ms912x-1] setting resolution: width=1360, height=768, mode=0x6400, pix_fmt=0x2200
+[ 9015.283830] ms912x: resolution set successfully
+[ 9015.341746] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9015.393744] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9015.495721] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9015.545720] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9015.704724] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9015.757711] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9015.846412] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 9015.885479] ms912x: [ms912x-1] EDID read successfully, updating connector with EDID data
+[ 9015.885659] ms912x: added 43 modes from EDID
+[ 9015.885662] ms912x: monitor supported video modes:
+[ 9015.885663] ms912x: mode 0: 1920x1080@60Hz flags=0x5 type=0x48
+[ 9015.885667] ms912x: mode 1: 1920x1080@60Hz flags=0x5 type=0x40
+[ 9015.885670] ms912x: mode 2: 1920x1080@60Hz flags=0x5 type=0x40
+[ 9015.885672] ms912x: mode 3: 1920x1080@50Hz flags=0x5 type=0x40
+[ 9015.885674] ms912x: mode 4: 1280x1024@60Hz flags=0x5 type=0x40
+[ 9015.885676] ms912x: mode 5: 1360x768@60Hz flags=0x5 type=0x40
+[ 9015.885678] ms912x: mode 6: 1152x864@60Hz flags=0x6 type=0x0
+[ 9015.885681] ms912x: mode 7: 1280x720@60Hz flags=0x5 type=0x40
+[ 9015.885683] ms912x: mode 8: 1280x720@60Hz flags=0x5 type=0x40
+[ 9015.885685] ms912x: mode 9: 1280x720@60Hz flags=0x5 type=0x40
+[ 9015.885687] ms912x: mode 10: 1024x768@60Hz flags=0xa type=0x40
+[ 9015.885690] ms912x: mode 11: 800x600@60Hz flags=0x5 type=0x40
+[ 9015.885692] ms912x: mode 12: 720x480@60Hz flags=0xa type=0x40
+[ 9015.885694] ms912x: mode 13: 720x480@60Hz flags=0xa type=0x40
+[ 9015.885697] ms912x: mode 14: 720x480@60Hz flags=0xa type=0x40
+[ 9015.885699] ms912x: mode 15: 720x480@60Hz flags=0xa type=0x40
+[ 9015.885701] ms912x: mode 16: 640x480@60Hz flags=0xa type=0x40
+[ 9015.885703] ms912x: mode 17: 640x480@60Hz flags=0xa type=0x40
+[ 9015.885705] ms912x: mode 18: 640x480@60Hz flags=0xa type=0x40
+[ 9015.885707] ms912x: total monitor modes: 19
+[ 9015.885709] ms912x: [ms912x-1] supported video modes:
+[ 9015.938721] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9015.988759] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9016.086715] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9016.295679] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9016.345063] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 9016.382823] ms912x: [ms912x-1] EDID read successfully, updating connector with EDID data
+[ 9016.382994] ms912x: added 43 modes from EDID
+[ 9016.382996] ms912x: monitor supported video modes:
+[ 9016.382997] ms912x: mode 0: 1920x1080@60Hz flags=0x5 type=0x48
+[ 9016.383000] ms912x: mode 1: 1920x1080@60Hz flags=0x5 type=0x40
+[ 9016.383003] ms912x: mode 2: 1920x1080@60Hz flags=0x5 type=0x40
+[ 9016.383005] ms912x: mode 3: 1920x1080@50Hz flags=0x5 type=0x40
+[ 9016.383007] ms912x: mode 4: 1280x1024@60Hz flags=0x5 type=0x40
+[ 9016.383009] ms912x: mode 5: 1360x768@60Hz flags=0x5 type=0x40
+[ 9016.383011] ms912x: mode 6: 1152x864@60Hz flags=0x6 type=0x0
+[ 9016.383014] ms912x: mode 7: 1280x720@60Hz flags=0x5 type=0x40
+[ 9016.383016] ms912x: mode 8: 1280x720@60Hz flags=0x5 type=0x40
+[ 9016.383018] ms912x: mode 9: 1280x720@60Hz flags=0x5 type=0x40
+[ 9016.383020] ms912x: mode 10: 1024x768@60Hz flags=0xa type=0x40
+[ 9016.383022] ms912x: mode 11: 800x600@60Hz flags=0x5 type=0x40
+[ 9016.383024] ms912x: mode 12: 720x480@60Hz flags=0xa type=0x40
+[ 9016.383026] ms912x: mode 13: 720x480@60Hz flags=0xa type=0x40
+[ 9016.383028] ms912x: mode 14: 720x480@60Hz flags=0xa type=0x40
+[ 9016.383031] ms912x: mode 15: 720x480@60Hz flags=0xa type=0x40
+[ 9016.383033] ms912x: mode 16: 640x480@60Hz flags=0xa type=0x40
+[ 9016.383035] ms912x: mode 17: 640x480@60Hz flags=0xa type=0x40
+[ 9016.383037] ms912x: mode 18: 640x480@60Hz flags=0xa type=0x40
+[ 9016.383039] ms912x: total monitor modes: 19
+[ 9016.383040] ms912x: [ms912x-1] supported video modes:
+[ 9016.412200] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 9016.454994] ms912x: [ms912x-1] EDID read successfully, updating connector with EDID data
+[ 9016.455167] ms912x: added 43 modes from EDID
+[ 9016.455169] ms912x: monitor supported video modes:
+[ 9016.455171] ms912x: mode 0: 1920x1080@60Hz flags=0x5 type=0x48
+[ 9016.455174] ms912x: mode 1: 1920x1080@60Hz flags=0x5 type=0x40
+[ 9016.455177] ms912x: mode 2: 1920x1080@60Hz flags=0x5 type=0x40
+[ 9016.455179] ms912x: mode 3: 1920x1080@50Hz flags=0x5 type=0x40
+[ 9016.455182] ms912x: mode 4: 1280x1024@60Hz flags=0x5 type=0x40
+[ 9016.455184] ms912x: mode 5: 1360x768@60Hz flags=0x5 type=0x40
+[ 9016.455186] ms912x: mode 6: 1152x864@60Hz flags=0x6 type=0x0
+[ 9016.455188] ms912x: mode 7: 1280x720@60Hz flags=0x5 type=0x40
+[ 9016.455191] ms912x: mode 8: 1280x720@60Hz flags=0x5 type=0x40
+[ 9016.455193] ms912x: mode 9: 1280x720@60Hz flags=0x5 type=0x40
+[ 9016.455195] ms912x: mode 10: 1024x768@60Hz flags=0xa type=0x40
+[ 9016.455197] ms912x: mode 11: 800x600@60Hz flags=0x5 type=0x40
+[ 9016.455199] ms912x: mode 12: 720x480@60Hz flags=0xa type=0x40
+[ 9016.455201] ms912x: mode 13: 720x480@60Hz flags=0xa type=0x40
+[ 9016.455204] ms912x: mode 14: 720x480@60Hz flags=0xa type=0x40
+[ 9016.455206] ms912x: mode 15: 720x480@60Hz flags=0xa type=0x40
+[ 9016.455208] ms912x: mode 16: 640x480@60Hz flags=0xa type=0x40
+[ 9016.455210] ms912x: mode 17: 640x480@60Hz flags=0xa type=0x40
+[ 9016.455212] ms912x: mode 18: 640x480@60Hz flags=0xa type=0x40
+[ 9016.455214] ms912x: total monitor modes: 19
+[ 9016.455216] ms912x: [ms912x-1] supported video modes:
+[ 9016.456799] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 9016.516730] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9016.577715] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9016.753723] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9017.272683] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9017.496726] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9017.562680] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9017.665755] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9017.715740] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9017.779731] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9017.959765] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9018.008756] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9018.057717] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9018.108757] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9018.157758] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9018.206770] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9018.255757] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9018.304758] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9018.528772] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9018.611731] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9018.660737] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9018.709729] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9018.758743] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9018.807738] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9018.856825] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9018.905761] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9018.953770] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9019.123724] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9019.172766] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9019.221734] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9019.270747] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9019.323740] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9019.371763] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9019.527783] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9019.893744] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9020.057767] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9020.143787] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9020.196773] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9020.260773] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9020.326738] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9020.676747] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9020.725752] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9020.774772] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9020.823772] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9020.872812] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9020.942774] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9021.009763] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9021.076755] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9021.142727] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9021.210746] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9021.278777] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9021.327737] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9021.376746] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9021.425750] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9021.492728] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9021.559766] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9021.608775] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9021.657788] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9021.706748] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9021.759734] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9021.808786] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9021.857787] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9021.925779] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9022.192788] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9022.241765] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9022.290779] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9022.339759] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9022.388781] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9022.437756] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9022.486721] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9022.535771] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9022.584789] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9022.632775] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9022.691757] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9022.758774] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9022.830783] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9022.879783] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9022.928805] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9022.977798] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9023.026791] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9023.075782] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9023.141793] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9023.194785] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9023.381764] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9023.430840] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9023.479796] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9023.528763] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9023.577788] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9023.626789] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9023.675804] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9023.741811] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9023.794761] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9023.857757] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9023.923791] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9023.972754] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9024.021773] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9024.070765] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9024.119748] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9024.190753] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9024.257791] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9024.324794] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9024.389805] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9024.438783] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9024.491784] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9024.540780] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9024.606763] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9024.922795] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9024.989805] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9025.055752] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9025.122768] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9025.189779] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9025.305761] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9025.371779] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9025.438806] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9025.491800] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9025.555803] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9025.622779] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9025.709807] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9025.758813] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9025.807779] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9025.856785] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9025.905791] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9025.971776] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9026.038771] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9026.105802] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9026.260807] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9026.309811] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9026.358806] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9026.407783] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9026.456773] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9026.505797] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9026.571781] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9026.638787] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9026.697235] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 9026.704768] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9026.771807] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9026.837813] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9027.187782] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9027.255766] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9027.321814] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9027.387779] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9027.473802] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9027.536790] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9027.604805] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9027.670830] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9028.264832] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9028.313786] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9028.362788] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9028.411787] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9028.460833] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9028.509828] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9028.558807] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9028.607827] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9028.656786] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9028.705823] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9028.754726] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9028.803803] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9028.852781] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9028.901810] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9028.950830] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9028.999785] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9029.048844] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9029.097833] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9029.149830] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9029.218794] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9029.272793] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9029.430788] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9029.479787] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9029.529826] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9029.578801] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9029.627753] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9029.676824] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9029.725808] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9029.774833] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9029.823795] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9029.872755] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9029.921842] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9029.985839] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9030.052883] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9030.106789] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9030.834837] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9030.901796] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9030.967847] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9031.034843] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9031.117829] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9031.183791] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9031.250810] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9031.317817] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9031.383809] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9031.657852] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9031.706841] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9031.755824] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9031.804843] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9031.853800] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9031.901845] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9031.966825] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9032.033819] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9032.107817] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9032.156843] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9032.205854] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9032.254817] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9032.303840] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9032.352817] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9032.401838] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9032.466803] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9032.532833] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9032.721827] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9032.770851] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9032.819816] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9032.868812] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9032.917825] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9032.966858] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9033.015811] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9033.064865] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9033.114861] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9033.163807] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9033.212864] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9033.261805] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9033.310841] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9033.359853] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9033.408828] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9033.458858] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9033.507850] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9033.582821] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9033.649823] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9033.715849] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9034.015852] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9034.082818] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9034.135807] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9034.144153] ms912x: [ms912x-1] disabling display pipe
+[ 9034.144163] ms912x: [ms912x-1] powering off device
+[ 9034.144353] ms912x: device powered off successfully
+[ 9034.198818] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9034.198840] ms912x: [ms912x-1] enabling display pipe, mode: 1024x768@60Hz
+[ 9034.198847] ms912x: [ms912x-1] powering on device
+[ 9034.199046] ms912x: device powered on successfully
+[ 9034.199053] ms912x: [ms912x-1] setting resolution: 1024x768@60Hz, mode=0x4700
+[ 9034.199062] ms912x: setting resolution 1024x768, mode 0x4700
+[ 9034.199068] ms912x: [ms912x-1] setting resolution: width=1024, height=768, mode=0x4700, pix_fmt=0x2200
+[ 9034.203648] ms912x: resolution set successfully
+[ 9034.311809] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9034.360843] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9034.411854] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9034.567869] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9034.617835] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9034.696723] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 9034.746633] ms912x: [ms912x-1] EDID read successfully, updating connector with EDID data
+[ 9034.747063] ms912x: added 43 modes from EDID
+[ 9034.747068] ms912x: monitor supported video modes:
+[ 9034.747072] ms912x: mode 0: 1920x1080@60Hz flags=0x5 type=0x48
+[ 9034.747080] ms912x: mode 1: 1920x1080@60Hz flags=0x5 type=0x40
+[ 9034.747086] ms912x: mode 2: 1920x1080@60Hz flags=0x5 type=0x40
+[ 9034.747091] ms912x: mode 3: 1920x1080@50Hz flags=0x5 type=0x40
+[ 9034.747096] ms912x: mode 4: 1280x1024@60Hz flags=0x5 type=0x40
+[ 9034.747101] ms912x: mode 5: 1360x768@60Hz flags=0x5 type=0x40
+[ 9034.747107] ms912x: mode 6: 1152x864@60Hz flags=0x6 type=0x0
+[ 9034.747112] ms912x: mode 7: 1280x720@60Hz flags=0x5 type=0x40
+[ 9034.747117] ms912x: mode 8: 1280x720@60Hz flags=0x5 type=0x40
+[ 9034.747122] ms912x: mode 9: 1280x720@60Hz flags=0x5 type=0x40
+[ 9034.747127] ms912x: mode 10: 1024x768@60Hz flags=0xa type=0x40
+[ 9034.747133] ms912x: mode 11: 800x600@60Hz flags=0x5 type=0x40
+[ 9034.747138] ms912x: mode 12: 720x480@60Hz flags=0xa type=0x40
+[ 9034.747143] ms912x: mode 13: 720x480@60Hz flags=0xa type=0x40
+[ 9034.747148] ms912x: mode 14: 720x480@60Hz flags=0xa type=0x40
+[ 9034.747153] ms912x: mode 15: 720x480@60Hz flags=0xa type=0x40
+[ 9034.747158] ms912x: mode 16: 640x480@60Hz flags=0xa type=0x40
+[ 9034.747163] ms912x: mode 17: 640x480@60Hz flags=0xa type=0x40
+[ 9034.747168] ms912x: mode 18: 640x480@60Hz flags=0xa type=0x40
+[ 9034.747173] ms912x: total monitor modes: 19
+[ 9034.747177] ms912x: [ms912x-1] supported video modes:
+[ 9034.809865] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9034.859837] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9034.953867] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9035.129805] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9035.162184] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 9035.199017] ms912x: [ms912x-1] EDID read successfully, updating connector with EDID data
+[ 9035.199190] ms912x: added 43 modes from EDID
+[ 9035.199192] ms912x: monitor supported video modes:
+[ 9035.199193] ms912x: mode 0: 1920x1080@60Hz flags=0x5 type=0x48
+[ 9035.199197] ms912x: mode 1: 1920x1080@60Hz flags=0x5 type=0x40
+[ 9035.199199] ms912x: mode 2: 1920x1080@60Hz flags=0x5 type=0x40
+[ 9035.199202] ms912x: mode 3: 1920x1080@50Hz flags=0x5 type=0x40
+[ 9035.199204] ms912x: mode 4: 1280x1024@60Hz flags=0x5 type=0x40
+[ 9035.199206] ms912x: mode 5: 1360x768@60Hz flags=0x5 type=0x40
+[ 9035.199208] ms912x: mode 6: 1152x864@60Hz flags=0x6 type=0x0
+[ 9035.199211] ms912x: mode 7: 1280x720@60Hz flags=0x5 type=0x40
+[ 9035.199213] ms912x: mode 8: 1280x720@60Hz flags=0x5 type=0x40
+[ 9035.199215] ms912x: mode 9: 1280x720@60Hz flags=0x5 type=0x40
+[ 9035.199217] ms912x: mode 10: 1024x768@60Hz flags=0xa type=0x40
+[ 9035.199219] ms912x: mode 11: 800x600@60Hz flags=0x5 type=0x40
+[ 9035.199222] ms912x: mode 12: 720x480@60Hz flags=0xa type=0x40
+[ 9035.199224] ms912x: mode 13: 720x480@60Hz flags=0xa type=0x40
+[ 9035.199226] ms912x: mode 14: 720x480@60Hz flags=0xa type=0x40
+[ 9035.199228] ms912x: mode 15: 720x480@60Hz flags=0xa type=0x40
+[ 9035.199230] ms912x: mode 16: 640x480@60Hz flags=0xa type=0x40
+[ 9035.199232] ms912x: mode 17: 640x480@60Hz flags=0xa type=0x40
+[ 9035.199234] ms912x: mode 18: 640x480@60Hz flags=0xa type=0x40
+[ 9035.199236] ms912x: total monitor modes: 19
+[ 9035.199238] ms912x: [ms912x-1] supported video modes:
+[ 9035.229243] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 9035.280009] ms912x: [ms912x-1] EDID read successfully, updating connector with EDID data
+[ 9035.280419] ms912x: added 43 modes from EDID
+[ 9035.280423] ms912x: monitor supported video modes:
+[ 9035.280427] ms912x: mode 0: 1920x1080@60Hz flags=0x5 type=0x48
+[ 9035.280435] ms912x: mode 1: 1920x1080@60Hz flags=0x5 type=0x40
+[ 9035.280441] ms912x: mode 2: 1920x1080@60Hz flags=0x5 type=0x40
+[ 9035.280447] ms912x: mode 3: 1920x1080@50Hz flags=0x5 type=0x40
+[ 9035.280452] ms912x: mode 4: 1280x1024@60Hz flags=0x5 type=0x40
+[ 9035.280457] ms912x: mode 5: 1360x768@60Hz flags=0x5 type=0x40
+[ 9035.280463] ms912x: mode 6: 1152x864@60Hz flags=0x6 type=0x0
+[ 9035.280468] ms912x: mode 7: 1280x720@60Hz flags=0x5 type=0x40
+[ 9035.280473] ms912x: mode 8: 1280x720@60Hz flags=0x5 type=0x40
+[ 9035.280478] ms912x: mode 9: 1280x720@60Hz flags=0x5 type=0x40
+[ 9035.280483] ms912x: mode 10: 1024x768@60Hz flags=0xa type=0x40
+[ 9035.280489] ms912x: mode 11: 800x600@60Hz flags=0x5 type=0x40
+[ 9035.280494] ms912x: mode 12: 720x480@60Hz flags=0xa type=0x40
+[ 9035.280499] ms912x: mode 13: 720x480@60Hz flags=0xa type=0x40
+[ 9035.280504] ms912x: mode 14: 720x480@60Hz flags=0xa type=0x40
+[ 9035.280510] ms912x: mode 15: 720x480@60Hz flags=0xa type=0x40
+[ 9035.280515] ms912x: mode 16: 640x480@60Hz flags=0xa type=0x40
+[ 9035.280520] ms912x: mode 17: 640x480@60Hz flags=0xa type=0x40
+[ 9035.280525] ms912x: mode 18: 640x480@60Hz flags=0xa type=0x40
+[ 9035.280530] ms912x: total monitor modes: 19
+[ 9035.280534] ms912x: [ms912x-1] supported video modes:
+[ 9035.333870] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9035.399878] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9035.462818] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9035.654818] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9036.065794] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9036.114862] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9036.166837] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9036.219827] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9036.268865] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9036.320841] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9036.368860] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9036.577858] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9036.626837] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9036.675853] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9036.724860] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9036.773813] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9036.822873] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9036.871841] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9036.937214] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 9036.963824] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9037.129872] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9037.178872] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9037.227833] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9037.277824] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9037.326827] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9037.375841] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9037.427835] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9037.476837] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9037.525800] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9037.574839] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9037.623871] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9037.672870] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9037.720844] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9037.795845] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9037.845827] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9037.894857] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9037.944850] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9038.010874] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9038.361855] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9038.525843] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9038.610885] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9038.692858] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9038.757848] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9038.824841] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9039.896881] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9039.945852] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9039.994860] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9040.043850] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9040.092863] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9040.142883] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9040.191855] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9040.240857] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9040.288866] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9040.358877] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9040.425885] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9040.492898] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9040.558874] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9040.607835] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9040.656888] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9040.705863] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9040.754878] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9040.806879] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9040.855879] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9040.924899] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9040.991856] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9041.059840] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9041.124890] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9042.212848] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9042.261860] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9042.310865] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9042.359859] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9042.407859] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9042.488886] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9042.537880] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9042.586864] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9042.635871] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9042.684861] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9042.733884] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9042.782917] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9042.830906] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9043.101869] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9043.150911] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9043.199875] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9043.248904] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9043.297904] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9043.346912] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9043.395912] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9043.445871] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9043.505869] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9043.573886] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9043.622899] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9043.671905] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9043.720911] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9043.769907] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9043.838913] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9043.905834] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9043.971915] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9044.020914] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9044.069909] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9044.138892] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9044.187908] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9044.241860] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9044.354866] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9044.521918] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9044.588888] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9044.655867] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9044.721913] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9044.808885] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9045.004879] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9045.103896] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9045.155921] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9045.221926] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9045.270914] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9045.322881] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9045.371922] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9045.420891] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9045.469920] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9045.519892] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9045.568901] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9045.617934] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9045.687919] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9045.753926] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9046.759908] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9046.808893] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9046.858866] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9046.907894] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9046.956914] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.005884] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.054856] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.103844] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.152931] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.177299] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 9047.203901] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.253892] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.301941] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.369882] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.436938] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.502940] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.558934] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.611886] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.660897] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.709932] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.758909] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.807849] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.855945] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.918916] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9047.985931] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9048.053856] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9048.118917] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9048.185932] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9048.284932] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9048.351904] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9048.418890] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9048.484901] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9048.569893] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9048.635908] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9048.701937] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9048.767902] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9049.101944] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9049.150914] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9049.199924] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9049.250905] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9049.299907] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9049.349952] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9049.398912] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9049.448921] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9049.533911] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9049.582947] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9049.634943] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9049.683919] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9049.732890] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9050.116921] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9050.183922] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9050.250907] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9050.316946] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9050.383902] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9050.450923] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9050.516860] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9050.602921] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9050.654948] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9050.716957] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9050.782909] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9050.849899] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9050.916915] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9051.102947] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9051.151967] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9051.201909] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9051.250958] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9051.299921] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9051.348916] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9051.397959] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9051.465913] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9051.533916] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9051.715948] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9051.764950] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9051.813951] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9051.862951] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9051.911904] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9051.960913] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.009912] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.058954] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.107916] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.156917] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.207926] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.256898] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.306905] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.356914] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.405911] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.454920] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.503934] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.552932] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.601922] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.650942] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.699934] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.748916] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.797961] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.864943] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9052.930928] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9053.380930] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9053.447944] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9053.513968] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9053.613946] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9053.664968] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9053.703871] ms912x: [ms912x-1] disabling display pipe
+[ 9053.703882] ms912x: [ms912x-1] powering off device
+[ 9053.703989] ms912x: device powered off successfully
+[ 9053.755919] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9053.755941] ms912x: [ms912x-1] enabling display pipe, mode: 1920x1080@60Hz
+[ 9053.755948] ms912x: [ms912x-1] powering on device
+[ 9053.756149] ms912x: device powered on successfully
+[ 9053.756156] ms912x: [ms912x-1] setting resolution: 1920x1080@60Hz, mode=0x8100
+[ 9053.756165] ms912x: setting resolution 1920x1080, mode 0x8100
+[ 9053.756171] ms912x: [ms912x-1] setting resolution: width=1920, height=1080, mode=0x8100, pix_fmt=0x2200
+[ 9053.760772] ms912x: resolution set successfully
+[ 9053.821965] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9053.907007] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9053.982938] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9054.054934] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9054.096750] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 9054.134899] ms912x: [ms912x-1] EDID read successfully, updating connector with EDID data
+[ 9054.135069] ms912x: added 43 modes from EDID
+[ 9054.135071] ms912x: monitor supported video modes:
+[ 9054.135072] ms912x: mode 0: 1920x1080@60Hz flags=0x5 type=0x48
+[ 9054.135076] ms912x: mode 1: 1920x1080@60Hz flags=0x5 type=0x40
+[ 9054.135078] ms912x: mode 2: 1920x1080@60Hz flags=0x5 type=0x40
+[ 9054.135081] ms912x: mode 3: 1920x1080@50Hz flags=0x5 type=0x40
+[ 9054.135083] ms912x: mode 4: 1280x1024@60Hz flags=0x5 type=0x40
+[ 9054.135085] ms912x: mode 5: 1360x768@60Hz flags=0x5 type=0x40
+[ 9054.135087] ms912x: mode 6: 1152x864@60Hz flags=0x6 type=0x0
+[ 9054.135089] ms912x: mode 7: 1280x720@60Hz flags=0x5 type=0x40
+[ 9054.135091] ms912x: mode 8: 1280x720@60Hz flags=0x5 type=0x40
+[ 9054.135093] ms912x: mode 9: 1280x720@60Hz flags=0x5 type=0x40
+[ 9054.135095] ms912x: mode 10: 1024x768@60Hz flags=0xa type=0x40
+[ 9054.135098] ms912x: mode 11: 800x600@60Hz flags=0x5 type=0x40
+[ 9054.135100] ms912x: mode 12: 720x480@60Hz flags=0xa type=0x40
+[ 9054.135102] ms912x: mode 13: 720x480@60Hz flags=0xa type=0x40
+[ 9054.135104] ms912x: mode 14: 720x480@60Hz flags=0xa type=0x40
+[ 9054.135106] ms912x: mode 15: 720x480@60Hz flags=0xa type=0x40
+[ 9054.135108] ms912x: mode 16: 640x480@60Hz flags=0xa type=0x40
+[ 9054.135111] ms912x: mode 17: 640x480@60Hz flags=0xa type=0x40
+[ 9054.135113] ms912x: mode 18: 640x480@60Hz flags=0xa type=0x40
+[ 9054.135115] ms912x: total monitor modes: 19
+[ 9054.135116] ms912x: [ms912x-1] supported video modes:
+[ 9054.179792] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 9054.230477] ms912x: [ms912x-1] EDID read successfully, updating connector with EDID data
+[ 9054.230911] ms912x: added 43 modes from EDID
+[ 9054.230917] ms912x: monitor supported video modes:
+[ 9054.230920] ms912x: mode 0: 1920x1080@60Hz flags=0x5 type=0x48
+[ 9054.230929] ms912x: mode 1: 1920x1080@60Hz flags=0x5 type=0x40
+[ 9054.230935] ms912x: mode 2: 1920x1080@60Hz flags=0x5 type=0x40
+[ 9054.230941] ms912x: mode 3: 1920x1080@50Hz flags=0x5 type=0x40
+[ 9054.230947] ms912x: mode 4: 1280x1024@60Hz flags=0x5 type=0x40
+[ 9054.230953] ms912x: mode 5: 1360x768@60Hz flags=0x5 type=0x40
+[ 9054.230958] ms912x: mode 6: 1152x864@60Hz flags=0x6 type=0x0
+[ 9054.230964] ms912x: mode 7: 1280x720@60Hz flags=0x5 type=0x40
+[ 9054.230969] ms912x: mode 8: 1280x720@60Hz flags=0x5 type=0x40
+[ 9054.230974] ms912x: mode 9: 1280x720@60Hz flags=0x5 type=0x40
+[ 9054.230979] ms912x: mode 10: 1024x768@60Hz flags=0xa type=0x40
+[ 9054.230985] ms912x: mode 11: 800x600@60Hz flags=0x5 type=0x40
+[ 9054.230991] ms912x: mode 12: 720x480@60Hz flags=0xa type=0x40
+[ 9054.230997] ms912x: mode 13: 720x480@60Hz flags=0xa type=0x40
+[ 9054.231002] ms912x: mode 14: 720x480@60Hz flags=0xa type=0x40
+[ 9054.231008] ms912x: mode 15: 720x480@60Hz flags=0xa type=0x40
+[ 9054.231013] ms912x: mode 16: 640x480@60Hz flags=0xa type=0x40
+[ 9054.231018] ms912x: mode 17: 640x480@60Hz flags=0xa type=0x40
+[ 9054.231023] ms912x: mode 18: 640x480@60Hz flags=0xa type=0x40
+[ 9054.231028] ms912x: total monitor modes: 19
+[ 9054.231033] ms912x: [ms912x-1] supported video modes:
+[ 9054.263764] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 9054.312952] ms912x: [ms912x-1] EDID read successfully, updating connector with EDID data
+[ 9054.313125] ms912x: added 43 modes from EDID
+[ 9054.313126] ms912x: monitor supported video modes:
+[ 9054.313128] ms912x: mode 0: 1920x1080@60Hz flags=0x5 type=0x48
+[ 9054.313131] ms912x: mode 1: 1920x1080@60Hz flags=0x5 type=0x40
+[ 9054.313134] ms912x: mode 2: 1920x1080@60Hz flags=0x5 type=0x40
+[ 9054.313136] ms912x: mode 3: 1920x1080@50Hz flags=0x5 type=0x40
+[ 9054.313138] ms912x: mode 4: 1280x1024@60Hz flags=0x5 type=0x40
+[ 9054.313140] ms912x: mode 5: 1360x768@60Hz flags=0x5 type=0x40
+[ 9054.313143] ms912x: mode 6: 1152x864@60Hz flags=0x6 type=0x0
+[ 9054.313145] ms912x: mode 7: 1280x720@60Hz flags=0x5 type=0x40
+[ 9054.313147] ms912x: mode 8: 1280x720@60Hz flags=0x5 type=0x40
+[ 9054.313149] ms912x: mode 9: 1280x720@60Hz flags=0x5 type=0x40
+[ 9054.313151] ms912x: mode 10: 1024x768@60Hz flags=0xa type=0x40
+[ 9054.313154] ms912x: mode 11: 800x600@60Hz flags=0x5 type=0x40
+[ 9054.313156] ms912x: mode 12: 720x480@60Hz flags=0xa type=0x40
+[ 9054.313158] ms912x: mode 13: 720x480@60Hz flags=0xa type=0x40
+[ 9054.313160] ms912x: mode 14: 720x480@60Hz flags=0xa type=0x40
+[ 9054.313162] ms912x: mode 15: 720x480@60Hz flags=0xa type=0x40
+[ 9054.313164] ms912x: mode 16: 640x480@60Hz flags=0xa type=0x40
+[ 9054.313166] ms912x: mode 17: 640x480@60Hz flags=0xa type=0x40
+[ 9054.313169] ms912x: mode 18: 640x480@60Hz flags=0xa type=0x40
+[ 9054.313171] ms912x: total monitor modes: 19
+[ 9054.313172] ms912x: [ms912x-1] supported video modes:
+[ 9054.381860] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9054.483947] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9054.546921] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9054.598901] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9054.706959] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9054.757981] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9054.816977] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9055.110981] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9055.159971] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9055.208952] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9055.257972] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9055.306925] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9055.355930] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9055.404926] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9055.452909] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9055.685933] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9055.733939] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9055.783952] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9055.832977] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9055.881931] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9055.930940] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9055.979926] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9056.147933] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9056.254957] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9056.303942] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9056.352962] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9056.407953] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9056.456988] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9056.505980] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9056.554958] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9056.604953] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9056.659959] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9056.708979] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9056.757964] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9056.806988] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9056.854988] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9056.950944] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9057.000974] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9057.049995] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9057.099980] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9057.154967] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9057.203990] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9057.257958] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9057.417332] ms912x: [ms912x-1] HDMI detection result: connected (status register: 1)
+[ 9057.514964] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9057.672890] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9057.764003] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9057.816994] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9057.878992] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9057.958957] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9058.010949] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9058.552991] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9058.601978] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9058.650931] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9058.699971] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9058.748964] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9058.797996] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9058.846995] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9058.896001] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9058.944947] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9058.993988] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9059.062973] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9059.129994] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9059.280974] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9059.337000] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9059.385969] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9059.434955] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9059.483906] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9059.532953] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9059.581968] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9059.645993] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9059.712993] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9059.779970] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9059.845978] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9059.894978] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9059.943975] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9059.992977] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9060.041979] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9060.096996] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9060.145969] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9060.195997] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9060.244929] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9060.292988] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9060.362011] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9060.428974] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9060.519002] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9060.567968] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9060.618012] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9060.666963] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9060.715999] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9060.764968] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9060.813984] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9060.862978] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9060.912026] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9060.960983] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9061.010017] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9061.059011] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9061.109038] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9061.158006] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9061.206969] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9061.255964] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9061.304957] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9061.378021] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9061.444978] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9061.511011] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9061.559982] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9061.616013] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9061.665013] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9061.714013] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9061.762997] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9062.442977] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9062.509990] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9062.580033] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9062.635992] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9062.706023] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9062.826002] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9062.891993] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9062.947987] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9063.009997] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9063.075974] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9063.176001] ms912x: [ms912x-1] failed to enter drm device after 5 attempts: 1 (device unplugged=0, registered=1)
+[ 9065.221334] ms912x: disconnect started for device ms912x-1
+[ 9065.221344] ms912x: [ms912x-1] device state before disconnect: unplugged=0, registered=1
+[ 9217.162832]  ms912x_usb_disconnect+0x110/0x260 [ms912x]

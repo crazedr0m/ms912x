@@ -48,11 +48,5 @@ int ms912x_run_diagnostics(struct ms912x_device *ms912x);
  */
 int ms912x_get_device_info(struct ms912x_device *ms912x, char *buf, size_t size);
 
-/**
- * @brief Выводит список видеорежимов, поддерживаемых монитором
- *
- * @param ms912x Устройство
- */
-void ms912x_print_monitor_modes(struct ms912x_device *ms912x);
 
 #endif // MS912X_DIAGNOSTICS_H
