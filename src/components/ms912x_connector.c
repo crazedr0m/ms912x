@@ -102,7 +102,8 @@ static void ms912x_add_fallback_mode(struct drm_connector *connector)
 	drm_mode_probed_add(connector, mode);
 	
 	// Добавляем дополнительную диагностику при добавлении резервного режима
-	if (mode->name) {
+	// Так как mode->name это массив, а не указатель, проверяем первый символ
+	if (mode->name[0] != '\0') {
 		pr_info("ms912x: added fallback mode: %s %dx%d@%dHz\n",
 		        mode->name, mode->hdisplay, mode->vdisplay, drm_mode_vrefresh(mode));
 	}

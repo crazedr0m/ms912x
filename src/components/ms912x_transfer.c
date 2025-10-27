@@ -43,16 +43,18 @@ static void ms912x_request_work(struct work_struct *work)
 	struct ms912x_usb_request *request =
 		container_of(work, struct ms912x_usb_request, work);
 	struct ms912x_device *ms912x = request->ms912x;
-	struct usb_device *usbdev = interface_to_usbdev(ms912x->intf);
+	struct usb_device *usbdev;
 	struct usb_sg_request *sgr = &request->sgr;
 	struct sg_table *transfer_sgt = &request->transfer_sgt;
-
-	// Добавляем проверку состояния устройства перед началом передачи
-	if (!usbdev || !ms912x || !ms912x->intf) {
+	
+	// Проверяем состояние устройства перед началом передачи
+	if (!ms912x || !ms912x->intf) {
 		pr_err("ms912x: invalid device state in request_work\n");
 		complete(&request->done);
 		return;
 	}
+	
+	usbdev = interface_to_usbdev(ms912x->intf);
 	
 	// Проверяем, что устройство все еще подключено
 	struct drm_device *drm = &ms912x->drm;
@@ -366,17 +368,27 @@ static int ms912x_fb_xrgb8888_to_yuv422(void *dst, const struct iosys_map *src,
 }
 
 
-int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
+int
+ ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 			struct drm_rect *rect)
 {
 	struct ms912x_device *ms912x = to_ms912x(fb->dev);
+	struct drm_device *drm;
 	
-	// Добавляем проверки на NULL
+	// Проверяем состояние устройства перед началом работы
 	if (!ms912x) {
 		pr_err("ms912x: invalid device pointer\n");
 		return -EINVAL;
 	}
 	
+	drm = &ms912x->drm;
+	if (drm->unplugged || !READ_ONCE(drm->registered)) {
+		pr_debug("ms912x: [%s] device unplugged, skipping frame send\n",
+		         ms912x->device_name);
+		return -ENODEV;
+	}
+	
+	// Добавляем дополнительные проверки на NULL
 	if (!fb) {
 		pr_err("ms912x: invalid framebuffer pointer\n");
 		return -EINVAL;
@@ -392,8 +404,7 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 		return -EINVAL;
 	}
 	
-	// Проверяем состояние устройства перед отправкой кадра
-	struct drm_device *drm = &ms912x->drm;
+	// Повторно проверяем состояние устройства
 	if (drm->unplugged || !READ_ONCE(drm->registered)) {
 		pr_debug("ms912x: [%s] device unplugged, skipping frame send\n",
 		         ms912x->device_name);
@@ -432,22 +443,22 @@ int ms912x_fb_send_rect(struct drm_framebuffer *fb, const struct iosys_map *map,
 	
 	// Реализуем механизм повторных попыток для drm_dev_enter
 	int attempts = 0;
-	const int max_attempts = 5;
-	const int retry_delay_ms = 10;
+	const int max_attempts = 10;  // Увеличиваем количество попыток
+	const int retry_delay_ms = 5; // Уменьшаем задержку между попытками
 	
 	do {
+		// Проверяем состояние устройства перед каждой попыткой
+		if (drm->unplugged || !READ_ONCE(drm->registered)) {
+			pr_err("ms912x: [%s] device is unplugged or not registered\n",
+			       ms912x->device_name);
+			return -ENODEV;
+		}
+		
 		ret = drm_dev_enter(drm, &idx);
 		if (ret) {
 			attempts++;
 			pr_debug("ms912x: [%s] drm_dev_enter attempt %d failed: %d\n",
 			         ms912x->device_name, attempts, ret);
-			
-			// Проверяем, не отключено ли устройство
-			if (drm->unplugged || !READ_ONCE(drm->registered)) {
-				pr_err("ms912x: [%s] device is unplugged or not registered\n",
-				       ms912x->device_name);
-				return ret;
-			}
 			
 			// Если это не последняя попытка, ждем немного
 			if (attempts < max_attempts) {
